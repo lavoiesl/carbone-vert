@@ -7,8 +7,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class TestApi extends Activity {
-	
-	public void onCreate(Bundle savedInstanceState) {
+
+	@Override
+	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.test_api);
 		

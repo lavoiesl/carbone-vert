@@ -1,0 +1,18 @@
+#
+# generated on 2012/09/07 04:01:56
+#
+# --table-start--
+dataClass=ca.umontreal.ift2905.carbonevert.model.ActivityData
+tableName=activities
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=date
+dataPersister=DATE_LONG
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
