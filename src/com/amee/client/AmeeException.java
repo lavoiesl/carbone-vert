@@ -11,24 +11,24 @@ package com.amee.client;
 
 public class AmeeException extends Exception {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2203333319209151761L;
 
 	public AmeeException() {
-        super();
-    }
+		super();
+	}
 
-    public AmeeException(String message) {
-        super(message);
-    }
+	public AmeeException(final String message) {
+		super(message);
+	}
 
-    public AmeeException(String message, Throwable cause) {
-        super(message, cause);
-    }
+	public AmeeException(final String message, final Throwable cause) {
+		super(message, cause);
+	}
 
-    public AmeeException(Throwable cause) {
-        super(cause);
-    }
+	public AmeeException(final Throwable cause) {
+		super(cause);
+	}
 }

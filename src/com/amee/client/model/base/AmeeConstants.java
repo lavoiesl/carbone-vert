@@ -13,9 +13,9 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class AmeeConstants {
-    // 999,999,999,999,999,999.999
-    public final static int PRECISION = 18;
-    public final static int SCALE = 3;
-    public final static RoundingMode ROUNDING_MODE = RoundingMode.HALF_UP;
-    public final static BigDecimal ZERO = BigDecimal.valueOf(0, SCALE);
+	// 999,999,999,999,999,999.999
+	public final static int PRECISION = 18;
+	public final static int SCALE = 3;
+	public final static RoundingMode ROUNDING_MODE = RoundingMode.HALF_UP;
+	public final static BigDecimal ZERO = BigDecimal.valueOf(0, SCALE);
 }

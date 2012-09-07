@@ -6,26 +6,25 @@
 package com.amee.client.model.profile;
 
 /**
- *
+ * 
  * @author james
  */
 public class ReturnNote {
 
-    protected String name;
-    protected String note;
+	protected String name;
+	protected String note;
 
-    public ReturnNote(String _name, String _note) {
-        name = _name;
-        note = _note;
-    }
+	public ReturnNote(final String _name, final String _note) {
+		name = _name;
+		note = _note;
+	}
 
+	public String getName() {
+		return name;
+	}
 
-    public String getName() {
-        return name;
-    }
-
-    public String getNote() {
-        return note;
-    }
+	public String getNote() {
+		return note;
+	}
 
 }

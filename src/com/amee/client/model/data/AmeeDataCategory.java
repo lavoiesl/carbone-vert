@@ -24,85 +24,89 @@ import com.amee.client.util.Choice;
 
 public class AmeeDataCategory extends AmeeCategory implements Serializable {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 269124979868984983L;
 
 	public AmeeDataCategory() {
-        super();
-    }
+		super();
+	}
 
-    public AmeeDataCategory(AmeeObjectReference ref) {
-        super(ref);
-    }
+	public AmeeDataCategory(final AmeeObjectReference ref) {
+		super(ref);
+	}
 
-    public AmeeDataCategory(String path, AmeeObjectType objectType) {
-        super(path, objectType);
-    }
+	public AmeeDataCategory(final String path, final AmeeObjectType objectType) {
+		super(path, objectType);
+	}
 
-    public void populate(AmeeDataCategory copy) {
-        super.populate(copy);
-    }
+	public void populate(final AmeeDataCategory copy) {
+		super.populate(copy);
+	}
 
-    @Override
+	@Override
 	public AmeeObject getCopy() {
-        AmeeDataCategory copy = new AmeeDataCategory();
-        populate(copy);
-        return copy;
-    }
+		final AmeeDataCategory copy = new AmeeDataCategory();
+		populate(copy);
+		return copy;
+	}
 
-    @Override
+	@Override
 	public void setParentRef() {
-        if (getUri().equals("data")) {
-            setParentRef(null);
-        } else {
-            setParentRef(new AmeeObjectReference(getObjectReference().getParentUri(), AmeeObjectType.DATA_CATEGORY));
-        }
-    }
+		if (getUri().equals("data")) {
+			setParentRef(null);
+		} else {
+			setParentRef(new AmeeObjectReference(getObjectReference()
+					.getParentUri(), AmeeObjectType.DATA_CATEGORY));
+		}
+	}
 
-    @Override
-	public AmeeCategory getNewChildCategory(AmeeObjectReference ref) {
-        return new AmeeDataCategory(ref);
-    }
+	@Override
+	public AmeeCategory getNewChildCategory(final AmeeObjectReference ref) {
+		return new AmeeDataCategory(ref);
+	}
 
-    @Override
+	@Override
 	public AmeeObjectType getChildCategoryObjectType() {
-        return AmeeObjectType.DATA_CATEGORY;
-    }
+		return AmeeObjectType.DATA_CATEGORY;
+	}
 
-    @Override
-	public AmeeItem getNewChildItem(AmeeObjectReference ref) {
-        return new AmeeDataItem(ref);
-    }
+	@Override
+	public AmeeItem getNewChildItem(final AmeeObjectReference ref) {
+		return new AmeeDataItem(ref);
+	}
 
-    @Override
+	@Override
 	public AmeeObjectType getChildItemObjectType() {
-        return AmeeObjectType.DATA_ITEM;
-    }
+		return AmeeObjectType.DATA_ITEM;
+	}
 
-    public List<AmeeDataCategory> getDataCategories() throws AmeeException {
-        List<AmeeDataCategory> dataCategories = new ArrayList<AmeeDataCategory>();
-        for (AmeeCategory category : super.getCategories()) {
-            dataCategories.add((AmeeDataCategory) category);
-        }
-        return dataCategories;
-    }
+	public List<AmeeDataCategory> getDataCategories() throws AmeeException {
+		final List<AmeeDataCategory> dataCategories = new ArrayList<AmeeDataCategory>();
+		for (final AmeeCategory category : super.getCategories()) {
+			dataCategories.add((AmeeDataCategory) category);
+		}
+		return dataCategories;
+	}
 
-    public List<AmeeDataItem> getDataItems() throws AmeeException {
-        List<AmeeDataItem> dataItems = new ArrayList<AmeeDataItem>();
-        for (AmeeItem item : super.getItems()) {
-            dataItems.add((AmeeDataItem) item);
-        }
-        return dataItems;
-    }
+	public List<AmeeDataItem> getDataItems() throws AmeeException {
+		final List<AmeeDataItem> dataItems = new ArrayList<AmeeDataItem>();
+		for (final AmeeItem item : super.getItems()) {
+			dataItems.add((AmeeDataItem) item);
+		}
+		return dataItems;
+	}
 
-    public AmeeDataItem addDataItem(String dataItemDefinitionUid) throws AmeeException {
-        return addDataItem(dataItemDefinitionUid, null);
-    }
+	public AmeeDataItem addDataItem(final String dataItemDefinitionUid)
+			throws AmeeException {
+		return addDataItem(dataItemDefinitionUid, null);
+	}
 
-    public AmeeDataItem addDataItem(String dataItemDefinitionUid, List<Choice> values) throws AmeeException {
-        return AmeeObjectFactory.getInstance().getDataItem(this, dataItemDefinitionUid, values);
-    }
+	public AmeeDataItem addDataItem(final String dataItemDefinitionUid,
+			final List<Choice> values) throws AmeeException {
+		return AmeeObjectFactory.getInstance().getDataItem(this,
+				dataItemDefinitionUid, values);
+	}
 
 }

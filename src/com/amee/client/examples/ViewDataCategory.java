@@ -17,59 +17,68 @@ import com.amee.client.service.AmeeObjectFactory;
 
 public class ViewDataCategory {
 
-    public static void main(String[] args) throws AmeeException {
-        
-      System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.SimpleLog");
-      System.setProperty("org.apache.commons.logging.simplelog.showdatetime", "true");
-      System.setProperty("org.apache.commons.logging.simplelog.log.httpclient.wire", "debug");
-      System.setProperty("org.apache.commons.logging.simplelog.log.org.apache.commons.httpclient", "debug");
+	public static void main(final String[] args) throws AmeeException {
 
-      // Set up AMEE connection
-        AmeeContext.getInstance().setUsername("username-here");
-        AmeeContext.getInstance().setPassword("password-here");
-        AmeeContext.getInstance().setBaseUrl("http://stage.amee.com");
-        AmeeContext.getInstance().setItemsPerPage(10);
+		System.setProperty("org.apache.commons.logging.Log",
+				"org.apache.commons.logging.impl.SimpleLog");
+		System.setProperty("org.apache.commons.logging.simplelog.showdatetime",
+				"true");
+		System.setProperty(
+				"org.apache.commons.logging.simplelog.log.httpclient.wire",
+				"debug");
+		System.setProperty(
+				"org.apache.commons.logging.simplelog.log.org.apache.commons.httpclient",
+				"debug");
 
-        // Parameters
-        String dataCategory = "home/energy/electricity";
+		// Set up AMEE connection
+		AmeeContext.getInstance().setUsername("username-here");
+		AmeeContext.getInstance().setPassword("password-here");
+		AmeeContext.getInstance().setBaseUrl("http://stage.amee.com");
+		AmeeContext.getInstance().setItemsPerPage(10);
 
-        // Get category
-        AmeeDataCategory cat = AmeeObjectFactory.getInstance().getDataCategory(dataCategory);
+		// Parameters
+		final String dataCategory = "home/energy/electricity";
 
-        // Print data
-        System.out.println("---------------------");
-        System.out.print("Category: ");
-        System.out.println(cat.getName());
-        System.out.print("Path: ");
-        System.out.println(cat.getUri());
-        System.out.print("UID: ");
-        System.out.println(cat.getUid());
-        System.out.println("Subcategories:");
-        for (AmeeDataCategory c : cat.getDataCategories()) {
-            System.out.print("  - ");
-            System.out.print(c.getUri());
-            System.out.print(" (");
-            System.out.print(c.getName());
-            System.out.println(")");
-        }
-        // Show items, using pager
-        System.out.printf("Items: %d in total\n", cat.getItemsPager().getItems());
-        while (true) {
-            System.out.printf(" page %d\n", cat.getItemsPager().getCurrentPage());
-            for (AmeeDataItem i : cat.getDataItems()) {
-                System.out.print("  - ");
-                System.out.print(i.getUri());
-                System.out.print(" (");
-                System.out.print(i.getLabel());
-                System.out.println(")");
-            }
-            int next = cat.getItemsPager().getNextPage();
-            if (next == -1) 
-              break;
-            else {
-              cat.setPage(next);
-              cat.fetch();
-            }
-        }
-    }
+		// Get category
+		final AmeeDataCategory cat = AmeeObjectFactory.getInstance()
+				.getDataCategory(dataCategory);
+
+		// Print data
+		System.out.println("---------------------");
+		System.out.print("Category: ");
+		System.out.println(cat.getName());
+		System.out.print("Path: ");
+		System.out.println(cat.getUri());
+		System.out.print("UID: ");
+		System.out.println(cat.getUid());
+		System.out.println("Subcategories:");
+		for (final AmeeDataCategory c : cat.getDataCategories()) {
+			System.out.print("  - ");
+			System.out.print(c.getUri());
+			System.out.print(" (");
+			System.out.print(c.getName());
+			System.out.println(")");
+		}
+		// Show items, using pager
+		System.out.printf("Items: %d in total\n", cat.getItemsPager()
+				.getItems());
+		while (true) {
+			System.out.printf(" page %d\n", cat.getItemsPager()
+					.getCurrentPage());
+			for (final AmeeDataItem i : cat.getDataItems()) {
+				System.out.print("  - ");
+				System.out.print(i.getUri());
+				System.out.print(" (");
+				System.out.print(i.getLabel());
+				System.out.println(")");
+			}
+			final int next = cat.getItemsPager().getNextPage();
+			if (next == -1) {
+				break;
+			} else {
+				cat.setPage(next);
+				cat.fetch();
+			}
+		}
+	}
 }

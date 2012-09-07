@@ -15,29 +15,30 @@ import java.util.Map;
 
 public class AmeeObjectCacheImpl implements Serializable, AmeeObjectCache {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -19516158802667189L;
-	private Map<String, AmeeObjectCacheEntry> cache = new HashMap<String, AmeeObjectCacheEntry>();
+	private final Map<String, AmeeObjectCacheEntry> cache = new HashMap<String, AmeeObjectCacheEntry>();
 
-    public AmeeObjectCacheImpl() {
-        super();
-    }
+	public AmeeObjectCacheImpl() {
+		super();
+	}
 
-    public void put(AmeeObjectCacheEntry objectCacheEntry) {
-        cache.put(objectCacheEntry.getObjectReference().getUri(), objectCacheEntry);
-    }
+	public void put(final AmeeObjectCacheEntry objectCacheEntry) {
+		cache.put(objectCacheEntry.getObjectReference().getUri(),
+				objectCacheEntry);
+	}
 
-    public AmeeObjectCacheEntry get(String path) {
-        return cache.get(path);
-    }
+	public AmeeObjectCacheEntry get(final String path) {
+		return cache.get(path);
+	}
 
-    public boolean remove(String path) {
-        return cache.remove(path) != null;
-    }
+	public boolean remove(final String path) {
+		return cache.remove(path) != null;
+	}
 
-    public void removeAll() {
-        cache.clear();
-    }
+	public void removeAll() {
+		cache.clear();
+	}
 }

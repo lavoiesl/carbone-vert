@@ -16,11 +16,11 @@ import java.io.Serializable;
  */
 public interface AmeeObjectCache extends Serializable {
 
-    public void put(AmeeObjectCacheEntry objectCacheEntry);
+	public void put(AmeeObjectCacheEntry objectCacheEntry);
 
-    public AmeeObjectCacheEntry get(String path);
+	public AmeeObjectCacheEntry get(String path);
 
-    public boolean remove(String path);
+	public boolean remove(String path);
 
-    public void removeAll();
+	public void removeAll();
 }

@@ -18,36 +18,37 @@ import com.amee.client.model.base.AmeeObjectType;
 
 public class AmeeDataItem extends AmeeItem implements Serializable {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 434533006830972628L;
 
 	public AmeeDataItem() {
-        super();
-    }
+		super();
+	}
 
-    public AmeeDataItem(AmeeObjectReference ref) {
-        super(ref);
-    }
+	public AmeeDataItem(final AmeeObjectReference ref) {
+		super(ref);
+	}
 
-    public AmeeDataItem(String path, AmeeObjectType objectType) {
-        super(path, objectType);
-    }
+	public AmeeDataItem(final String path, final AmeeObjectType objectType) {
+		super(path, objectType);
+	}
 
-    public void populate(AmeeDataItem copy) {
-        super.populate(copy);
-    }
+	public void populate(final AmeeDataItem copy) {
+		super.populate(copy);
+	}
 
-    @Override
+	@Override
 	public AmeeObject getCopy() {
-        AmeeDataItem copy = new AmeeDataItem();
-        populate(copy);
-        return copy;
-    }
+		final AmeeDataItem copy = new AmeeDataItem();
+		populate(copy);
+		return copy;
+	}
 
-    @Override
+	@Override
 	public void setParentRef() {
-        setParentRef(new AmeeObjectReference(getObjectReference().getParentUri(), AmeeObjectType.DATA_CATEGORY));
-    }
+		setParentRef(new AmeeObjectReference(getObjectReference()
+				.getParentUri(), AmeeObjectType.DATA_CATEGORY));
+	}
 }

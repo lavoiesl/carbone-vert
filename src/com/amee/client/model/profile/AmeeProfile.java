@@ -21,58 +21,61 @@ import com.amee.client.util.Choice;
 
 public class AmeeProfile extends AmeeProfileCategory implements Serializable {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6626013183685443817L;
 	private String validFrom = "";
 
-    public AmeeProfile() {
-        super();
-    }
+	public AmeeProfile() {
+		super();
+	}
 
-    public AmeeProfile(AmeeObjectReference ref) {
-        super(ref);
-    }
+	public AmeeProfile(final AmeeObjectReference ref) {
+		super(ref);
+	}
 
-    public AmeeProfile(String path, AmeeObjectType objectType) {
-        super(path, objectType);
-    }
+	public AmeeProfile(final String path, final AmeeObjectType objectType) {
+		super(path, objectType);
+	}
 
-    public void populate(AmeeProfile copy) {
-        super.populate(copy);
-        copy.setValidFrom(validFrom);
-    }
+	public void populate(final AmeeProfile copy) {
+		super.populate(copy);
+		copy.setValidFrom(validFrom);
+	}
 
-    @Override
+	@Override
 	public AmeeObject getCopy() {
-        AmeeProfile copy = new AmeeProfile();
-        populate(copy);
-        return copy;
-    }
+		final AmeeProfile copy = new AmeeProfile();
+		populate(copy);
+		return copy;
+	}
 
-    @Override
+	@Override
 	public void setProfileRef() {
-        setProfileRef(null);
-    }
+		setProfileRef(null);
+	}
 
-    @Override
+	@Override
 	public void setParentRef() {
-        setParentRef(null);
-    }
+		setParentRef(null);
+	}
 
-    public String getValidFrom() {
-        return validFrom;
-    }
+	public String getValidFrom() {
+		return validFrom;
+	}
 
-    public void setValidFrom(String validFrom) {
-        if (validFrom != null) {
-            this.validFrom = validFrom;
-        }
-    }
+	public void setValidFrom(final String validFrom) {
+		if (validFrom != null) {
+			this.validFrom = validFrom;
+		}
+	}
 
-    public AmeeProfileItem addProfileItem(String categoryUri, String dataItemUid, List<Choice> values) throws AmeeException {
-        return AmeeObjectFactory.getInstance().addProfileItem(this, categoryUri, dataItemUid, values);
-    }
+	public AmeeProfileItem addProfileItem(final String categoryUri,
+			final String dataItemUid, final List<Choice> values)
+			throws AmeeException {
+		return AmeeObjectFactory.getInstance().addProfileItem(this,
+				categoryUri, dataItemUid, values);
+	}
 
 }

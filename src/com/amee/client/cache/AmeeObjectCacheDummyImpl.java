@@ -13,28 +13,28 @@ import java.io.Serializable;
 
 public class AmeeObjectCacheDummyImpl implements Serializable, AmeeObjectCache {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8132933498207537014L;
 
 	public AmeeObjectCacheDummyImpl() {
-        super();
-    }
+		super();
+	}
 
-    public void put(AmeeObjectCacheEntry objectCacheEntry) {
-        // do nothing
-    }
+	public void put(final AmeeObjectCacheEntry objectCacheEntry) {
+		// do nothing
+	}
 
-    public AmeeObjectCacheEntry get(String path) {
-        return null;
-    }
+	public AmeeObjectCacheEntry get(final String path) {
+		return null;
+	}
 
-    public boolean remove(String path) {
-        return false;
-    }
+	public boolean remove(final String path) {
+		return false;
+	}
 
-    public void removeAll() {
-        // do nothing
-    }
+	public void removeAll() {
+		// do nothing
+	}
 }

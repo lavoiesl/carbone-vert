@@ -18,39 +18,40 @@ import com.amee.client.service.AmeeObjectFactory;
 
 public class ViewDataItem {
 
-    public static void main(String[] args) throws AmeeException {
-        
-        // Set up AMEE connection
-        AmeeContext.getInstance().setUsername("username-here");
-        AmeeContext.getInstance().setPassword("password-here");
-        AmeeContext.getInstance().setBaseUrl("http://stage.amee.com");
+	public static void main(final String[] args) throws AmeeException {
 
-        // Parameters
-        String dataCategory = "home/energy/quantity";
-        String dataItemLabel = "gas";
+		// Set up AMEE connection
+		AmeeContext.getInstance().setUsername("username-here");
+		AmeeContext.getInstance().setPassword("password-here");
+		AmeeContext.getInstance().setBaseUrl("http://stage.amee.com");
 
-        // Get category
-        AmeeDataCategory cat = AmeeObjectFactory.getInstance().getDataCategory(dataCategory);
-        for (AmeeDataItem item : cat.getDataItems()) {
-            if (item.getLabel().compareTo(dataItemLabel) == 0) {
-                // Print data
-                System.out.println("---------------------");
-                System.out.print("Name: ");
-                System.out.println(item.getName());
-                System.out.print("Path: ");
-                System.out.println(item.getUri());
-                System.out.print("Label: ");
-                System.out.println(item.getLabel());
-                System.out.print("UID: ");
-                System.out.println(item.getUid());
-                System.out.println("Values:");
-                for (AmeeValue v : item.getValues()) {
-                    System.out.print("  - ");
-                    System.out.print(v.getName());
-                    System.out.print(": ");
-                    System.out.println(v.getValue());
-                }
-            }
-        }
-    }
+		// Parameters
+		final String dataCategory = "home/energy/quantity";
+		final String dataItemLabel = "gas";
+
+		// Get category
+		final AmeeDataCategory cat = AmeeObjectFactory.getInstance()
+				.getDataCategory(dataCategory);
+		for (final AmeeDataItem item : cat.getDataItems()) {
+			if (item.getLabel().compareTo(dataItemLabel) == 0) {
+				// Print data
+				System.out.println("---------------------");
+				System.out.print("Name: ");
+				System.out.println(item.getName());
+				System.out.print("Path: ");
+				System.out.println(item.getUri());
+				System.out.print("Label: ");
+				System.out.println(item.getLabel());
+				System.out.print("UID: ");
+				System.out.println(item.getUid());
+				System.out.println("Values:");
+				for (final AmeeValue v : item.getValues()) {
+					System.out.print("  - ");
+					System.out.print(v.getName());
+					System.out.print(": ");
+					System.out.println(v.getValue());
+				}
+			}
+		}
+	}
 }

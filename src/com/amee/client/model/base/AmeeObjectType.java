@@ -20,59 +20,36 @@ import com.amee.client.model.profile.AmeeProfileItem;
 
 public enum AmeeObjectType implements Serializable {
 
-    DATA_CATEGORY,
-    DATA_ITEM,
-    DRILL_DOWN,
-    PROFILE,
-    PROFILE_CATEGORY,
-    PROFILE_ITEM,
-    UNKNOWN,
-    VALUE;
+	DATA_CATEGORY, DATA_ITEM, DRILL_DOWN, PROFILE, PROFILE_CATEGORY, PROFILE_ITEM, UNKNOWN, VALUE;
 
-    private String[] names = {
-            "DATA_CATEGORY",
-            "DATA_ITEM",
-            "DRILL_DOWN",
-            "PROFILE",
-            "PROFILE_CATEGORY",
-            "PROFILE_ITEM",
-            "UNKNOWN",
-            "VALUE"};
+	private final String[] names = { "DATA_CATEGORY", "DATA_ITEM",
+			"DRILL_DOWN", "PROFILE", "PROFILE_CATEGORY", "PROFILE_ITEM",
+			"UNKNOWN", "VALUE" };
 
-    private String[] labels = {
-            "Data Category",
-            "Data Item",
-            "Drill Down",
-            "Profile",
-            "Profile Category",
-            "Profile Item",
-            "Unknown",
-            "Value"};
+	private final String[] labels = { "Data Category", "Data Item",
+			"Drill Down", "Profile", "Profile Category", "Profile Item",
+			"Unknown", "Value" };
 
-    private Class[] clazzes = {
-            AmeeDataCategory.class,
-            AmeeDataItem.class,
-            AmeeDrillDown.class,
-            AmeeProfile.class,
-            AmeeProfileCategory.class,
-            AmeeProfileItem.class,
-            Object.class,
-            AmeeValue.class};
+	@SuppressWarnings("rawtypes")
+	private final Class[] clazzes = { AmeeDataCategory.class,
+			AmeeDataItem.class, AmeeDrillDown.class, AmeeProfile.class,
+			AmeeProfileCategory.class, AmeeProfileItem.class, Object.class,
+			AmeeValue.class };
 
-    @Override
+	@Override
 	public String toString() {
-        return getName();
-    }
+		return getName();
+	}
 
-    public String getName() {
-        return names[this.ordinal()];
-    }
+	public String getName() {
+		return names[ordinal()];
+	}
 
-    public String getLabel() {
-        return labels[this.ordinal()];
-    }
+	public String getLabel() {
+		return labels[ordinal()];
+	}
 
-    public Class getClazz() {
-        return clazzes[this.ordinal()];
-    }
+	public Class<?> getClazz() {
+		return clazzes[ordinal()];
+	}
 }

@@ -22,134 +22,138 @@ import org.apache.commons.httpclient.methods.PutMethod;
 
 public class AmeeContext implements Serializable {
 
-
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4325158322369703130L;
 	public static String BASE_URL;
-    public static Header ACCEPT_JSON = new Header("Accept", "application/json");
-    public static Integer ITEMS_PER_PAGE = 100;
-    
-    private String baseUrl = BASE_URL;
-    private Integer itemsPerPage = ITEMS_PER_PAGE;
-    private HttpClient client = null;
-    private String username = null;
-    private String password = null;
-    private String authToken = null;
-    private APIVersion apiVersion;
+	public static Header ACCEPT_JSON = new Header("Accept", "application/json");
+	public static Integer ITEMS_PER_PAGE = 100;
 
-    private static AmeeContext instance = new AmeeContext();
+	private String baseUrl = BASE_URL;
+	private Integer itemsPerPage = ITEMS_PER_PAGE;
+	private HttpClient client = null;
+	private String username = null;
+	private String password = null;
+	private String authToken = null;
+	private APIVersion apiVersion;
 
-    public static AmeeContext getInstance() {
-        return instance;
-    }
+	private static AmeeContext instance = new AmeeContext();
 
-    private AmeeContext() {
-        super();
-        setClient(new HttpClient());
-    }
+	public static AmeeContext getInstance() {
+		return instance;
+	}
 
-    public GetMethod getGetMethod(String path) {
-        return (GetMethod) prepareHttpMethod(new GetMethod(getBaseUrl() + preparePath(path)));
-    }
+	private AmeeContext() {
+		super();
+		setClient(new HttpClient());
+	}
 
-    public PostMethod getPostMethod(String path) {
-        return (PostMethod) prepareHttpMethod(new PostMethod(getBaseUrl() + preparePath(path)));
-    }
+	public GetMethod getGetMethod(final String path) {
+		return (GetMethod) prepareHttpMethod(new GetMethod(getBaseUrl()
+				+ preparePath(path)));
+	}
 
-    public PutMethod getPutMethod(String path) {
-        return (PutMethod) prepareHttpMethod(new PutMethod(getBaseUrl() + preparePath(path)));
-    }
+	public PostMethod getPostMethod(final String path) {
+		return (PostMethod) prepareHttpMethod(new PostMethod(getBaseUrl()
+				+ preparePath(path)));
+	}
 
-    public DeleteMethod getDeleteMethod(String path) {
-        return (DeleteMethod) prepareHttpMethod(new DeleteMethod(getBaseUrl() + preparePath(path)));
-    }
+	public PutMethod getPutMethod(final String path) {
+		return (PutMethod) prepareHttpMethod(new PutMethod(getBaseUrl()
+				+ preparePath(path)));
+	}
 
-    public HttpMethod prepareHttpMethod(HttpMethod method) {
-        method.addRequestHeader(ACCEPT_JSON);
-        method.addRequestHeader(new Header("ItemsPerPage",Integer.toString(itemsPerPage)));
-        method.setFollowRedirects(false);
-        method.getParams().setCookiePolicy(CookiePolicy.IGNORE_COOKIES);
-        if (getAuthToken() != null) {
-            method.removeRequestHeader("authToken");//re-auth fix
-            method.addRequestHeader("authToken", getAuthToken());
-        }
-        return method;
-    }
+	public DeleteMethod getDeleteMethod(final String path) {
+		return (DeleteMethod) prepareHttpMethod(new DeleteMethod(getBaseUrl()
+				+ preparePath(path)));
+	}
 
-    public static String preparePath(String path) {
-        if (path == null) {
-            path = "/";
-        }
-        if (!path.startsWith("/")) {
-            path = "/" + path;
-        }
-        return path;
-    }
+	public HttpMethod prepareHttpMethod(final HttpMethod method) {
+		method.addRequestHeader(ACCEPT_JSON);
+		method.addRequestHeader(new Header("ItemsPerPage", Integer
+				.toString(itemsPerPage)));
+		method.setFollowRedirects(false);
+		method.getParams().setCookiePolicy(CookiePolicy.IGNORE_COOKIES);
+		if (getAuthToken() != null) {
+			method.removeRequestHeader("authToken");// re-auth fix
+			method.addRequestHeader("authToken", getAuthToken());
+		}
+		return method;
+	}
 
-    public boolean isValid() {
-        return (getUsername() != null) && (getPassword() != null);
-    }
+	public static String preparePath(String path) {
+		if (path == null) {
+			path = "/";
+		}
+		if (!path.startsWith("/")) {
+			path = "/" + path;
+		}
+		return path;
+	}
 
-    public String getBaseUrl() {
-        return baseUrl;
-    }
+	public boolean isValid() {
+		return getUsername() != null && getPassword() != null;
+	}
 
-    public void setBaseUrl(String baseUrl) {
-        if (baseUrl == null) {
-            baseUrl = BASE_URL;
-        }
-        this.baseUrl = baseUrl;
-    }
+	public String getBaseUrl() {
+		return baseUrl;
+	}
 
-    public void setItemsPerPage(Integer itemsPerPage) {
-        if (itemsPerPage == null) {
-            itemsPerPage = ITEMS_PER_PAGE;
-        }
-        this.itemsPerPage = itemsPerPage;
-    }
+	public void setBaseUrl(String baseUrl) {
+		if (baseUrl == null) {
+			baseUrl = BASE_URL;
+		}
+		this.baseUrl = baseUrl;
+	}
 
-    public HttpClient getClient() {
-        return client;
-    }
+	public void setItemsPerPage(Integer itemsPerPage) {
+		if (itemsPerPage == null) {
+			itemsPerPage = ITEMS_PER_PAGE;
+		}
+		this.itemsPerPage = itemsPerPage;
+	}
 
-    public void setClient(HttpClient client) {
-        if (client == null) {
-            client = new HttpClient();
-        }
-        this.client = client;
-    }
+	public HttpClient getClient() {
+		return client;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public void setClient(HttpClient client) {
+		if (client == null) {
+			client = new HttpClient();
+		}
+		this.client = client;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setUsername(final String username) {
+		this.username = username;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public String getAuthToken() {
-        return authToken;
-    }
+	public void setPassword(final String password) {
+		this.password = password;
+	}
 
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
-    }
+	public String getAuthToken() {
+		return authToken;
+	}
 
-    public void setAPIVersion(String apiVersion) {
-        this.apiVersion = APIVersion.fromString(apiVersion);
-    }
+	public void setAuthToken(final String authToken) {
+		this.authToken = authToken;
+	}
 
-    public APIVersion getAPIVersion() {
-        return apiVersion;
-    }
+	public void setAPIVersion(final String apiVersion) {
+		this.apiVersion = APIVersion.fromString(apiVersion);
+	}
+
+	public APIVersion getAPIVersion() {
+		return apiVersion;
+	}
 }

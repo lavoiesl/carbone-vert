@@ -16,16 +16,17 @@ import com.amee.client.service.AmeeObjectFactory;
 
 public class CreateProfile {
 
-    public static void main(String[] args) throws AmeeException {
-        
-      // Set up AMEE connection
-        AmeeContext.getInstance().setUsername("username-here");
-        AmeeContext.getInstance().setPassword("password-here");
-        AmeeContext.getInstance().setBaseUrl("http://stage.amee.com");
+	public static void main(final String[] args) throws AmeeException {
 
-        // Create a new profile
-        AmeeProfile profile = AmeeObjectFactory.getInstance().addProfile();
-        System.out.print(profile.getUid());
-        System.out.println(" created");
-    }
+		// Set up AMEE connection
+		AmeeContext.getInstance().setUsername("username-here");
+		AmeeContext.getInstance().setPassword("password-here");
+		AmeeContext.getInstance().setBaseUrl("http://stage.amee.com");
+
+		// Create a new profile
+		final AmeeProfile profile = AmeeObjectFactory.getInstance()
+				.addProfile();
+		System.out.print(profile.getUid());
+		System.out.println(" created");
+	}
 }

@@ -22,48 +22,55 @@ import com.amee.client.util.Choice;
 
 public class CreateDataItem {
 
-    public static void main(String[] args) throws AmeeException {
+	public static void main(final String[] args) throws AmeeException {
 
-        // Note that this will only be possible if your user Id has the correct permissions.
+		// Note that this will only be possible if your user Id has the correct
+		// permissions.
 
-        // Set up AMEE connection
-        AmeeContext.getInstance().setUsername("username-here");
-        AmeeContext.getInstance().setPassword("password-here");
-        AmeeContext.getInstance().setBaseUrl("http://stage.amee.com");
+		// Set up AMEE connection
+		AmeeContext.getInstance().setUsername("username-here");
+		AmeeContext.getInstance().setPassword("password-here");
+		AmeeContext.getInstance().setBaseUrl("http://stage.amee.com");
 
-        // Parameters
-        String dataCategory = "test/testing";
-        String dataItemDefinitionUid = "46AB0CFA87ED"; // This is the UID of the data item type you want to create.
-                                                       // AMEE can tell you what this should be for your data.
+		// Parameters
+		final String dataCategory = "test/testing";
+		final String dataItemDefinitionUid = "46AB0CFA87ED"; // This is the UID
+																// of the data
+																// item type you
+																// want to
+																// create.
+		// AMEE can tell you what this should be for your data.
 
-        // Get category
-        AmeeDataCategory cat = AmeeObjectFactory.getInstance().getDataCategory(dataCategory);
-        // Set options, to set item values
-        List<Choice> values = new ArrayList<Choice>();
-        // itemName is required for all items
-        values.add(new Choice("itemName", "Tank"));
-        // These are fields specific to the data item you are creating
-        values.add(new Choice("weight", "5000"));
-        values.add(new Choice("lifespan", "15"));
-        // Create the item
-        AmeeDataItem item = cat.addDataItem(dataItemDefinitionUid, values);
-        System.out.println("Created new item OK");
-        // Print data
-        System.out.println("---------------------");
-        System.out.print("Name: ");
-        System.out.println(item.getName());
-        System.out.print("Path: ");
-        System.out.println(item.getUri());
-        System.out.print("Label: ");
-        System.out.println(item.getLabel());
-        System.out.print("UID: ");
-        System.out.println(item.getUid());
-        System.out.println("Values:");
-        for (AmeeValue v : item.getValues()) {
-            System.out.print("  - ");
-            System.out.print(v.getName());
-            System.out.print(": ");
-            System.out.println(v.getValue());
-        }
-    }
+		// Get category
+		final AmeeDataCategory cat = AmeeObjectFactory.getInstance()
+				.getDataCategory(dataCategory);
+		// Set options, to set item values
+		final List<Choice> values = new ArrayList<Choice>();
+		// itemName is required for all items
+		values.add(new Choice("itemName", "Tank"));
+		// These are fields specific to the data item you are creating
+		values.add(new Choice("weight", "5000"));
+		values.add(new Choice("lifespan", "15"));
+		// Create the item
+		final AmeeDataItem item = cat
+				.addDataItem(dataItemDefinitionUid, values);
+		System.out.println("Created new item OK");
+		// Print data
+		System.out.println("---------------------");
+		System.out.print("Name: ");
+		System.out.println(item.getName());
+		System.out.print("Path: ");
+		System.out.println(item.getUri());
+		System.out.print("Label: ");
+		System.out.println(item.getLabel());
+		System.out.print("UID: ");
+		System.out.println(item.getUid());
+		System.out.println("Values:");
+		for (final AmeeValue v : item.getValues()) {
+			System.out.print("  - ");
+			System.out.print(v.getName());
+			System.out.print(": ");
+			System.out.println(v.getValue());
+		}
+	}
 }

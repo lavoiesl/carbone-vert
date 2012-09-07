@@ -14,61 +14,62 @@ import java.io.Serializable;
 import com.amee.client.model.base.AmeeObject;
 import com.amee.client.model.base.AmeeObjectReference;
 
-public class AmeeObjectCacheEntry implements Serializable, Comparable {
+public class AmeeObjectCacheEntry implements Serializable, Comparable<Object> {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1577029534651728316L;
 	private AmeeObjectReference objectReference = null;
-    private AmeeObject object = null;
+	private AmeeObject object = null;
 
-    private AmeeObjectCacheEntry() {
-        super();
-    }
+	private AmeeObjectCacheEntry() {
+		super();
+	}
 
-    public AmeeObjectCacheEntry(AmeeObjectReference ref, AmeeObject object) {
-        this();
-        setObjectReference(ref);
-        setObject(object);
-    }
+	public AmeeObjectCacheEntry(final AmeeObjectReference ref,
+			final AmeeObject object) {
+		this();
+		setObjectReference(ref);
+		setObject(object);
+	}
 
-    @Override
-	public boolean equals(Object o) {
-        return getObjectReference().equals(o);
-    }
+	@Override
+	public boolean equals(final Object o) {
+		return getObjectReference().equals(o);
+	}
 
-    public int compareTo(Object o) {
-        return getObjectReference().compareTo(o);
-    }
+	public int compareTo(final Object o) {
+		return getObjectReference().compareTo(o);
+	}
 
-    @Override
+	@Override
 	public int hashCode() {
-        return getObjectReference().hashCode();
-    }
+		return getObjectReference().hashCode();
+	}
 
-    @Override
+	@Override
 	public String toString() {
-        return getObjectReference().toString();
-    }
+		return getObjectReference().toString();
+	}
 
-    public AmeeObjectReference getObjectReference() {
-        return objectReference;
-    }
+	public AmeeObjectReference getObjectReference() {
+		return objectReference;
+	}
 
-    public void setObjectReference(AmeeObjectReference ref) {
-        if (ref != null) {
-            this.objectReference = ref;
-        }
-    }
+	public void setObjectReference(final AmeeObjectReference ref) {
+		if (ref != null) {
+			objectReference = ref;
+		}
+	}
 
-    public AmeeObject getObject() {
-        return object;
-    }
+	public AmeeObject getObject() {
+		return object;
+	}
 
-    public void setObject(AmeeObject object) {
-        if (object != null) {
-            this.object = object;
-        }
-    }
+	public void setObject(final AmeeObject object) {
+		if (object != null) {
+			this.object = object;
+		}
+	}
 }

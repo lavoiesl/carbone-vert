@@ -10,31 +10,32 @@ import com.amee.client.AmeeException;
  */
 public interface HasResult {
 
-    /* Old interface */
+	/* Old interface */
 
-    /* @deprecated Use {@link #getReturnValues()} instead, which
-     *             supports multiple return values.
-     */
-    @Deprecated
-    public BigDecimal getAmount() throws AmeeException;
+	/*
+	 * @deprecated Use {@link #getReturnValues()} instead, which supports
+	 * multiple return values.
+	 */
+	@Deprecated
+	public BigDecimal getAmount() throws AmeeException;
 
-    /* @deprecated Use {@link #getReturnValues()} instead, which
-     *             supports multiple return values.
-     */
-    @Deprecated
-    public String getAmountUnit() throws AmeeException;
+	/*
+	 * @deprecated Use {@link #getReturnValues()} instead, which supports
+	 * multiple return values.
+	 */
+	@Deprecated
+	public String getAmountUnit() throws AmeeException;
 
+	/* Multiple return value interface */
 
-    /* Multiple return value interface */
+	public void addReturnValue(ReturnValue value);
 
-    public void addReturnValue(ReturnValue value);
+	public ArrayList<ReturnValue> getReturnValues() throws AmeeException;
 
-    public ArrayList<ReturnValue> getReturnValues() throws AmeeException;
+	public ReturnValue getDefaultReturnValue() throws AmeeException;
 
-    public ReturnValue getDefaultReturnValue() throws AmeeException;
+	public void addNote(ReturnNote note);
 
-    public void addNote(ReturnNote note);
-
-    public ArrayList<ReturnNote> getNotes() throws AmeeException;
+	public ArrayList<ReturnNote> getNotes() throws AmeeException;
 
 }
