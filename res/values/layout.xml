@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="tab1">Browse</string>
+    <string name="tab2">Favorites</string>
+    <string name="tab3">Activities</string>
+    <string name="tab4">Summary</string>
+
+</resources>
