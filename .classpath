@@ -4,5 +4,12 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry kind="lib" path="libs/joda-time-1.6.jar"/>
+	<classpathentry kind="lib" path="libs/testng.jar"/>
+	<classpathentry kind="lib" path="libs/commons-codec/commons-codec.jar"/>
+	<classpathentry kind="lib" path="libs/commons-httpclient/commons-httpclient.jar"/>
+	<classpathentry kind="lib" path="libs/commons-logging/commons-logging.jar"/>
+	<classpathentry kind="lib" path="libs/json/org.json.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
