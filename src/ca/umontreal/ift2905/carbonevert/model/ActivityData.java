@@ -8,10 +8,10 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "activities")
 public class ActivityData {
-	
-	@DatabaseField(id = true, generatedId = true)
+
+	@DatabaseField(generatedId = true)
 	private int id;
-	
+
 	@DatabaseField(dataType = DataType.DATE_LONG)
 	private Date date;
 
@@ -19,7 +19,7 @@ public class ActivityData {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(final Date date) {
 		this.date = date;
 	}
 
