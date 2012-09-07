@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import ca.umontreal.ift2905.carbonevert.R;
-import ca.umontreal.ift2905.carbonevert.model.Activity;
+import ca.umontreal.ift2905.carbonevert.model.ActivityData;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
@@ -26,9 +26,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	// any time you make changes to your database objects, you may have to increase the database version
 	private static final int DATABASE_VERSION = 1;
 
-	// the DAO object we use to access the SimpleData table
-	private Dao<Activity, Integer> simpleDao = null;
-	private RuntimeExceptionDao<Activity, Integer> simpleRuntimeDao = null;
+	private Dao<ActivityData, Integer> activityDao = null;
+	private RuntimeExceptionDao<ActivityData, Integer> activityRuntimeDao = null;
 
 	public DatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
@@ -42,7 +41,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
 		try {
 			Log.i(DatabaseHelper.class.getName(), "onCreate");
-			TableUtils.createTable(connectionSource, Activity.class);
+			TableUtils.createTable(connectionSource, ActivityData.class);
 		} catch (SQLException e) {
 			Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
 			throw new RuntimeException(e);
@@ -57,7 +56,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVersion, int newVersion) {
 		try {
 			Log.i(DatabaseHelper.class.getName(), "onUpgrade");
-			TableUtils.dropTable(connectionSource, Activity.class, true);
+			TableUtils.dropTable(connectionSource, ActivityData.class, true);
 			// after we drop the old databases, we create the new ones
 			onCreate(db, connectionSource);
 		} catch (SQLException e) {
@@ -70,22 +69,22 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	 * Returns the Database Access Object (DAO) for our SimpleData class. It will create it or just give the cached
 	 * value.
 	 */
-	public Dao<Activity, Integer> getDao() throws SQLException {
-		if (simpleDao == null) {
-			simpleDao = getDao(Activity.class);
+	public Dao<ActivityData, Integer> getDao() throws SQLException {
+		if (activityDao == null) {
+			activityDao = getDao(ActivityData.class);
 		}
-		return simpleDao;
+		return activityDao;
 	}
 
 	/**
 	 * Returns the RuntimeExceptionDao (Database Access Object) version of a Dao for our SimpleData class. It will
 	 * create it or just give the cached value. RuntimeExceptionDao only through RuntimeExceptions.
 	 */
-	public RuntimeExceptionDao<Activity, Integer> getSimpleDataDao() {
-		if (simpleRuntimeDao == null) {
-			simpleRuntimeDao = getRuntimeExceptionDao(Activity.class);
+	public RuntimeExceptionDao<ActivityData, Integer> getActivityDao() {
+		if (activityRuntimeDao == null) {
+			activityRuntimeDao = getRuntimeExceptionDao(ActivityData.class);
 		}
-		return simpleRuntimeDao;
+		return activityRuntimeDao;
 	}
 
 	/**
@@ -94,7 +93,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	@Override
 	public void close() {
 		super.close();
-		simpleDao = null;
-		simpleRuntimeDao = null;
+		activityDao = null;
+		activityRuntimeDao = null;
 	}
 }

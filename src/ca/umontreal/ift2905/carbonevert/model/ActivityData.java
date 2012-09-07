@@ -7,12 +7,23 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "activities")
-public class Activity {
+public class ActivityData {
 	
-	@DatabaseField(id = true)
+	@DatabaseField(id = true, generatedId = true)
 	private int id;
 	
 	@DatabaseField(dataType = DataType.DATE_LONG)
 	private Date date;
-	
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public int getId() {
+		return id;
+	}
 }
