@@ -7,6 +7,6 @@ public class SummaryActivity extends Activity {
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.browse_layout);
+		setContentView(R.layout.summary_layout);
 	}
 }

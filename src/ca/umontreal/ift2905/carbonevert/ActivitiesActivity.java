@@ -18,7 +18,7 @@ public class ActivitiesActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.browse_layout);
+		setContentView(R.layout.activitie_layout);
 
 		getDemoText();
 	}
