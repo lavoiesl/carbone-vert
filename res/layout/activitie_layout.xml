@@ -4,13 +4,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <!-- Screen Design for Photos -->
-
-    <TextView
-        android:layout_width="fill_parent"
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dip"
-        android:text="ACTIVITIE HERE"
-        android:textSize="18dip" />
+        android:layout_weight="0"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:text="@string/search" />
+    
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip" 
+        android:layout_weight="1">
+    </ListView>
 
 </LinearLayout>
