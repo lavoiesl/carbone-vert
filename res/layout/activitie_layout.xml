@@ -5,19 +5,16 @@
     android:orientation="vertical" >
 
     <EditText
-        android:id="@+id/editText1"
-        android:layout_width="match_parent"
+        android:id="@+id/editText01"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:text="@string/search" />
-    
+        android:hint="@string/search" 
+        android:drawableRight="@android:drawable/ic_menu_search"/>
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="fill_parent"
-        android:layout_height="0dip" 
-        android:layout_weight="1">
-    </ListView>
+        android:layout_height="0dip"
+        android:layout_weight="1" />
 
 </LinearLayout>
