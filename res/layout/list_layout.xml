@@ -5,5 +5,4 @@
     android:layout_gravity="center"
     android:padding="10dp"
     android:textSize="20sp" 
-    android:drawableRight="@drawable/ic_next_icon"
-    />
+    android:drawableRight="@drawable/ic_next_icon" />

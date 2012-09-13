@@ -22,7 +22,7 @@
         <activity android:name=".ActivitiesActivity" />
         <activity android:name=".BrowseActivity" />
         <activity android:name=".FavoritesActivity" />
-        <activity android:name=".SummaryActivity" />
+        <activity android:name=".HistoryActivity" />
         
         <activity android:name=".TestApi" />
 </application>

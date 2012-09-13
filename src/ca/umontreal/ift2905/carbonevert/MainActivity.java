@@ -37,7 +37,7 @@ public class MainActivity extends TabActivity {
 		// Tab for summary
 		final TabSpec summaryspec = tabHost.newTabSpec("Summary");
 		summaryspec.setIndicator("Summary", getResources().getDrawable(android.R.drawable.ic_dialog_info));
-		final Intent summarysIntent = new Intent(this, SummaryActivity.class);
+		final Intent summarysIntent = new Intent(this, HistoryActivity.class);
 		summaryspec.setContent(summarysIntent);
 
 		// Adding all TabSpec to TabHost

@@ -6,34 +6,32 @@
 
     <!-- Screen Design for Browse -->
 
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/editText01"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_name" />
+        android:drawableRight="@android:drawable/ic_menu_search"
+        android:hint="@string/search" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/transportButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tab1" />
+        android:text="@string/transport" 
+        android:drawableRight="@drawable/ic_next_icon" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/foodButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/menu_settings" />
+        android:text="@string/food_lifecycle" 
+        android:drawableRight="@drawable/ic_next_icon" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/vehiclesButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/title_activity_main" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:text="@string/vehicles" 
+        android:drawableRight="@drawable/ic_next_icon" />
 
 </LinearLayout>
