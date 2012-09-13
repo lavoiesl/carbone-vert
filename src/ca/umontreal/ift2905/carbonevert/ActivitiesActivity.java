@@ -19,9 +19,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ActivitiesActivity extends ListActivity {//OrmLiteBaseActivity<DatabaseHelper> {
-	//private final String LOG_TAG = getClass().getSimpleName();
-	final String[] tableau = new String[] { "aaa","bbb","ccc","ddd","eee","fff","allo","bonjour","toto","blub" };
+public class ActivitiesActivity extends ListActivity {// OrmLiteBaseActivity<DatabaseHelper>
+														// {
+	// private final String LOG_TAG = getClass().getSimpleName();
+	final String[] tableau = new String[] { "aaa", "bbb", "ccc", "ddd", "eee",
+			"fff", "allo", "bonjour", "toto", "blub" };
 
 	EditText edittext;
 	ListView listview;
@@ -33,19 +35,20 @@ public class ActivitiesActivity extends ListActivity {//OrmLiteBaseActivity<Data
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activitie_layout);
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_layout,tableau));
+		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_layout,
+				tableau));
 
-		ListView listView = getListView();
+		final ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public void onItemClick(final AdapterView<?> parent,
+					final View view, final int position, final long id) {
 				// When clicked, show a toast with the TextView text
 				Toast.makeText(getApplicationContext(),
 						((TextView) view).getText(), Toast.LENGTH_SHORT).show();
 
-				Intent i = new Intent(view.getContext(), TestApi.class);
+				final Intent i = new Intent(view.getContext(), TestApi.class);
 				startActivity(i);
 			}
 		});
@@ -55,51 +58,56 @@ public class ActivitiesActivity extends ListActivity {//OrmLiteBaseActivity<Data
 		listview.setAdapter(new MyCustomAdapter(tableau));
 		edittext.addTextChangedListener(new TextWatcher() {
 
-			public void afterTextChanged(Editable s) {
+			public void afterTextChanged(final Editable s) {
 
 			}
 
-			public void beforeTextChanged(CharSequence s, int start,
-					int count, int after) {
+			public void beforeTextChanged(final CharSequence s,
+					final int start, final int count, final int after) {
 
 			}
 
-			public void onTextChanged(CharSequence s, int start,
-					int before, int count) {
+			public void onTextChanged(final CharSequence s, final int start,
+					final int before, final int count) {
 
 				textlength = edittext.getText().length();
 				text_sort.clear();
 
-				for (int i = 0; i < tableau.length; i++) {
-					if (textlength <= tableau[i].length()) {
-						if (edittext.getText().toString().
-								equalsIgnoreCase((String) tableau[i].subSequence(0, textlength))) {
-							text_sort.add(tableau[i]);
+				for (final String element : tableau) {
+					if (textlength <= element.length()) {
+						if (edittext
+								.getText()
+								.toString()
+								.equalsIgnoreCase(
+										(String) element.subSequence(0,
+												textlength))) {
+							text_sort.add(element);
 						}
 					}
 				}
 
-				listview.setAdapter(new MyCustomAdapter
-						(text_sort));
+				listview.setAdapter(new MyCustomAdapter(text_sort));
 
 			}
 		});
 
-		//getDemoText();
+		// getDemoText();
 	}
 
 	class MyCustomAdapter extends BaseAdapter {
 		String[] data_text;
 
-		MyCustomAdapter() { }
+		MyCustomAdapter() {
+		}
 
-		MyCustomAdapter(String[] text) {
+		MyCustomAdapter(final String[] text) {
 			data_text = text;
 		}
-		MyCustomAdapter(ArrayList<String> text) {
+
+		MyCustomAdapter(final ArrayList<String> text) {
 			data_text = new String[text.size()];
 
-			for(int i=0;i<text.size();i++) {
+			for (int i = 0; i < text.size(); i++) {
 				data_text[i] = text.get(i);
 			}
 
@@ -109,88 +117,81 @@ public class ActivitiesActivity extends ListActivity {//OrmLiteBaseActivity<Data
 			return data_text.length;
 		}
 
-		public String getItem(int position) {
+		public String getItem(final int position) {
 			return null;
 		}
 
-		public long getItemId(int position) {
+		public long getItemId(final int position) {
 			return position;
 		}
 
-		public View getView(int position, View convertView, ViewGroup parent) {
-			LayoutInflater inflater = getLayoutInflater();
+		public View getView(final int position, final View convertView,
+				final ViewGroup parent) {
+			final LayoutInflater inflater = getLayoutInflater();
 			View row;
 
 			row = inflater.inflate(R.layout.list_layout, parent, false);
 
-			TextView textview = (TextView) row.findViewById(R.id.textView01);
+			final TextView textview = (TextView) row
+					.findViewById(R.id.textView01);
 			textview.setText(data_text[position]);
-			return (row);
+			return row;
 		}
 	}
 }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/**
-	 * Do our sample database stuff.
-	 */
-//	private String getDemoText() {
-//		// get our dao
-//		final RuntimeExceptionDao<ActivityData, Integer> activityDao = getHelper()
-//				.getActivityDao();
-//		// query for all of the data objects in the database
-//		final List<ActivityData> list = activityDao.queryForAll();
-//		// our string builder for building the content-view
-//		final StringBuilder sb = new StringBuilder();
-//		sb.append("got ").append(list.size()).append(" entries in ")
-//				.append("activities").append("\n");
+
+/**
+ * Do our sample database stuff.
+ */
+// private String getDemoText() {
+// // get our dao
+// final RuntimeExceptionDao<ActivityData, Integer> activityDao = getHelper()
+// .getActivityDao();
+// // query for all of the data objects in the database
+// final List<ActivityData> list = activityDao.queryForAll();
+// // our string builder for building the content-view
+// final StringBuilder sb = new StringBuilder();
+// sb.append("got ").append(list.size()).append(" entries in ")
+// .append("activities").append("\n");
 //
-//		// if we already have items in the database
-//		int simpleC = 0;
-//		for (final ActivityData simple : list) {
-//			sb.append("------------------------------------------\n");
-//			sb.append("[").append(simpleC).append("] = ").append(simple)
-//					.append("\n");
-//			simpleC++;
-//		}
-//		sb.append("------------------------------------------\n");
-//		for (final ActivityData activity : list) {
-//			activityDao.delete(activity);
-//			sb.append("deleted id ").append(activity.getId()).append("\n");
-//			Log.i(LOG_TAG, "deleting activity(" + activity.getId() + ")");
-//			simpleC++;
-//		}
+// // if we already have items in the database
+// int simpleC = 0;
+// for (final ActivityData simple : list) {
+// sb.append("------------------------------------------\n");
+// sb.append("[").append(simpleC).append("] = ").append(simple)
+// .append("\n");
+// simpleC++;
+// }
+// sb.append("------------------------------------------\n");
+// for (final ActivityData activity : list) {
+// activityDao.delete(activity);
+// sb.append("deleted id ").append(activity.getId()).append("\n");
+// Log.i(LOG_TAG, "deleting activity(" + activity.getId() + ")");
+// simpleC++;
+// }
 //
-//		int createNum;
-//		do {
-//			createNum = new Random().nextInt(3) + 1;
-//		} while (createNum == list.size());
-//		for (int i = 0; i < createNum; i++) {
-//			// create a new simple object
-//			final ActivityData activity = new ActivityData();
-//			activity.setDate(new Date());
-//			// store it in the database
-//			activityDao.create(activity);
-//			Log.i(LOG_TAG, "created activity(" + activity.getDate() + ")");
-//			// output it
-//			sb.append("------------------------------------------\n");
-//			sb.append("created new entry #").append(i + 1).append(":\n");
-//			sb.append(activity).append("\n");
-//			try {
-//				Thread.sleep(5);
-//			} catch (final InterruptedException e) {
-//				// ignore
-//			}
-//		}
+// int createNum;
+// do {
+// createNum = new Random().nextInt(3) + 1;
+// } while (createNum == list.size());
+// for (int i = 0; i < createNum; i++) {
+// // create a new simple object
+// final ActivityData activity = new ActivityData();
+// activity.setDate(new Date());
+// // store it in the database
+// activityDao.create(activity);
+// Log.i(LOG_TAG, "created activity(" + activity.getDate() + ")");
+// // output it
+// sb.append("------------------------------------------\n");
+// sb.append("created new entry #").append(i + 1).append(":\n");
+// sb.append(activity).append("\n");
+// try {
+// Thread.sleep(5);
+// } catch (final InterruptedException e) {
+// // ignore
+// }
+// }
 //
-//		Log.i(LOG_TAG, "Done with page at " + System.currentTimeMillis());
-//		return sb.toString();
-//	}
+// Log.i(LOG_TAG, "Done with page at " + System.currentTimeMillis());
+// return sb.toString();
+// }

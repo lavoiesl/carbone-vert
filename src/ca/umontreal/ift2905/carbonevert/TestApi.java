@@ -12,14 +12,15 @@ public class TestApi extends Activity {
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.test_api);
-		
+
 		final Button button = (Button) findViewById(R.id.button1);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Perform action on click
-            	Toast.makeText(TestApi.this, "J'aime le bleu", Toast.LENGTH_LONG).show();
-            }
-        });
+		button.setOnClickListener(new View.OnClickListener() {
+			public void onClick(final View v) {
+				// Perform action on click
+				Toast.makeText(TestApi.this, "J'aime le bleu",
+						Toast.LENGTH_LONG).show();
+			}
+		});
 
 	}
 }
