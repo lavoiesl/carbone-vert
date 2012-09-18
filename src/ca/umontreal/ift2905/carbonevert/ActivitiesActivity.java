@@ -57,6 +57,7 @@ public class ActivitiesActivity extends ListActivity {//OrmLiteBaseActivity<Data
 	}
 }
 
+
 	/**
 	 * Do our sample database stuff.
 	 */

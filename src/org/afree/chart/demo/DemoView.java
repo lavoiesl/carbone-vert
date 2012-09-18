@@ -226,7 +226,8 @@ public class DemoView extends View
     /**
      * touch event
      */
-    public boolean onTouchEvent(MotionEvent ev) {
+    @Override
+	public boolean onTouchEvent(MotionEvent ev) {
         
         super.onTouchEvent(ev);
         int action = ev.getAction();
@@ -486,7 +487,8 @@ public class DemoView extends View
         }
     }
     
-    protected void onSizeChanged(int w, int h, int oldw, int oldh){
+    @Override
+	protected void onSizeChanged(int w, int h, int oldw, int oldh){
         this.insets = new RectangleInsets(0,0,0,0);
         this.size = new Dimension(w, h);
     }
@@ -669,7 +671,8 @@ public class DemoView extends View
         return this.info;
     }
 
-    protected void onDraw(Canvas canvas) {
+    @Override
+	protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         
         inertialMove();
