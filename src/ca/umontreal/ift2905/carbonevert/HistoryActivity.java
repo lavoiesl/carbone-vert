@@ -16,7 +16,7 @@ public class HistoryActivity extends Activity {
         weekButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
-            	Intent intent = new Intent(v.getContext(), TestApi.class);
+            	Intent intent = new Intent(v.getContext(), AnnotationDemo01Activity.class);
         		startActivity(intent);
             }
         });
@@ -25,7 +25,7 @@ public class HistoryActivity extends Activity {
         monthButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
-            	Intent intent = new Intent(v.getContext(), TestApi.class);
+            	Intent intent = new Intent(v.getContext(), AnnotationDemo01Activity.class);
         		startActivity(intent);
             }
         });
@@ -35,7 +35,7 @@ public class HistoryActivity extends Activity {
         yearButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
-            	Intent intent = new Intent(v.getContext(), TestApi.class);
+            	Intent intent = new Intent(v.getContext(), AnnotationDemo01Activity.class);
         		startActivity(intent);
             }
         });

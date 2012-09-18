@@ -35,15 +35,15 @@ public class MainActivity extends TabActivity {
 		favoritespec.setContent(favoritesIntent);
 
 		// Tab for summary
-		final TabSpec summaryspec = tabHost.newTabSpec("Summary");
-		summaryspec.setIndicator("Summary", getResources().getDrawable(android.R.drawable.ic_dialog_info));
-		final Intent summarysIntent = new Intent(this, HistoryActivity.class);
-		summaryspec.setContent(summarysIntent);
+		final TabSpec historyspec = tabHost.newTabSpec("History");
+		historyspec.setIndicator("History", getResources().getDrawable(android.R.drawable.ic_dialog_info));
+		final Intent historyIntent = new Intent(this, HistoryActivity.class);
+		historyspec.setContent(historyIntent);
 
 		// Adding all TabSpec to TabHost
 		tabHost.addTab(browsepec); // Adding browse tab
 		tabHost.addTab(favoritespec); // Adding favorites tab
 		tabHost.addTab(activitiespec); // Adding activities tab
-		tabHost.addTab(summaryspec);// Adding summary tab
+		tabHost.addTab(historyspec);// Adding summary tab
 	}
 }

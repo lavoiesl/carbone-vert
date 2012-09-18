@@ -5,11 +5,11 @@
     android:orientation="vertical" >
 
     <EditText
-        android:id="@+id/editText01"
+        android:id="@+id/search_box"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/search" 
-        android:drawableRight="@android:drawable/ic_menu_search"/>
+        android:drawableRight="@android:drawable/ic_menu_search"
+        android:hint="@string/search" />
 
     <ListView
         android:id="@android:id/list"

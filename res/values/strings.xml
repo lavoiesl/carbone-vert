@@ -1,5 +1,4 @@
 <resources>
-
     <string name="app_name">CarboneVert</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
@@ -13,4 +12,6 @@
     <string name="last_year">Last year</string>
     <string name="custom">Custom</string>
     
+    <string name="search_label">Search</string>
+    <string name="search_hint">Search</string>
 </resources>
