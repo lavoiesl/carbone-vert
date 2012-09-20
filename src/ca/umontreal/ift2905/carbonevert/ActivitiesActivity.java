@@ -6,9 +6,14 @@ import android.app.ListActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 import ca.umontreal.ift2905.carbonevert.db.DBHelper;
 
 public class ActivitiesActivity extends ListActivity {//OrmLiteBaseActivity<DatabaseHelper> {
@@ -30,8 +35,15 @@ public class ActivitiesActivity extends ListActivity {//OrmLiteBaseActivity<Data
 
 		adapter = new ArrayAdapter<String>(this, R.layout.list_layout,items);
 		list.setAdapter(adapter);
+		
+		list.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				String item = ((TextView)view).getText().toString();
+				Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
+			}
+		});
+		
 		helper.close();
-	    
 	}
 
 	private TextWatcher filterTextWatcher = new TextWatcher() {

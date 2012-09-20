@@ -2,7 +2,7 @@
     <string name="app_name">CarboneVert</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">CarboneVert</string>
     <string name="search">Search</string>
     <string name="transport">Transportation</string>
     <string name="food_lifecycle">Food Lifecycle</string>
