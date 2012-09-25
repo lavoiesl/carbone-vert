@@ -15,6 +15,9 @@ public class ActivityData {
 	@DatabaseField(dataType = DataType.DATE_LONG)
 	private Date date;
 
+	@DatabaseField
+	private String name;
+
 	public Date getDate() {
 		return date;
 	}
@@ -25,5 +28,21 @@ public class ActivityData {
 
 	public int getId() {
 		return id;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public static ActivityData testData(String name) {
+		ActivityData obj = new ActivityData();
+		obj.date = new Date();
+		obj.name = name;
+		
+		return obj;
 	}
 }

@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,6 +24,7 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 public class ActivitiesActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 
 	private ArrayAdapter<ActivityData> adapter = null;
+	private RuntimeExceptionDao<ActivityData, Integer> activityDao = null;
 	private EditText filterText = null;
 
 	private final TextWatcher filterTextWatcher = new TextWatcher() {
@@ -56,26 +59,45 @@ public class ActivitiesActivity extends OrmLiteBaseListActivity<DatabaseHelper> 
 		final ListView listView = getListView();
 		listView.setAdapter(adapter);
 
-		filterText = (EditText) findViewById(R.id.search_box);
+		filterText = (EditText) findViewById(R.id.activity_search_box);
 		filterText.addTextChangedListener(filterTextWatcher);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(final AdapterView<?> parent,
 					final View view, final int position, final long id) {
 				final String item = ((TextView) view).getText().toString();
-				Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG)
+				Toast.makeText(getBaseContext(), item, Toast.LENGTH_SHORT)
 						.show();
+			}
+		});
+
+		final Button plus = (Button) findViewById(R.id.activity_plus);
+		plus.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View v) {
+				final ActivityData obj = ActivityData.testData("test "
+						+ adapter.getCount());
+				addActivityData(obj);
 			}
 		});
 	}
 
-	private ActivityArrayAdapter getActivitiesAdapter() {
-		// get our dao
+	private void addActivityData(ActivityData obj) {
+		getHelper().getActivityDao().create(obj); // Add to database
+		Toast.makeText(getBaseContext(), "size:" + getHelper().getActivityDao().queryForAll().size(), Toast.LENGTH_SHORT)
+		.show();
+		
+		adapter.add(obj); // Add to current list
+		try {
+			Thread.sleep(5);
+		} catch (final InterruptedException e) {
+			// ignore
+		}
+	}
 
-		final RuntimeExceptionDao<ActivityData, Integer> activityDao = getHelper()
-				.getActivityDao();
+	private ActivityArrayAdapter getActivitiesAdapter() {
 		// query for all of the data objects in the database
-		final List<ActivityData> list = activityDao.queryForAll();
+		final List<ActivityData> list = getHelper().getActivityDao().queryForAll();
 		return new ActivityArrayAdapter(this, list);
 	}
 }
