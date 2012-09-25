@@ -2,14 +2,13 @@ package ca.umontreal.ift2905.carbonevert;
 
 import java.util.List;
 
-import ca.umontreal.ift2905.carbonevert.model.ActivityData;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Filter;
 import android.widget.TextView;
+import ca.umontreal.ift2905.carbonevert.model.ActivityData;
 
 public class ActivityArrayAdapter extends ArrayAdapter<ActivityData> {
 	private final List<ActivityData> list;
@@ -47,7 +46,7 @@ public class ActivityArrayAdapter extends ArrayAdapter<ActivityData> {
 		}
 
 		final ActivityData obj = list.get(position);
-		holder.text.setText(obj.getName());
+		holder.text.setText(obj.toString());
 		return convertView;
 	}
 }

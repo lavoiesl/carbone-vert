@@ -7,16 +7,38 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "activities")
-public class ActivityData {
-
-	@DatabaseField(generatedId = true)
-	private int id;
+public class ActivityData extends AbstractData {
 
 	@DatabaseField(dataType = DataType.DATE_LONG)
 	private Date date;
 
+	@DatabaseField(foreign = true)
+	private UnitData unit;
+
+	@DatabaseField(foreign = true)
+	private ProductData product;
+
 	@DatabaseField
-	private String name;
+	private float quantity;
+
+	@DatabaseField
+	private float carbon;
+
+	public float getCarbon() {
+		return carbon;
+	}
+
+	public void setCarbon(final float carbon) {
+		this.carbon = carbon;
+	}
+
+	public UnitData getUnit() {
+		return unit;
+	}
+
+	public void setUnit(final UnitData unit) {
+		this.unit = unit;
+	}
 
 	public Date getDate() {
 		return date;
@@ -26,23 +48,24 @@ public class ActivityData {
 		this.date = date;
 	}
 
-	public int getId() {
-		return id;
-	}
-	
-	public String getName() {
-		return name;
+	public ProductData getProduct() {
+		return product;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setProduct(final ProductData product) {
+		this.product = product;
 	}
 
-	public static ActivityData testData(String name) {
-		ActivityData obj = new ActivityData();
-		obj.date = new Date();
-		obj.name = name;
-		
-		return obj;
+	public float getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(final float quantity) {
+		this.quantity = quantity;
+	}
+
+	@Override
+	public String toString() {
+		return product.toString();
 	}
 }

@@ -19,12 +19,10 @@ import ca.umontreal.ift2905.carbonevert.db.DatabaseHelper;
 import ca.umontreal.ift2905.carbonevert.model.ActivityData;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 public class ActivitiesActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 
 	private ArrayAdapter<ActivityData> adapter = null;
-	private RuntimeExceptionDao<ActivityData, Integer> activityDao = null;
 	private EditText filterText = null;
 
 	private final TextWatcher filterTextWatcher = new TextWatcher() {
@@ -75,8 +73,7 @@ public class ActivitiesActivity extends OrmLiteBaseListActivity<DatabaseHelper> 
 		plus.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				final ActivityData obj = ActivityData.testData("test "
-						+ adapter.getCount());
+				final ActivityData obj = new ActivityData();
 				addActivityData(obj);
 			}
 		});
