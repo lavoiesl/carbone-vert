@@ -6,4 +6,3 @@
     android:drawableRight="@drawable/ic_next_icon"
     android:padding="10dp"
     android:textSize="20sp" />
-

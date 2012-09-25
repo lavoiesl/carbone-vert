@@ -4,7 +4,7 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk android:minSdkVersion="10"/>
+    <uses-sdk android:minSdkVersion="10" />
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -22,9 +22,13 @@
         <activity android:name=".ActivitiesActivity" />
         <activity android:name=".BrowseActivity" />
         <activity android:name=".FavoritesActivity" />
-        <activity android:name=".SummaryActivity" />
-        
+        <activity android:name=".HistoryActivity" />
         <activity android:name=".TestApi" />
-</application>
+<!--         <activity -->
+<!--             android:name=".AnnotationDemo01Activity" -->
+<!--             android:configChanges="orientation|keyboardHidden" -->
+<!--             android:label="Annotation Demo 01" > -->
+<!--         </activity> -->
+    </application>
 
 </manifest>

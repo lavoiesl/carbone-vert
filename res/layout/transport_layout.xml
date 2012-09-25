@@ -14,24 +14,31 @@
         android:hint="@string/search" />
 
     <Button
-        android:id="@+id/transportButton"
+        android:id="@+id/carButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/transport" 
+        android:text="Car" 
         android:drawableRight="@drawable/ic_next_icon" />
 
     <Button
-        android:id="@+id/foodButton"
+        android:id="@+id/planeButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/food_lifecycle" 
+        android:text="Plane" 
         android:drawableRight="@drawable/ic_next_icon" />
 
     <Button
-        android:id="@+id/vehiclesButton"
+        android:id="@+id/busButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/vehicles" 
+        android:text="Bus" 
+        android:drawableRight="@drawable/ic_next_icon" />
+    
+    <Button
+        android:id="@+id/trainButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Train" 
         android:drawableRight="@drawable/ic_next_icon" />
 
 </LinearLayout>

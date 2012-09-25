@@ -1,53 +1,56 @@
 package ca.umontreal.ift2905.carbonevert;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class BrowseActivity extends Activity {
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.browse_layout);
-
-		final Button button1 = (Button) findViewById(R.id.button1);
-		button1.setOnClickListener(new View.OnClickListener() {
-			public void onClick(final View v) {
-				// Perform action on click
-				// Intent intent = new Intent("this");
-				// start the second Activity
-				// startActivity(intent);
-			}
-		});
-
-		final Button button2 = (Button) findViewById(R.id.button2);
-		button2.setOnClickListener(new View.OnClickListener() {
-			public void onClick(final View v) {
-				// Perform action on click
-			}
-		});
-
-		final Button button3 = (Button) findViewById(R.id.button3);
-		button3.setOnClickListener(new View.OnClickListener() {
-			public void onClick(final View v) {
-				// Perform action on click
-			}
-		});
-
-		final Button button4 = (Button) findViewById(R.id.button4);
-		button4.setOnClickListener(new View.OnClickListener() {
-			public void onClick(final View v) {
-				// Perform action on click
-			}
-		});
-
-		final Button button5 = (Button) findViewById(R.id.button5);
-		button5.setOnClickListener(new View.OnClickListener() {
-			public void onClick(final View v) {
-				// Perform action on click
-			}
-		});
-
+		 
+		
+		final Button transportButton = (Button) findViewById(R.id.transportButton);
+        transportButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+//            	Intent intent = new Intent(v.getContext(), TestApi.class);
+//        		startActivity(intent);
+            	setContentView(R.layout.transport_layout);
+            	final Button carButton = (Button) findViewById(R.id.carButton);
+            	carButton.setOnClickListener(new View.OnClickListener() {
+					
+					public void onClick(View v) {
+						Toast.makeText(getBaseContext(), "CAR HERE", Toast.LENGTH_LONG).show();
+					}
+				});
+            }
+        });
+		
+        
+        
+        final Button foodButton = (Button) findViewById(R.id.foodButton);
+        foodButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+            	Intent intent = new Intent(v.getContext(), TestApi.class);
+        		startActivity(intent);
+            }
+        });
+        
+        
+		final Button vehiclesButton = (Button) findViewById(R.id.vehiclesButton);
+        vehiclesButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+            	Intent intent = new Intent(v.getContext(), TestApi.class);
+        		startActivity(intent);
+            }
+        });
+        
 	}
 }
