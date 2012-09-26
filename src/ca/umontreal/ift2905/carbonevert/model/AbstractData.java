@@ -10,6 +10,7 @@ public abstract class AbstractData {
 	public int getId() {
 		return id;
 	}
-	
+
+	@Override
 	public abstract String toString();
 }

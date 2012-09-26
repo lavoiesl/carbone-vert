@@ -9,13 +9,45 @@ public class ProductData extends AbstractData {
 	private String name;
 
 	@ForeignCollectionField(eager = false)
-    ForeignCollection<UnitData> units;
-	
+	ForeignCollection<UnitData> units;
+
+	@DatabaseField(foreign = true, canBeNull = true)
+	ProductData parent = null;
+
+	@ForeignCollectionField(eager = false, foreignFieldName = "parent")
+	ForeignCollection<ProductData> children;
+
+	public ForeignCollection<UnitData> getUnits() {
+		return units;
+	}
+
+	public void setUnits(final ForeignCollection<UnitData> units) {
+		this.units = units;
+	}
+
+	public ProductData getParent() {
+		return parent;
+	}
+
+	public void setParent(final ProductData parent) {
+		if (getParent() != null) {
+			getParent().children.remove(this);
+		}
+		if (parent != null) {
+			parent.children.add(this);
+		}
+		this.parent = parent;
+	}
+
+	public ForeignCollection<ProductData> getChildren() {
+		return children;
+	}
+
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 

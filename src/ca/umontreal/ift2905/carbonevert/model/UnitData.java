@@ -11,12 +11,12 @@ public class UnitData extends AbstractData {
 
 	@DatabaseField
 	private String name;
-	
+
 	public String getCode() {
 		return code;
 	}
 
-	public void setCode(String code) {
+	public void setCode(final String code) {
 		this.code = code;
 	}
 
@@ -24,7 +24,7 @@ public class UnitData extends AbstractData {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 

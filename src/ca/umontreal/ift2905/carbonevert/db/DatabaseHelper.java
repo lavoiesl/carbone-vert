@@ -1,5 +1,6 @@
 package ca.umontreal.ift2905.carbonevert.db;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import android.content.Context;
@@ -7,10 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import ca.umontreal.ift2905.carbonevert.R;
 import ca.umontreal.ift2905.carbonevert.model.ActivityData;
+import ca.umontreal.ift2905.carbonevert.model.UnitData;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
@@ -27,13 +28,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	// any time you make changes to your database objects, you may have to
 	// increase the database version
 	private static final int DATABASE_VERSION = 3;
-
-	private Dao<ActivityData, Integer> activityDao = null;
-	private RuntimeExceptionDao<ActivityData, Integer> activityRuntimeDao = null;
+	private final Context context;
 
 	public DatabaseHelper(final Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION,
 				R.raw.ormlite_config);
+		this.context = context;
 	}
 
 	/**
@@ -45,12 +45,31 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public void onCreate(final SQLiteDatabase db,
 			final ConnectionSource connectionSource) {
 		try {
-			Log.i(DatabaseHelper.class.getName(), "onCreate");
 			TableUtils.createTable(connectionSource, ActivityData.class);
-		} catch (final SQLException e) {
+			TableUtils.createTable(connectionSource, UnitData.class);
+			importUnits();
+		} catch (Exception e) {
 			Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
 			throw new RuntimeException(e);
 		}
+	}
+
+	private void importUnits() throws IOException, SQLException {
+		final Dao<UnitData, Integer> dao = getDao(UnitData.class);
+		final CsvImporter importer = new CsvImporter(context) {
+
+			@Override
+			public void onRow(final String[] header, final String[] row) {
+				final UnitData unit = new UnitData();
+				try {
+					unit.setCode(row[0]);
+					unit.setName(row[1]);
+					dao.create(unit);
+				} catch (Exception e) {
+				}
+			}
+		};
+		importer.importResource(R.raw.units);
 	}
 
 	/**
@@ -73,36 +92,4 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		}
 	}
 
-	/**
-	 * Returns the Database Access Object (DAO) for our SimpleData class. It
-	 * will create it or just give the cached value.
-	 */
-	public Dao<ActivityData, Integer> getDao() throws SQLException {
-		if (activityDao == null) {
-			activityDao = getDao(ActivityData.class);
-		}
-		return activityDao;
-	}
-
-	/**
-	 * Returns the RuntimeExceptionDao (Database Access Object) version of a Dao
-	 * for our SimpleData class. It will create it or just give the cached
-	 * value. RuntimeExceptionDao only through RuntimeExceptions.
-	 */
-	public RuntimeExceptionDao<ActivityData, Integer> getActivityDao() {
-		if (activityRuntimeDao == null) {
-			activityRuntimeDao = getRuntimeExceptionDao(ActivityData.class);
-		}
-		return activityRuntimeDao;
-	}
-
-	/**
-	 * Close the database connections and clear any cached DAOs.
-	 */
-	@Override
-	public void close() {
-		super.close();
-		activityDao = null;
-		activityRuntimeDao = null;
-	}
 }

@@ -14,7 +14,8 @@ public class ActivityArrayAdapter extends ArrayAdapter<ActivityData> {
 	private final List<ActivityData> list;
 	private final Activity context;
 
-	public ActivityArrayAdapter(Activity context, List<ActivityData> list) {
+	public ActivityArrayAdapter(final Activity context,
+			final List<ActivityData> list) {
 		super(context, R.layout.list_layout, list);
 		this.context = context;
 		this.list = list;
@@ -23,23 +24,25 @@ public class ActivityArrayAdapter extends ArrayAdapter<ActivityData> {
 	static class ViewHolder {
 		protected TextView text;
 	}
-	
+
 	@Override
-	public void add(ActivityData obj) {
+	public void add(final ActivityData obj) {
 		super.add(obj);
 		list.add(obj);
 	}
-	
+
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		View row = convertView;
+	public View getView(final int position, View convertView,
+			final ViewGroup parent) {
+		final View row = convertView;
 		ViewHolder holder = null;
-		
+
 		if (row == null) {
-			LayoutInflater inflator = context.getLayoutInflater();
+			final LayoutInflater inflator = context.getLayoutInflater();
 			convertView = inflator.inflate(R.layout.list_layout, parent, false);
 			holder = new ViewHolder();
-			holder.text = (TextView) convertView.findViewById(R.id.list_layout_view);
+			holder.text = (TextView) convertView
+					.findViewById(R.id.list_layout_view);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) row.getTag();

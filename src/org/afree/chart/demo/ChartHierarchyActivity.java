@@ -64,129 +64,139 @@ import android.widget.SimpleAdapter;
  */
 public class ChartHierarchyActivity extends ListActivity {
 
-    private final String TARGET_PACKAGE_NAME = "org.afree.chart";
+	private final String TARGET_PACKAGE_NAME = "org.afree.chart";
 
-    public static final String CTEGORY_NAME = "org.afree.chart.demo";
+	public static final String CTEGORY_NAME = "org.afree.chart.demo";
 
-    /**
-     * Called when the activity is starting.
-     * @param savedInstanceState
-     */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+	/**
+	 * Called when the activity is starting.
+	 * 
+	 * @param savedInstanceState
+	 */
+	@Override
+	public void onCreate(final Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-        Intent intent = getIntent();
-        String path = intent.getStringExtra("org.afree.demo.Path");
+		final Intent intent = getIntent();
+		String path = intent.getStringExtra("org.afree.demo.Path");
 
-        if (path == null) {
-            path = "";
-        }
+		if (path == null) {
+			path = "";
+		}
 
-        setListAdapter(new SimpleAdapter(
-                this,
-                getData(path),
-                android.R.layout.simple_list_item_1,
-                new String[] { "title" },
-                new int[] { android.R.id.text1 }));
-        getListView().setTextFilterEnabled(true);
-    }
+		setListAdapter(new SimpleAdapter(this, getData(path),
+				android.R.layout.simple_list_item_1, new String[] { "title" },
+				new int[] { android.R.id.text1 }));
+		getListView().setTextFilterEnabled(true);
+	}
 
-    protected List<Map<String, Object>> getData(String prefix) {
-        List<Map<String, Object>> myData = new ArrayList<Map <String, Object>>();
+	protected List<Map<String, Object>> getData(final String prefix) {
+		final List<Map<String, Object>> myData = new ArrayList<Map<String, Object>>();
 
-        Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
-        mainIntent.addCategory(CTEGORY_NAME);
+		final Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
+		mainIntent.addCategory(CTEGORY_NAME);
 
-        PackageManager pm = getPackageManager();
-        List<ResolveInfo> list = pm.queryIntentActivities(mainIntent, 0);
+		final PackageManager pm = getPackageManager();
+		final List<ResolveInfo> list = pm.queryIntentActivities(mainIntent, 0);
 
-        if (null == list) return myData;
+		if (null == list) {
+			return myData;
+		}
 
-        String[] prefixPath;
+		String[] prefixPath;
 
-        if (prefix.equals("")) {
-            prefixPath = null;
-        } else {
-            prefixPath = prefix.split("/");
-        }
+		if (prefix.equals("")) {
+			prefixPath = null;
+		} else {
+			prefixPath = prefix.split("/");
+		}
 
-        int len = list.size();
+		final int len = list.size();
 
-        Map<String, Boolean> entries = new HashMap<String, Boolean>();
+		final Map<String, Boolean> entries = new HashMap<String, Boolean>();
 
-        for (int i = 0; i < len; i++) {
-            ResolveInfo info = list.get(i);
+		for (int i = 0; i < len; i++) {
+			final ResolveInfo info = list.get(i);
 
-            // Narrow down package
-            if (!info.activityInfo.applicationInfo.packageName.equals(TARGET_PACKAGE_NAME)) {
-                continue;
-            }
+			// Narrow down package
+			if (!info.activityInfo.applicationInfo.packageName
+					.equals(TARGET_PACKAGE_NAME)) {
+				continue;
+			}
 
-            CharSequence labelSeq = info.loadLabel(pm);
-            String label = labelSeq != null ? labelSeq.toString() : info.activityInfo.name;
+			final CharSequence labelSeq = info.loadLabel(pm);
+			final String label = labelSeq != null ? labelSeq.toString()
+					: info.activityInfo.name;
 
-            if (prefix.length() == 0 || label.startsWith(prefix)) {
+			if (prefix.length() == 0 || label.startsWith(prefix)) {
 
-                String[] labelPath = label.split("/");
+				final String[] labelPath = label.split("/");
 
-                String nextLabel = prefixPath == null ? labelPath[0] : labelPath[prefixPath.length];
+				final String nextLabel = prefixPath == null ? labelPath[0]
+						: labelPath[prefixPath.length];
 
-                if ((prefixPath != null ? prefixPath.length : 0) == labelPath.length - 1) {
-                    addItem(myData, nextLabel, activityIntent(
-                            info.activityInfo.applicationInfo.packageName,
-                            info.activityInfo.name));
+				if ((prefixPath != null ? prefixPath.length : 0) == labelPath.length - 1) {
+					addItem(myData,
+							nextLabel,
+							activityIntent(
+									info.activityInfo.applicationInfo.packageName,
+									info.activityInfo.name));
 
-                } else {
-                    if (entries.get(nextLabel) == null) {
-                        addItem(myData, nextLabel, browseIntent(prefix.equals("") ? nextLabel
-                                : prefix + "/" + nextLabel));
-                        entries.put(nextLabel, true);
-                    }
-                }
-            }
-        }
+				} else {
+					if (entries.get(nextLabel) == null) {
+						addItem(myData, nextLabel,
+								browseIntent(prefix.equals("") ? nextLabel
+										: prefix + "/" + nextLabel));
+						entries.put(nextLabel, true);
+					}
+				}
+			}
+		}
 
-        Collections.sort(myData, sDisplayNameComparator);
+		Collections.sort(myData, sDisplayNameComparator);
 
-        return myData;
-    }
+		return myData;
+	}
 
-    private final static Comparator<Map<String, Object>> sDisplayNameComparator = new Comparator<Map<String, Object>>() {
-        private final Collator collator = Collator.getInstance();
+	private final static Comparator<Map<String, Object>> sDisplayNameComparator = new Comparator<Map<String, Object>>() {
+		private final Collator collator = Collator.getInstance();
 
-        public int compare(Map<String, Object> map1, Map<String, Object> map2) {
-            return collator.compare(map1.get("title"), map2.get("title"));
-        }
-    };
+		public int compare(final Map<String, Object> map1,
+				final Map<String, Object> map2) {
+			return collator.compare(map1.get("title"), map2.get("title"));
+		}
+	};
 
-    protected Intent activityIntent(String pkg, String componentName) {
-        Intent result = new Intent();
-        result.setClassName(pkg, componentName);
-        return result;
-    }
+	protected Intent activityIntent(final String pkg, final String componentName) {
+		final Intent result = new Intent();
+		result.setClassName(pkg, componentName);
+		return result;
+	}
 
-    protected Intent browseIntent(String path) {
-        Intent result = new Intent();
-        result.setClass(this, ChartHierarchyActivity.class);
-        result.putExtra("org.afree.demo.Path", path);
-        return result;
-    }
+	protected Intent browseIntent(final String path) {
+		final Intent result = new Intent();
+		result.setClass(this, ChartHierarchyActivity.class);
+		result.putExtra("org.afree.demo.Path", path);
+		return result;
+	}
 
-    protected void addItem(List<Map<String, Object>> myData, String name, Intent intent) {
-        Map<String, Object> temp = new HashMap<String, Object>();
-        temp.put("title", name);
-        temp.put("intent", intent);
-        myData.add(temp);
-    }
+	protected void addItem(final List<Map<String, Object>> myData,
+			final String name, final Intent intent) {
+		final Map<String, Object> temp = new HashMap<String, Object>();
+		temp.put("title", name);
+		temp.put("intent", intent);
+		myData.add(temp);
+	}
 
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        @SuppressWarnings("unchecked")
-		Map<String, Object> map = (Map<String, Object>) l.getItemAtPosition(position);
+	@Override
+	protected void onListItemClick(final ListView l, final View v,
+			final int position, final long id) {
+		@SuppressWarnings("unchecked")
+		final Map<String, Object> map = (Map<String, Object>) l
+				.getItemAtPosition(position);
 
-        Intent intent = (Intent) map.get("intent");
-        startActivity(intent);
-    }
+		final Intent intent = (Intent) map.get("intent");
+		startActivity(intent);
+	}
 
 }

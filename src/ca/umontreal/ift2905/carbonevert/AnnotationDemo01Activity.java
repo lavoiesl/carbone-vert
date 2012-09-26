@@ -41,8 +41,6 @@
 
 package ca.umontreal.ift2905.carbonevert;
 
-import ca.umontreal.ift2905.carbonevert.AnnotationDemo01View;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
@@ -52,16 +50,17 @@ import android.view.Window;
  */
 public class AnnotationDemo01Activity extends Activity {
 
-    /**
-     * Called when the activity is starting.
-     * @param savedInstanceState
-     */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+	/**
+	 * Called when the activity is starting.
+	 * 
+	 * @param savedInstanceState
+	 */
+	@Override
+	public void onCreate(final Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-        AnnotationDemo01View mView = new AnnotationDemo01View(this);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(mView);
-    }
+		final AnnotationDemo01View mView = new AnnotationDemo01View(this);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(mView);
+	}
 }

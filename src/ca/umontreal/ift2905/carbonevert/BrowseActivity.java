@@ -15,7 +15,7 @@ public class BrowseActivity extends Activity {
 
 		final Button transportButton = (Button) findViewById(R.id.transportButton);
 		transportButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
+			public void onClick(final View v) {
 				// Perform action on click
 				// Intent intent = new Intent(v.getContext(), TestApi.class);
 				// startActivity(intent);
@@ -23,7 +23,7 @@ public class BrowseActivity extends Activity {
 				final Button carButton = (Button) findViewById(R.id.carButton);
 				carButton.setOnClickListener(new View.OnClickListener() {
 
-					public void onClick(View v) {
+					public void onClick(final View v) {
 						Toast.makeText(getBaseContext(), "CAR HERE",
 								Toast.LENGTH_LONG).show();
 					}
@@ -33,18 +33,18 @@ public class BrowseActivity extends Activity {
 
 		final Button foodButton = (Button) findViewById(R.id.foodButton);
 		foodButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
+			public void onClick(final View v) {
 				// Perform action on click
-				Intent intent = new Intent(v.getContext(), TestApi.class);
+				final Intent intent = new Intent(v.getContext(), TestApi.class);
 				startActivity(intent);
 			}
 		});
 
 		final Button vehiclesButton = (Button) findViewById(R.id.vehiclesButton);
 		vehiclesButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
+			public void onClick(final View v) {
 				// Perform action on click
-				Intent intent = new Intent(v.getContext(), TestApi.class);
+				final Intent intent = new Intent(v.getContext(), TestApi.class);
 				startActivity(intent);
 			}
 		});

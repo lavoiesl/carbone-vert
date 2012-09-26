@@ -11,45 +11,42 @@ public class HistoryActivity extends Activity {
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.history_layout);
-		
+
 		final Button weekButton = (Button) findViewById(R.id.weekButton);
-        weekButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Perform action on click
-            	Intent intent = new Intent(v.getContext(), TestApi.class);
-        		startActivity(intent);
-            }
-        });
-		
+		weekButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(final View v) {
+				// Perform action on click
+				final Intent intent = new Intent(v.getContext(), TestApi.class);
+				startActivity(intent);
+			}
+		});
+
 		final Button monthButton = (Button) findViewById(R.id.monthButton);
-        monthButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Perform action on click
-            	Intent intent = new Intent(v.getContext(), TestApi.class);
-        		startActivity(intent);
-            }
-        });
-        
-        
+		monthButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(final View v) {
+				// Perform action on click
+				final Intent intent = new Intent(v.getContext(), TestApi.class);
+				startActivity(intent);
+			}
+		});
+
 		final Button yearButton = (Button) findViewById(R.id.yearButton);
-        yearButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Perform action on click
-            	Intent intent = new Intent(v.getContext(), TestApi.class);
-        		startActivity(intent);
-            }
-        });
-        
-        
+		yearButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(final View v) {
+				// Perform action on click
+				final Intent intent = new Intent(v.getContext(), TestApi.class);
+				startActivity(intent);
+			}
+		});
+
 		final Button customButton = (Button) findViewById(R.id.customButton);
-        customButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Perform action on click
-            	Intent intent = new Intent(v.getContext(), TestApi.class);
-        		startActivity(intent);
-            }
-        });
-        
-        
+		customButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(final View v) {
+				// Perform action on click
+				final Intent intent = new Intent(v.getContext(), TestApi.class);
+				startActivity(intent);
+			}
+		});
+
 	}
 }

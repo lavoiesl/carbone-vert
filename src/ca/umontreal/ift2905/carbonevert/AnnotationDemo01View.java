@@ -41,10 +41,11 @@
 
 package ca.umontreal.ift2905.carbonevert;
 
-import org.afree.chart.ChartFactory;
 import org.afree.chart.AFreeChart;
+import org.afree.chart.ChartFactory;
 import org.afree.chart.annotations.XYTextAnnotation;
 import org.afree.chart.axis.NumberAxis;
+import org.afree.chart.demo.DemoView;
 import org.afree.chart.plot.PlotOrientation;
 import org.afree.chart.plot.XYPlot;
 import org.afree.data.xy.XYDataset;
@@ -52,8 +53,6 @@ import org.afree.data.xy.XYSeries;
 import org.afree.data.xy.XYSeriesCollection;
 import org.afree.graphics.geom.Font;
 import org.afree.ui.TextAnchor;
-
-import org.afree.chart.demo.DemoView;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -63,84 +62,82 @@ import android.graphics.Typeface;
  */
 public class AnnotationDemo01View extends DemoView {
 
-    /**
-     * constructor
-     * @param context
-     */
-    public AnnotationDemo01View(Context context) {
-        super(context);
-        
-        final AFreeChart chart = createChart();
+	/**
+	 * constructor
+	 * 
+	 * @param context
+	 */
+	public AnnotationDemo01View(final Context context) {
+		super(context);
 
-        setChart(chart);
-    }
+		final AFreeChart chart = createChart();
 
-    /**
-     * Creates a dataset.
-     * @return a dataset.
-     */
-    private static XYSeriesCollection createDataset() {
+		setChart(chart);
+	}
 
-    	XYSeries xyS1 = new XYSeries("xyS1", true, false);
-    	XYSeries xyS2 = new XYSeries("xyS2", true, false);
-    	XYSeries xyS3 = new XYSeries("xyS3", true, false);
+	/**
+	 * Creates a dataset.
+	 * 
+	 * @return a dataset.
+	 */
+	private static XYSeriesCollection createDataset() {
 
-    	double value1 = 5.0;
+		final XYSeries xyS1 = new XYSeries("xyS1", true, false);
+		final XYSeries xyS2 = new XYSeries("xyS2", true, false);
+		final XYSeries xyS3 = new XYSeries("xyS3", true, false);
 
-    	for(int i = 0; i < 100; i++) {
-    		value1 = value1 + 10.0 / (i+1);
-    		xyS1.add(i, value1);
-    		xyS2.add(i, value1 - 5);
-    		xyS3.add(i, value1 - 10);
-    	}
+		double value1 = 5.0;
 
-    	XYSeriesCollection xySC = new XYSeriesCollection();
-    	xySC.addSeries(xyS1);
-    	xySC.addSeries(xyS2);
-    	xySC.addSeries(xyS3);
+		for (int i = 0; i < 100; i++) {
+			value1 = value1 + 10.0 / (i + 1);
+			xyS1.add(i, value1);
+			xyS2.add(i, value1 - 5);
+			xyS3.add(i, value1 - 10);
+		}
 
-    	return xySC;
-    }
+		final XYSeriesCollection xySC = new XYSeriesCollection();
+		xySC.addSeries(xyS1);
+		xySC.addSeries(xyS2);
+		xySC.addSeries(xyS3);
 
-    /**
-     * Creates a sample chart.
-     * @param dataset the dataset.
-     * @return A sample chart.
-     */
-    private static AFreeChart createChart() {
-        XYDataset dataset = createDataset();
-        AFreeChart chart = ChartFactory.createXYLineChart(
-        		"Annotation Demo 01",
-                "X Value",
-                "Y Value",
-                dataset,
-                PlotOrientation.VERTICAL,
-                false,
-                true,
-                false);
-        XYPlot plot = (XYPlot) chart.getPlot();
-        NumberAxis domainAxis = (NumberAxis) plot.getDomainAxis();
-        domainAxis.setUpperMargin(0.2);
+		return xySC;
+	}
 
-        // add some annotations...
-        XYTextAnnotation annotation = null;
-        Font font = new Font("SansSerif", Typeface.NORMAL, 12);
-        annotation = new XYTextAnnotation("Annotation 1", 96, 57);
-        annotation.setFont(font);
-        annotation.setTextAnchor(TextAnchor.HALF_ASCENT_LEFT);
-        plot.addAnnotation(annotation);
+	/**
+	 * Creates a sample chart.
+	 * 
+	 * @param dataset
+	 *            the dataset.
+	 * @return A sample chart.
+	 */
+	private static AFreeChart createChart() {
+		final XYDataset dataset = createDataset();
+		final AFreeChart chart = ChartFactory.createXYLineChart(
+				"Annotation Demo 01", "X Value", "Y Value", dataset,
+				PlotOrientation.VERTICAL, false, true, false);
+		final XYPlot plot = (XYPlot) chart.getPlot();
+		final NumberAxis domainAxis = (NumberAxis) plot.getDomainAxis();
+		domainAxis.setUpperMargin(0.2);
 
-        annotation = new XYTextAnnotation("Annotation 2", 96, 52);
-        annotation.setFont(font);
-        annotation.setTextAnchor(TextAnchor.HALF_ASCENT_LEFT);
-        plot.addAnnotation(annotation);
+		// add some annotations...
+		XYTextAnnotation annotation = null;
+		final Font font = new Font("SansSerif", Typeface.NORMAL, 12);
+		annotation = new XYTextAnnotation("Annotation 1", 96, 57);
+		annotation.setFont(font);
+		annotation.setTextAnchor(TextAnchor.HALF_ASCENT_LEFT);
+		plot.addAnnotation(annotation);
 
-        annotation = new XYTextAnnotation("Annotation 3", 96, 47);
-        annotation.setFont(font);
-        annotation.setTextAnchor(TextAnchor.HALF_ASCENT_LEFT);
-        plot.addAnnotation(annotation);
+		annotation = new XYTextAnnotation("Annotation 2", 96, 52);
+		annotation.setFont(font);
+		annotation.setTextAnchor(TextAnchor.HALF_ASCENT_LEFT);
+		plot.addAnnotation(annotation);
 
-        return chart;
-    }
+		annotation = new XYTextAnnotation("Annotation 3", 96, 47);
+		annotation.setFont(font);
+		annotation.setTextAnchor(TextAnchor.HALF_ASCENT_LEFT);
+		plot.addAnnotation(annotation);
+
+		return chart;
+	}
 
 }
