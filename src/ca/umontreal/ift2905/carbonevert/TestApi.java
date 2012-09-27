@@ -38,13 +38,16 @@ public class TestApi extends Activity {
 		protected void onPreExecute() {
 		}
 		protected WebApi doInBackground(String... params) {
+			for(int i=0;i<100;i+=10) {
+				try {Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				if( this.isCancelled() ) return null;
+			}
 			WebApi web = 
 					new WebApi("http://ask.amee.com/answer.json?q=1+kg+of+beef");
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			
 			return web;
 		}
 		protected void onProgressUpdate(Integer... s) {
@@ -52,9 +55,9 @@ public class TestApi extends Activity {
 		}
 		protected void onPostExecute(WebApi web) {
 			if( web==null ) return;
-			Toast.makeText(TestApi.this, "Execute", Toast.LENGTH_SHORT).show();
-			//Toast.makeText(TestApi.this, web.getObs().toString(),
-			//		Toast.LENGTH_LONG).show();
+			//Toast.makeText(TestApi.this, "Execute", Toast.LENGTH_SHORT).show();
+			Toast.makeText(TestApi.this, web.getObs(),
+					Toast.LENGTH_LONG).show();
 		}
 	}
 }

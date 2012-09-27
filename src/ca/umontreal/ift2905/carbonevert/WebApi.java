@@ -25,7 +25,7 @@ public class WebApi {
 
 	private String erreur;
 	private HttpEntity response;
-	private JSONObject obs;
+	private String obs;
 
 	WebApi(String keyword) {
 		erreur=null;
@@ -34,22 +34,35 @@ public class WebApi {
 		try {
 			response=getHttp(keyword);
 			
-			// JSON format
+			if(response == null)
+				Log.d("CarboneVert","getHttp is null");
+
 			JSONObject js = new JSONObject(EntityUtils.toString(response,HTTP.UTF_8));
 
-			// extraire la future requete
-			obs = js.getJSONObject("subqueries");
+			if(js == null)
+				Log.d("CarboneVert","Json is null");
+
+			obs = js.getString("subqueries");
+			
+			if(obs == null)
+				Log.d("CarboneVert","String is null");
+			
+			if(obs.length() == 0)
+				Log.d("CarboneVert","String is empty");
+			
 		} catch (ClientProtocolException e) {
 			erreur="erreur http(protocol):"+e.getMessage();
 		} catch (IOException e) {
 			erreur="erreur http(IO):"+e.getMessage();
         } catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+        	erreur="erreur de Parsing:"+e.getMessage();
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			erreur="erreur de Json:"+e.getMessage();
 		}
+		
+		if(obs.length() != 0)
+			Log.d("CarboneVert",erreur);
+		
 		Log.d("CarboneVert","WebApi Done");
 	}
 	
@@ -64,7 +77,7 @@ public class WebApi {
 		return response.getEntity();
 	}
 	
-	public JSONObject getObs() {
+	public String getObs() {
 		
 		return obs;
 	}
