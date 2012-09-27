@@ -1,5 +1,14 @@
 package ca.umontreal.ift2905.carbonevert;
 
+import java.sql.SQLException;
+
+import ca.umontreal.ift2905.carbonevert.db.DatabaseHelper;
+import ca.umontreal.ift2905.carbonevert.model.ActivityData;
+import ca.umontreal.ift2905.carbonevert.model.ProductData;
+
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
+import com.j256.ormlite.dao.Dao;
+
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -7,14 +16,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class TestApi extends Activity {
+public class TestApi extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	
 	GetDataTask testData;
+	private Dao<ProductData, Integer> dao = null;
+	
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.test_api);
+		
+		try {
+			dao = getHelper().getDao(ProductData.class);
+		} catch (final SQLException e) {
+			Toast.makeText(getBaseContext(), "Error while listing activities", Toast.LENGTH_SHORT)
+				.show();
+			return;
+		}
 
 		final Button button = (Button) findViewById(R.id.button1);
 		button.setOnClickListener(new View.OnClickListener() {
@@ -37,16 +56,19 @@ public class TestApi extends Activity {
 		}
 		protected void onPreExecute() {
 		}
+		
 		protected WebApi doInBackground(String... params) {
-			for(int i=0;i<100;i+=10) {
-				try {Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				if( this.isCancelled() ) return null;
+			try {Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 			WebApi web = 
-					new WebApi("http://ask.amee.com/answer.json?q=1+kg+of+beef");
+					new WebApi("http://ask.amee.com/detail.json?category=CLM_food_lifecycle_emissions&terms=chicken&quantities=1.0;kg");
+			
+			try {Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			
 			return web;
 		}
