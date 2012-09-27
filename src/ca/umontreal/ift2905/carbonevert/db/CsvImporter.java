@@ -9,7 +9,6 @@ import org.skife.csv.SimpleReader;
 
 import android.content.Context;
 import android.util.Log;
-import ca.umontreal.ift2905.carbonevert.R;
 
 public abstract class CsvImporter extends SimpleReader {
 	private final Context context;
@@ -34,15 +33,17 @@ public abstract class CsvImporter extends SimpleReader {
 			} else if (row.length == header.length) {
 				importer.onRow(header, row);
 			} else if (Arrays.toString(row).trim().length() > 0) {
-				throw new IndexOutOfBoundsException("CSV is malformed at line " + i);
+				throw new IndexOutOfBoundsException("CSV is malformed at line "
+						+ i);
 			}
 		}
 	}
 
-	public abstract void onRow(final String[] header, final String[] row) ;
+	public abstract void onRow(final String[] header, final String[] row);
 
 	public void importResource(final int resource) throws IOException {
-		final InputStream inputStream = context.getResources().openRawResource(resource);
+		final InputStream inputStream = context.getResources().openRawResource(
+				resource);
 		final Callback callback = new Callback(this);
 		parse(inputStream, callback);
 		inputStream.close();

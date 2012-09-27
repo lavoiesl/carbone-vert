@@ -15,26 +15,38 @@ public class MainActivity extends TabActivity {
 
 		tabHost.addTab(tabHost
 				.newTabSpec("Browse")
-				.setIndicator("Browse",getResources().getDrawable(android.R.drawable.ic_search_category_default))
+				.setIndicator(
+						"Browse",
+						getResources().getDrawable(
+								android.R.drawable.ic_search_category_default))
 				.setContent(new Intent(this, BrowseActivity.class)));
-//				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
+		// .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
 
 		tabHost.addTab(tabHost
 				.newTabSpec("Favorites")
-				.setIndicator("Favorites",getResources().getDrawable(android.R.drawable.btn_star_big_on))
+				.setIndicator(
+						"Favorites",
+						getResources().getDrawable(
+								android.R.drawable.btn_star_big_on))
 				.setContent(new Intent(this, FavoritesActivity.class)));
-//				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
+		// .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
 
 		tabHost.addTab(tabHost
 				.newTabSpec("Activities")
-				.setIndicator("Activities",getResources().getDrawable(android.R.drawable.ic_menu_gallery))
+				.setIndicator(
+						"Activities",
+						getResources().getDrawable(
+								android.R.drawable.ic_menu_gallery))
 				.setContent(new Intent(this, ActivitiesActivity.class)));
-//				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
+		// .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
 
 		tabHost.addTab(tabHost
 				.newTabSpec("History")
-				.setIndicator("History",getResources().getDrawable(android.R.drawable.ic_dialog_info))
+				.setIndicator(
+						"History",
+						getResources().getDrawable(
+								android.R.drawable.ic_dialog_info))
 				.setContent(new Intent(this, HistoryActivity.class)));
-//				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
+		// .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
 	}
 }

@@ -1,7 +1,6 @@
 package ca.umontreal.ift2905.carbonevert;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -15,10 +14,10 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
-
-import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.util.Log;
 
 //Fortement Inspirer des exemple du cours
 public class WebApi {
@@ -27,56 +26,61 @@ public class WebApi {
 	private HttpEntity response;
 	private String obs;
 
-	WebApi(String keyword) {
-		erreur=null;
-		Log.d("WebApi","loading "+keyword);
-		
+	WebApi(final String keyword) {
+		erreur = null;
+		Log.d("WebApi", "loading " + keyword);
+
 		try {
-			response=getHttp(keyword);
-			
-			if(response == null)
-				Log.d("WebApi","getHttp is null");
+			response = getHttp(keyword);
 
-			JSONObject js = new JSONObject(EntityUtils.toString(response,HTTP.UTF_8));
+			if (response == null) {
+				Log.d("WebApi", "getHttp is null");
+			}
 
-			if(js.length() == 0)
-				Log.d("WebApi","Json is null");
+			final JSONObject js = new JSONObject(EntityUtils.toString(response,
+					HTTP.UTF_8));
+
+			if (js.length() == 0) {
+				Log.d("WebApi", "Json is null");
+			}
 
 			obs = js.getString("unit");
-			
-			if(obs == null)
-				Log.d("WebApi","String is null");
-						
-		} catch (ClientProtocolException e) {
-			erreur="erreur http(protocol):"+e.getMessage();
-		} catch (IOException e) {
-			erreur="erreur http(IO):"+e.getMessage();
-        } catch (ParseException e) {
-        	erreur="erreur de Parsing:"+e.getMessage();
-		} catch (JSONException e) {
-			erreur="erreur de Json:"+e.getMessage();
+
+			if (obs == null) {
+				Log.d("WebApi", "String is null");
+			}
+
+		} catch (final ClientProtocolException e) {
+			erreur = "erreur http(protocol):" + e.getMessage();
+		} catch (final IOException e) {
+			erreur = "erreur http(IO):" + e.getMessage();
+		} catch (final ParseException e) {
+			erreur = "erreur de Parsing:" + e.getMessage();
+		} catch (final JSONException e) {
+			erreur = "erreur de Json:" + e.getMessage();
 		}
-		
-		if(obs.length() == 0)
-			Log.d("WebApi","what"+erreur);
-		
-		Log.d("WebApi","WebApi Done");
+
+		if (obs.length() == 0) {
+			Log.d("WebApi", "what" + erreur);
+		}
+
+		Log.d("WebApi", "WebApi Done");
 	}
-	
-	private HttpEntity getHttp(String url) throws ClientProtocolException, IOException
-	{
-		HttpParams params = new BasicHttpParams();
+
+	private HttpEntity getHttp(final String url)
+			throws ClientProtocolException, IOException {
+		final HttpParams params = new BasicHttpParams();
 		HttpProtocolParams.setContentCharset(params, "utf-8");
 
-		HttpClient httpClient = new DefaultHttpClient(params);
-		HttpGet http = new HttpGet(url);
-		HttpResponse response = httpClient.execute(http);
+		final HttpClient httpClient = new DefaultHttpClient(params);
+		final HttpGet http = new HttpGet(url);
+		final HttpResponse response = httpClient.execute(http);
 		return response.getEntity();
 	}
-	
+
 	public String getObs() {
-		
+
 		return obs;
 	}
-	
+
 }

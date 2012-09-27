@@ -1,5 +1,5 @@
 #
-# generated on 2012/09/27 06:21:14
+# generated on 2012/09/27 07:55:22
 #
 # --table-start--
 dataClass=ca.umontreal.ift2905.carbonevert.model.ActivityData
@@ -16,10 +16,13 @@ dataPersister=DATE_LONG
 # --field-start--
 fieldName=unit
 foreign=true
+foreignAutoRefresh=true
 # --field-end--
 # --field-start--
 fieldName=product
+canBeNull=false
 foreign=true
+foreignAutoRefresh=true
 # --field-end--
 # --field-start--
 fieldName=quantity
@@ -63,6 +66,7 @@ fieldName=name
 # --field-start--
 fieldName=units
 foreignCollection=true
+foreignCollectionEager=true
 foreignCollectionForeignFieldName=product
 # --field-end--
 # --field-start--
@@ -78,11 +82,15 @@ tableName=products_units
 # --table-fields-start--
 # --field-start--
 fieldName=product
+canBeNull=false
 foreign=true
+foreignAutoRefresh=true
 # --field-end--
 # --field-start--
 fieldName=unit
+canBeNull=false
 foreign=true
+foreignAutoRefresh=true
 # --field-end--
 # --field-start--
 fieldName=carbonRatio

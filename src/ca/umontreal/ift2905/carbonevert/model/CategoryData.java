@@ -19,12 +19,13 @@ public class CategoryData extends AbstractData {
 	@Override
 	public String toString() {
 		return name;
-	}	
-	
-	public void setId(int id) {
+	}
+
+	public void setId(final int id) {
 		this.id = id;
 	}
 
+	@Override
 	public int getId() {
 		return id;
 	}
@@ -37,11 +38,11 @@ public class CategoryData extends AbstractData {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
-	public void setProducts(ForeignCollection<ProductData> products) {
+	public void setProducts(final ForeignCollection<ProductData> products) {
 		this.products = products;
 	}
 }

@@ -19,6 +19,7 @@ public class ProductData extends AbstractData {
 	@DatabaseField(foreign = true, canBeNull = true)
 	private CategoryData category = null;
 
+	@Override
 	public int getId() {
 		return id;
 	}
@@ -26,8 +27,8 @@ public class ProductData extends AbstractData {
 	public ForeignCollection<ProductUnitData> getUnits() {
 		return units;
 	}
-	
-	public void addUnit(UnitData unit, float carbonRatio) {
+
+	public void addUnit(final UnitData unit, final float carbonRatio) {
 		ProductUnitData productUnitData = getUnit(unit);
 		if (productUnitData == null) {
 			productUnitData = new ProductUnitData();
@@ -37,28 +38,28 @@ public class ProductData extends AbstractData {
 		}
 		productUnitData.setCarbonRatio(carbonRatio);
 	}
-	
-	public ProductUnitData getUnit(UnitData unit) {
-		for (ProductUnitData productUnitData : units) {
+
+	public ProductUnitData getUnit(final UnitData unit) {
+		for (final ProductUnitData productUnitData : units) {
 			if (productUnitData.getUnit().equals(unit)) {
 				return productUnitData;
 			}
 		}
 		return null;
 	}
-	
-	public void removeUnit(UnitData unit) {
-		ProductUnitData productUnitData = getUnit(unit);
+
+	public void removeUnit(final UnitData unit) {
+		final ProductUnitData productUnitData = getUnit(unit);
 		if (productUnitData != null) {
 			units.remove(productUnitData);
 		}
 	}
-	
+
 	public CategoryData getCategory() {
 		return category;
 	}
 
-	public void setCategory(CategoryData category) {
+	public void setCategory(final CategoryData category) {
 		this.category = category;
 	}
 
@@ -72,6 +73,6 @@ public class ProductData extends AbstractData {
 
 	@Override
 	public String toString() {
-		return getName();
+		return "" + getName();
 	}
 }

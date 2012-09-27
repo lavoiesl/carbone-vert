@@ -5,11 +5,11 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "products_units")
 public class ProductUnitData {
-	@DatabaseField(foreign = true)
-	ProductData product = null;
+	@DatabaseField(foreign = true, canBeNull = false, foreignAutoRefresh = true)
+	private ProductData product;
 
-	@DatabaseField(foreign = true)
-	UnitData unit = null;
+	@DatabaseField(foreign = true, canBeNull = false, foreignAutoRefresh = true)
+	private UnitData unit;
 
 	@DatabaseField
 	float carbonRatio;
@@ -18,7 +18,7 @@ public class ProductUnitData {
 		return product;
 	}
 
-	public void setProduct(ProductData product) {
+	public void setProduct(final ProductData product) {
 		this.product = product;
 	}
 
@@ -26,7 +26,7 @@ public class ProductUnitData {
 		return unit;
 	}
 
-	public void setUnit(UnitData unit) {
+	public void setUnit(final UnitData unit) {
 		this.unit = unit;
 	}
 
@@ -34,7 +34,7 @@ public class ProductUnitData {
 		return carbonRatio;
 	}
 
-	public void setCarbonRatio(float carbonRatio) {
+	public void setCarbonRatio(final float carbonRatio) {
 		this.carbonRatio = carbonRatio;
 	}
 }
