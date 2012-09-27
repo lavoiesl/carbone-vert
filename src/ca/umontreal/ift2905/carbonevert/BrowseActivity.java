@@ -7,6 +7,7 @@ import java.util.List;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -25,7 +26,9 @@ public class BrowseActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	private ArrayAdapter<ProductData> adapter = null;
 	private EditText filterText = null;
 	private Dao<ProductData, Integer> dao = null;
-
+	private Bundle instance = null;
+	
+	
 	private final TextWatcher filterTextWatcher = new TextWatcher() {
 
 		public void afterTextChanged(final Editable s) {
@@ -51,7 +54,8 @@ public class BrowseActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.browse_layout);
-
+		instance = savedInstanceState;
+		
 		filterText = (EditText) findViewById(R.id.browse_search_box);
 		filterText.addTextChangedListener(filterTextWatcher);
 
@@ -91,4 +95,22 @@ public class BrowseActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 		}
 		return new EntityArrayAdapter<ProductData>(this, list);
 	}
+	
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)  {
+		if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.ECLAIR
+				&& keyCode == KeyEvent.KEYCODE_BACK
+				&& event.getRepeatCount() == 0) 
+		{
+			onBackPressed();
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	public void onBackPressed() {
+		onCreate(instance);
+	}
+	
 }
