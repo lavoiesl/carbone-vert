@@ -1,53 +1,94 @@
 package ca.umontreal.ift2905.carbonevert;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class BrowseActivity extends Activity {
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+import ca.umontreal.ift2905.carbonevert.db.DatabaseHelper;
+import ca.umontreal.ift2905.carbonevert.model.ProductData;
+
+import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
+import com.j256.ormlite.dao.Dao;
+
+public class BrowseActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
+	private ArrayAdapter<ProductData> adapter = null;
+	private EditText filterText = null;
+	private Dao<ProductData, Integer> dao = null;
+
+	private final TextWatcher filterTextWatcher = new TextWatcher() {
+
+		public void afterTextChanged(final Editable s) {
+		}
+
+		public void beforeTextChanged(final CharSequence s, final int start,
+				final int count, final int after) {
+		}
+
+		public void onTextChanged(final CharSequence s, final int start,
+				final int before, final int count) {
+			adapter.getFilter().filter(s);
+		}
+	};
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		filterText.removeTextChangedListener(filterTextWatcher);
+	}
+
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.browse_layout);
 
-		final Button transportButton = (Button) findViewById(R.id.transportButton);
-		transportButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(final View v) {
-				// Perform action on click
-				// Intent intent = new Intent(v.getContext(), TestApi.class);
-				// startActivity(intent);
-				setContentView(R.layout.transport_layout);
-				final Button carButton = (Button) findViewById(R.id.carButton);
-				carButton.setOnClickListener(new View.OnClickListener() {
+		filterText = (EditText) findViewById(R.id.browse_search_box);
+		filterText.addTextChangedListener(filterTextWatcher);
 
-					public void onClick(final View v) {
-						Toast.makeText(getBaseContext(), "CAR HERE",
-								Toast.LENGTH_LONG).show();
-					}
-				});
+		try {
+			dao = getHelper().getDao(ProductData.class);
+			adapter = getProductsAdapter(null);
+		} catch (final SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		final ListView listView = getListView();
+		listView.setAdapter(adapter);
+
+		listView.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(final AdapterView<?> parent,
+					final View view, final int position, final long id) {
+				@SuppressWarnings("unchecked")
+				final EntityArrayAdapter<ProductData>.ViewHolder item = (EntityArrayAdapter<ProductData>.ViewHolder) ((TextView) view).getTag();
+				Toast.makeText(getBaseContext(), item.toString(), Toast.LENGTH_SHORT).show();
+				try {
+					adapter = getProductsAdapter(item.obj);
+					listView.setAdapter(adapter);
+				} catch (SQLException e) {
+				}
 			}
 		});
+	}
 
-		final Button foodButton = (Button) findViewById(R.id.foodButton);
-		foodButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(final View v) {
-				// Perform action on click
-				final Intent intent = new Intent(v.getContext(), TestApi.class);
-				startActivity(intent);
-			}
-		});
-
-		final Button vehiclesButton = (Button) findViewById(R.id.vehiclesButton);
-		vehiclesButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(final View v) {
-				// Perform action on click
-				final Intent intent = new Intent(v.getContext(), TestApi.class);
-				startActivity(intent);
-			}
-		});
-
+	private EntityArrayAdapter<ProductData> getProductsAdapter(ProductData current)
+			throws SQLException {
+		final List<ProductData> list; 
+		
+		if (current == null) {
+			list = dao.query(dao.queryBuilder().where().isNull("parent_id").prepare());
+		} else {
+			list = new ArrayList<ProductData>(current.getChildren());
+		}
+		return new EntityArrayAdapter<ProductData>(this, list);
 	}
 }

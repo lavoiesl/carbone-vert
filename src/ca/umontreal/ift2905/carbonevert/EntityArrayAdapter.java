@@ -8,34 +8,37 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import ca.umontreal.ift2905.carbonevert.model.ActivityData;
+import ca.umontreal.ift2905.carbonevert.model.AbstractData;
 
-public class ActivityArrayAdapter extends ArrayAdapter<ActivityData> {
-	private final List<ActivityData> list;
+public class EntityArrayAdapter<T extends AbstractData> extends ArrayAdapter<T> {
+	private final List<T> list;
 	private final Activity context;
 
-	public ActivityArrayAdapter(final Activity context,
-			final List<ActivityData> list) {
+	public EntityArrayAdapter(final Activity context,
+			final List<T> list) {
 		super(context, R.layout.list_layout, list);
 		this.context = context;
 		this.list = list;
 	}
 
-	static class ViewHolder {
+	class ViewHolder {
 		protected TextView text;
+		protected T obj;
 	}
 
 	@Override
-	public void add(final ActivityData obj) {
+	public void add(final T obj) {
 		super.add(obj);
 		list.add(obj);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public View getView(final int position, View convertView,
 			final ViewGroup parent) {
 		final View row = convertView;
 		ViewHolder holder = null;
+		final T obj = list.get(position);
 
 		if (row == null) {
 			final LayoutInflater inflator = context.getLayoutInflater();
@@ -43,12 +46,12 @@ public class ActivityArrayAdapter extends ArrayAdapter<ActivityData> {
 			holder = new ViewHolder();
 			holder.text = (TextView) convertView
 					.findViewById(R.id.list_layout_view);
+			holder.obj = obj;
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) row.getTag();
 		}
 
-		final ActivityData obj = list.get(position);
 		holder.text.setText(obj.toString());
 		return convertView;
 	}

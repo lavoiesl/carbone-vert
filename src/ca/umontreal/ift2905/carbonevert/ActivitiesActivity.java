@@ -1,5 +1,6 @@
 package ca.umontreal.ift2905.carbonevert;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import ca.umontreal.ift2905.carbonevert.db.DatabaseHelper;
 import ca.umontreal.ift2905.carbonevert.model.ActivityData;
+import ca.umontreal.ift2905.carbonevert.model.ProductData;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
 import com.j256.ormlite.dao.Dao;
@@ -55,18 +57,20 @@ public class ActivitiesActivity extends OrmLiteBaseListActivity<DatabaseHelper> 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activitie_layout);
 
+		filterText = (EditText) findViewById(R.id.activity_search_box);
+		filterText.addTextChangedListener(filterTextWatcher);
+
 		try {
 			dao = getHelper().getDao(ActivityData.class);
 			adapter = getActivitiesAdapter();
 		} catch (final SQLException e) {
+			Toast.makeText(getBaseContext(), "Error while listing activities", Toast.LENGTH_SHORT)
+				.show();
 			return;
 		}
 
 		final ListView listView = getListView();
 		listView.setAdapter(adapter);
-
-		filterText = (EditText) findViewById(R.id.activity_search_box);
-		filterText.addTextChangedListener(filterTextWatcher);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(final AdapterView<?> parent,
@@ -83,6 +87,7 @@ public class ActivitiesActivity extends OrmLiteBaseListActivity<DatabaseHelper> 
 			public void onClick(final View v) {
 				final ActivityData obj = new ActivityData();
 				try {
+					obj.setProduct(getHelper().getDao(ProductData.class).queryForAll().get(0));
 					addActivityData(obj);
 				} catch (final SQLException e) {
 					Toast.makeText(
@@ -107,9 +112,9 @@ public class ActivitiesActivity extends OrmLiteBaseListActivity<DatabaseHelper> 
 		}
 	}
 
-	private ActivityArrayAdapter getActivitiesAdapter() throws SQLException {
+	private EntityArrayAdapter<ActivityData> getActivitiesAdapter() throws SQLException {
 		// query for all of the data objects in the database
 		final List<ActivityData> list = dao.queryForAll();
-		return new ActivityArrayAdapter(this, list);
+		return new EntityArrayAdapter<ActivityData>(this, list);
 	}
 }

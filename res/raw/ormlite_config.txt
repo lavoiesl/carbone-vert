@@ -1,5 +1,5 @@
 #
-# generated on 2012/09/25 03:59:56
+# generated on 2012/09/26 02:41:40
 #
 # --table-start--
 dataClass=ca.umontreal.ift2905.carbonevert.model.AbstractData
@@ -43,7 +43,7 @@ generatedId=true
 #################################
 # --table-start--
 dataClass=ca.umontreal.ift2905.carbonevert.model.ProductData
-tableName=productdata
+tableName=products
 # --table-fields-start--
 # --field-start--
 fieldName=name
@@ -51,6 +51,38 @@ fieldName=name
 # --field-start--
 fieldName=units
 foreignCollection=true
+foreignCollectionForeignFieldName=product
+# --field-end--
+# --field-start--
+fieldName=parent
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=children
+foreignCollection=true
+foreignCollectionForeignFieldName=parent
+# --field-end--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=ca.umontreal.ift2905.carbonevert.model.ProductUnitData
+tableName=products_units
+# --table-fields-start--
+# --field-start--
+fieldName=product
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=unit
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=carbonRatio
 # --field-end--
 # --field-start--
 fieldName=id
@@ -69,6 +101,11 @@ unique=true
 # --field-end--
 # --field-start--
 fieldName=name
+# --field-end--
+# --field-start--
+fieldName=products
+foreignCollection=true
+foreignCollectionForeignFieldName=unit
 # --field-end--
 # --field-start--
 fieldName=id
