@@ -29,27 +29,24 @@ public class WebApi {
 
 	WebApi(String keyword) {
 		erreur=null;
-		Log.d("webAPI","loading "+keyword);
+		Log.d("WebApi","loading "+keyword);
 		
 		try {
 			response=getHttp(keyword);
 			
 			if(response == null)
-				Log.d("CarboneVert","getHttp is null");
+				Log.d("WebApi","getHttp is null");
 
 			JSONObject js = new JSONObject(EntityUtils.toString(response,HTTP.UTF_8));
 
-			if(js == null)
-				Log.d("CarboneVert","Json is null");
+			if(js.length() == 0)
+				Log.d("WebApi","Json is null");
 
-			obs = js.getString("subqueries");
+			obs = js.getString("unit");
 			
 			if(obs == null)
-				Log.d("CarboneVert","String is null");
-			
-			if(obs.length() == 0)
-				Log.d("CarboneVert","String is empty");
-			
+				Log.d("WebApi","String is null");
+						
 		} catch (ClientProtocolException e) {
 			erreur="erreur http(protocol):"+e.getMessage();
 		} catch (IOException e) {
@@ -60,10 +57,10 @@ public class WebApi {
 			erreur="erreur de Json:"+e.getMessage();
 		}
 		
-		if(obs.length() != 0)
-			Log.d("CarboneVert",erreur);
+		if(obs.length() == 0)
+			Log.d("WebApi","what"+erreur);
 		
-		Log.d("CarboneVert","WebApi Done");
+		Log.d("WebApi","WebApi Done");
 	}
 	
 	private HttpEntity getHttp(String url) throws ClientProtocolException, IOException
