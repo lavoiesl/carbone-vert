@@ -14,4 +14,8 @@
     
     <string name="search_label">Search</string>
     <string name="search_hint">Search</string>
+    <string name="from">From :</string>
+    <string name="to">To :</string>
+    <string name="show">Show</string>
+    <string name="source_transport">Source : Transportation</string>
 </resources>
