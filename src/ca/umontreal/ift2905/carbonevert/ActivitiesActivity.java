@@ -1,6 +1,5 @@
 package ca.umontreal.ift2905.carbonevert;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -75,6 +74,7 @@ public class ActivitiesActivity extends OrmLiteBaseListActivity<DatabaseHelper> 
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(final AdapterView<?> parent,
 					final View view, final int position, final long id) {
+				
 				final String item = ((TextView) view).getText().toString();
 				Toast.makeText(getBaseContext(), item, Toast.LENGTH_SHORT)
 						.show();
