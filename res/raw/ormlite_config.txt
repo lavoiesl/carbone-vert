@@ -1,21 +1,14 @@
 #
-# generated on 2012/09/26 02:41:40
+# generated on 2012/09/27 06:21:14
 #
 # --table-start--
-dataClass=ca.umontreal.ift2905.carbonevert.model.AbstractData
-tableName=abstractdata
+dataClass=ca.umontreal.ift2905.carbonevert.model.ActivityData
+tableName=activities
 # --table-fields-start--
 # --field-start--
 fieldName=id
 generatedId=true
 # --field-end--
-# --table-fields-end--
-# --table-end--
-#################################
-# --table-start--
-dataClass=ca.umontreal.ift2905.carbonevert.model.ActivityData
-tableName=activities
-# --table-fields-start--
 # --field-start--
 fieldName=date
 dataPersister=DATE_LONG
@@ -34,9 +27,24 @@ fieldName=quantity
 # --field-start--
 fieldName=carbon
 # --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=ca.umontreal.ift2905.carbonevert.model.CategoryData
+tableName=categories
+# --table-fields-start--
 # --field-start--
 fieldName=id
-generatedId=true
+id=true
+# --field-end--
+# --field-start--
+fieldName=name
+# --field-end--
+# --field-start--
+fieldName=products
+foreignCollection=true
+foreignCollectionForeignFieldName=category
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -46,6 +54,10 @@ dataClass=ca.umontreal.ift2905.carbonevert.model.ProductData
 tableName=products
 # --table-fields-start--
 # --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
 fieldName=name
 # --field-end--
 # --field-start--
@@ -54,17 +66,8 @@ foreignCollection=true
 foreignCollectionForeignFieldName=product
 # --field-end--
 # --field-start--
-fieldName=parent
+fieldName=category
 foreign=true
-# --field-end--
-# --field-start--
-fieldName=children
-foreignCollection=true
-foreignCollectionForeignFieldName=parent
-# --field-end--
-# --field-start--
-fieldName=id
-generatedId=true
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -84,10 +87,6 @@ foreign=true
 # --field-start--
 fieldName=carbonRatio
 # --field-end--
-# --field-start--
-fieldName=id
-generatedId=true
-# --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
@@ -95,6 +94,10 @@ generatedId=true
 dataClass=ca.umontreal.ift2905.carbonevert.model.UnitData
 tableName=units
 # --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
 # --field-start--
 fieldName=code
 unique=true
@@ -106,10 +109,6 @@ fieldName=name
 fieldName=products
 foreignCollection=true
 foreignCollectionForeignFieldName=unit
-# --field-end--
-# --field-start--
-fieldName=id
-generatedId=true
 # --field-end--
 # --table-fields-end--
 # --table-end--

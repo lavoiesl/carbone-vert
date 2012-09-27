@@ -7,6 +7,9 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "products")
 public class ProductData extends AbstractData {
+	@DatabaseField(generatedId = true)
+	private int id;
+
 	@DatabaseField
 	private String name;
 
@@ -14,31 +17,22 @@ public class ProductData extends AbstractData {
 	private ForeignCollection<ProductUnitData> units;
 
 	@DatabaseField(foreign = true, canBeNull = true)
-	private ProductData parent = null;
+	private CategoryData category = null;
 
-	@ForeignCollectionField(eager = false, foreignFieldName = "parent")
-	private ForeignCollection<ProductData> children;
+	public int getId() {
+		return id;
+	}
 
 	public ForeignCollection<ProductUnitData> getUnits() {
 		return units;
 	}
-
-	public ProductData getParent() {
-		return parent;
+	
+	public CategoryData getCategory() {
+		return category;
 	}
 
-	public void setParent(final ProductData parent) {
-//		if (getParent() != null) {
-//			getParent().getChildren().remove(this);
-//		}
-//		if (parent != null) {
-//			parent.getChildren().add(this);
-//		}
-		this.parent = parent;
-	}
-
-	public ForeignCollection<ProductData> getChildren() {
-		return children;
+	public void setCategory(CategoryData category) {
+		this.category = category;
 	}
 
 	public String getName() {

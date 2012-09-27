@@ -17,18 +17,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import ca.umontreal.ift2905.carbonevert.db.DatabaseHelper;
+import ca.umontreal.ift2905.carbonevert.model.AbstractData;
+import ca.umontreal.ift2905.carbonevert.model.CategoryData;
 import ca.umontreal.ift2905.carbonevert.model.ProductData;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
 import com.j256.ormlite.dao.Dao;
 
 public class BrowseActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
-	private ArrayAdapter<ProductData> adapter = null;
+	private ArrayAdapter<? extends AbstractData> adapter = null;
+	private ListView listView;
 	private EditText filterText = null;
-	private Dao<ProductData, Integer> dao = null;
-	private Bundle instance = null;
-	
-	
+	private CategoryData currentCategory = null;
+
 	private final TextWatcher filterTextWatcher = new TextWatcher() {
 
 		public void afterTextChanged(final Editable s) {
@@ -54,55 +55,59 @@ public class BrowseActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.browse_layout);
-		instance = savedInstanceState;
-		
+
 		filterText = (EditText) findViewById(R.id.browse_search_box);
 		filterText.addTextChangedListener(filterTextWatcher);
 
-		try {
-			dao = getHelper().getDao(ProductData.class);
-			adapter = getProductsAdapter(null);
-		} catch (final SQLException e) {
-			throw new RuntimeException(e);
-		}
-
-		final ListView listView = getListView();
-		listView.setAdapter(adapter);
+		listView = getListView();
+		selectCategory(null);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(final AdapterView<?> parent,
 					final View view, final int position, final long id) {
-				@SuppressWarnings("unchecked")
-				final EntityArrayAdapter<ProductData>.ViewHolder item = (EntityArrayAdapter<ProductData>.ViewHolder) ((TextView) view).getTag();
-				Toast.makeText(getBaseContext(), item.toString(), Toast.LENGTH_SHORT).show();
-				try {
-					adapter = getProductsAdapter(item.obj);
-					listView.setAdapter(adapter);
-				} catch (SQLException e) {
+
+				final AbstractData item = ((EntityArrayAdapter<?>.ViewHolder) ((TextView) view)
+						.getTag()).obj;
+				Toast.makeText(getBaseContext(), item.toString(),
+						Toast.LENGTH_SHORT).show();
+
+				if (item instanceof ProductData) {
+					gotoProduct((ProductData) item);
+				} else if (item instanceof CategoryData) {
+					selectCategory((CategoryData) item);
 				}
 			}
 		});
 	}
 
-	private EntityArrayAdapter<ProductData> getProductsAdapter(ProductData current)
-			throws SQLException {
-		final List<ProductData> list; 
-		
-		if (current == null) {
-			list = dao.query(dao.queryBuilder().where().isNull("parent_id").prepare());
+	private void selectCategory(final CategoryData category) {
+		currentCategory = category;
+		if (currentCategory == null) {
+			Dao<CategoryData, Integer> dao;
+			try {
+				dao = getHelper().getDao(CategoryData.class);
+				final List<CategoryData> list = dao.queryForAll();
+				adapter = new EntityArrayAdapter<CategoryData>(this, list);
+			} catch (final SQLException e) {
+				throw new RuntimeException(e);
+			}
 		} else {
-			list = new ArrayList<ProductData>(current.getChildren());
+			final List<ProductData> list = new ArrayList<ProductData>(
+					currentCategory.getProducts());
+			adapter = new EntityArrayAdapter<ProductData>(this, list);
 		}
-		return new EntityArrayAdapter<ProductData>(this, list);
+		listView.setAdapter(adapter);
 	}
-	
-	
+
+	private void gotoProduct(final ProductData product) {
+		// TODO Goto product page
+	}
+
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event)  {
+	public boolean onKeyDown(final int keyCode, final KeyEvent event) {
 		if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.ECLAIR
 				&& keyCode == KeyEvent.KEYCODE_BACK
-				&& event.getRepeatCount() == 0) 
-		{
+				&& event.getRepeatCount() == 0) {
 			onBackPressed();
 		}
 		return super.onKeyDown(keyCode, event);
@@ -110,7 +115,11 @@ public class BrowseActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 
 	@Override
 	public void onBackPressed() {
-		onCreate(instance);
+		if (currentCategory == null) {
+			super.onBackPressed();
+		} else {
+			selectCategory(null);
+		}
 	}
-	
+
 }

@@ -1,9 +1,5 @@
-id,parent_id,name
-1,,Transportation
-2,,Food Lifecycle
-3,,Vehicles
-4,1,Car
-5,1,Plane
-6,1,Bus
-7,1,Train
-8,4,Small car
+id,category,name
+1,1,Chicken
+2,1,Beef
+3,2,Pepper
+4,2,Curry

@@ -8,6 +8,8 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "activities")
 public class ActivityData extends AbstractData {
+	@DatabaseField(generatedId = true)
+	private int id;
 
 	@DatabaseField(dataType = DataType.DATE_LONG)
 	private Date date;
@@ -23,6 +25,10 @@ public class ActivityData extends AbstractData {
 
 	@DatabaseField
 	private float carbon;
+
+	public int getId() {
+		return id;
+	}
 
 	public float getCarbon() {
 		return carbon;
