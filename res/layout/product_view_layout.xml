@@ -35,7 +35,7 @@
             android:textSize="20dp" />
 
         <TextView
-            android:id="@+id/quantityVButton"
+            android:id="@+id/quantityVTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -81,7 +81,7 @@
         </TableLayout>
 
         <TextView
-            android:id="@+id/totalVButton"
+            android:id="@+id/totalVTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
