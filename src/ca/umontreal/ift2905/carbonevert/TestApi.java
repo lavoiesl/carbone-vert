@@ -1,8 +1,6 @@
 package ca.umontreal.ift2905.carbonevert;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
