@@ -24,41 +24,42 @@ import org.json.JSONObject;
 public class WebApi {
 
 	private String erreur;
+	
 	private HttpEntity response;
-	private String obs;
+	
+	private String answer;
+	private String unit;
+	private String item;
+	private String category;
+	private String uid;
 
 	WebApi(String keyword) {
-		erreur=null;
+		erreur="";
 		Log.d("WebApi","loading "+keyword);
 		
 		try {
 			response=getHttp(keyword);
-			
-			if(response == null)
-				Log.d("WebApi","getHttp is null");
 
 			JSONObject js = new JSONObject(EntityUtils.toString(response,HTTP.UTF_8));
 
-			if(js.length() == 0)
-				Log.d("WebApi","Json is null");
-
-			obs = js.getString("unit");
-			
-			if(obs == null)
-				Log.d("WebApi","String is null");
+			answer = js.getString("answer");
+			unit = js.getString("unit");
+			item = js.getString("item");
+			category = js.getString("category");
+			uid = js.getString("item_uid");
 						
 		} catch (ClientProtocolException e) {
-			erreur="erreur http(protocol):"+e.getMessage();
+			erreur=erreur+" erreur http(protocol):"+e.getMessage();
 		} catch (IOException e) {
-			erreur="erreur http(IO):"+e.getMessage();
+			erreur=erreur+"erreur http(IO):"+e.getMessage();
         } catch (ParseException e) {
-        	erreur="erreur de Parsing:"+e.getMessage();
+        	erreur=erreur+"erreur de Parsing:"+e.getMessage();
 		} catch (JSONException e) {
-			erreur="erreur de Json:"+e.getMessage();
+			erreur=erreur+"erreur de Json:"+e.getMessage();
 		}
 		
-		if(obs.length() == 0)
-			Log.d("WebApi","what"+erreur);
+		if(erreur.length() != 0)
+			Log.d("WebApi","Erreur:"+erreur);
 		
 		Log.d("WebApi","WebApi Done");
 	}
@@ -74,9 +75,27 @@ public class WebApi {
 		return response.getEntity();
 	}
 	
-	public String getObs() {
+	public String getAns() {	
+		return answer;
+	}
+	
+	public String getUnit() {	
+		return unit;
+	}
+	
+	public String getItem() {
+		if(item.equalsIgnoreCase("null"))
+			return item;
 		
-		return obs;
+		return item.split(", ")[1];
+	}
+	
+	public String getCat() {	
+		return category;
+	}
+	
+	public String getUid() {	
+		return uid;
 	}
 	
 }
