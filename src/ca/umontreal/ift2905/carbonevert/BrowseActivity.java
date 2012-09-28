@@ -113,8 +113,6 @@ public class BrowseActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	}
 
 	private void gotoProduct(final ProductData product) {
-		// TODO Goto product page
-//		Toast.makeText(getBaseContext(), "INSIDE PRODUCT",Toast.LENGTH_SHORT).show();
 		final Intent intent = new Intent(getBaseContext(), ProductViewActivity.class);
 		startActivity(intent);
 	}

@@ -26,12 +26,12 @@
             android:textSize="20dp" />
 
         <TextView
-            android:id="@+id/propretiesVButton"
+            android:id="@+id/propretiesVTextView"
             style="@android:style/TextAppearance.StatusBar.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:text="Propreties"
+            android:text="@string/propreties"
             android:textSize="20dp" />
 
         <TextView
@@ -48,37 +48,32 @@
             android:layout_height="10dp" />
 
         <TextView
-            android:id="@+id/calculatorVButton"
+            android:id="@+id/calculatorVTextView"
             style="@android:style/TextAppearance.StatusBar.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:text="Calculator"
+            android:text="@string/calculator"
             android:textSize="20dp" />
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+        <TableRow
+            android:id="@+id/vTableRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" >
 
-            <TableRow
-                android:id="@+id/vTableRow"
+            <com.example.novak.picker.NumberPicker
+                android:id="@+id/pref_num_pickerV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center" >
+                android:layout_gravity="center" />
 
-                <com.example.novak.picker.NumberPicker
-                    android:id="@+id/pref_num_pickerV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
-
-                <Spinner
-                    android:id="@+id/categorieVSpinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
-            </TableRow>
-        </TableLayout>
+            <Spinner
+                android:id="@+id/categorieVSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+        </TableRow>
 
         <TextView
             android:id="@+id/totalVTextView"
@@ -98,7 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/ic_next_icon"
-            android:text="Add to My Activities"
+            android:text="@string/addToMyActivities"
             android:textSize="20dp" />
     </LinearLayout>
 
