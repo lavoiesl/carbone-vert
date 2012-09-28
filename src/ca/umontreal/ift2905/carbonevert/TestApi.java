@@ -30,8 +30,7 @@ public class TestApi extends OrmLiteBaseActivity<DatabaseHelper> {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.test_api);
 		
-		category = new CategoryData();
-		product = new ProductData();
+		
 		
 		try {
 			daoP = getHelper().getDao(ProductData.class);
@@ -91,20 +90,10 @@ public class TestApi extends OrmLiteBaseActivity<DatabaseHelper> {
 				Toast.makeText(TestApi.this, "Probleme avec le Web", Toast.LENGTH_SHORT).show();
 				return;
 			}
-			if (web.getAns().equalsIgnoreCase("null")) {
-				Toast.makeText(TestApi.this, "Aucun terme de ce genre", Toast.LENGTH_LONG).show();
-				return;
-			}
-			
-			try {
-				category.setId(daoC.queryForAll().size());
-				category.setName(web.getCat());
-				
-				product.setCategory(category);
-				product.setName(web.getItem());
-				
-				daoC.create(category);
-				daoP.create(product);
+
+			try {				
+				daoC.create(web.getCategory());
+				daoP.create(web.getProduct());
 			} catch (Exception e) {
 			
 				Toast.makeText(TestApi.this, "Erreur d'insertion", Toast.LENGTH_SHORT).show();

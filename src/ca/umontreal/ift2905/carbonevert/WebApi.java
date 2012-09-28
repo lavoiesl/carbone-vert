@@ -18,6 +18,9 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import ca.umontreal.ift2905.carbonevert.model.CategoryData;
+import ca.umontreal.ift2905.carbonevert.model.ProductData;
+
 //Fortement Inspirer des exemple du cours
 public class WebApi {
 
@@ -25,26 +28,28 @@ public class WebApi {
 	
 	private HttpEntity response;
 	
-	private String answer;
-	private String unit;
-	private String item;
-	private String category;
-	private String uid;
+	private ProductData product;
+	private CategoryData category;
 
 	WebApi(String keyword) {
 		erreur="";
+		category = new CategoryData();
+		product = new ProductData();
 		Log.d("WebApi","loading "+keyword);
 		
 		try {
 			response=getHttp(keyword);
 
 			JSONObject js = new JSONObject(EntityUtils.toString(response,HTTP.UTF_8));
+			
+			category.setName(js.getString("category"));
+			product.setName(js.getString("item").split(", ")[1]);
 
-			answer = js.getString("answer");
-			unit = js.getString("unit");
-			item = js.getString("item");
-			category = js.getString("category");
-			uid = js.getString("item_uid");
+//			answer = js.getString("answer");
+//			unit = js.getString("unit");
+//			item = js.getString("item");
+//			category = js.getString("category");
+//			uid = js.getString("item_uid");
 						
 		} catch (ClientProtocolException e) {
 			erreur=erreur+" erreur http(protocol):"+e.getMessage();
@@ -73,27 +78,14 @@ public class WebApi {
 		return response.getEntity();
 	}
 	
-	public String getAns() {	
-		return answer;
+	public ProductData getProduct() {	
+		return product;
 	}
 	
-	public String getUnit() {	
-		return unit;
-	}
-	
-	public String getItem() {
-		if(item.equalsIgnoreCase("null"))
-			return item;
-		
-		return item.split(", ")[1];
-	}
-	
-	public String getCat() {	
+	public CategoryData getCategory() {	
 		return category;
 	}
 	
-	public String getUid() {	
-		return uid;
-	}
+
 	
 }
