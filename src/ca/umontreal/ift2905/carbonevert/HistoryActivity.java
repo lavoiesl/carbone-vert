@@ -1,6 +1,5 @@
 package ca.umontreal.ift2905.carbonevert;
 
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import android.app.Activity;
@@ -45,8 +44,13 @@ public class HistoryActivity extends Activity {
 		yearButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(final View v) {
 				// Perform action on click
-				final Intent intent = new Intent(v.getContext(), TestApi.class);
+				// final Intent intent = new Intent(v.getContext(),
+				// TestApi.class);
+				// startActivity(intent);
+				final Intent intent = new Intent(v.getContext(),
+						ActivitieEditActivity.class);
 				startActivity(intent);
+
 			}
 		});
 
@@ -72,46 +76,28 @@ public class HistoryActivity extends Activity {
 				showButton.setOnClickListener(new View.OnClickListener() {
 
 					DatePicker fromDatePicker = (DatePicker) findViewById(R.id.fromDatePicker);
-					int fromDay = fromDatePicker.getDayOfMonth();
-					int fromMonth = fromDatePicker.getMonth();
-					int fromYear = fromDatePicker.getYear();
-					GregorianCalendar fromDate = new GregorianCalendar(
-							fromDatePicker.getYear(), fromMonth, fromDay);
-
 					DatePicker toDatePicker = (DatePicker) findViewById(R.id.toDatePicker);
-					int toDay = toDatePicker.getDayOfMonth();
-					int toMonth = toDatePicker.getMonth();
-					int toYear = toDatePicker.getYear();
-					GregorianCalendar toDate = new GregorianCalendar(toYear,
-							toMonth, toDay);
-
-					Calendar c = Calendar.getInstance();
-					int cYear = c.get(Calendar.YEAR);
-					int cMonth = c.get(Calendar.MONTH);
-					int cDay = c.get(Calendar.DAY_OF_MONTH);
-					GregorianCalendar currentDate = new GregorianCalendar(
-							cYear, cMonth, cDay);
-
-					// boolean good = (fromDate.before(currentDate) ||
-					// fromDate.equals(toDate));
-
-					boolean toEarly = fromDate.before(currentDate)
-							& toDate.before(currentDate)
-							|| fromDate.equals(toDate);
-					int result = fromDate.compareTo(currentDate);
 
 					public void onClick(final View v) {
-						if (toEarly) {
+						final int fromDay = fromDatePicker.getDayOfMonth();
+						final int fromMonth = fromDatePicker.getMonth();
+						final int fromYear = fromDatePicker.getYear();
+						final GregorianCalendar fromDate = new GregorianCalendar(
+								fromYear, fromMonth, fromDay);
+
+						final int toDay = toDatePicker.getDayOfMonth();
+						final int toMonth = toDatePicker.getMonth();
+						final int toYear = toDatePicker.getYear();
+						final GregorianCalendar toDate = new GregorianCalendar(
+								toYear, toMonth, toDay);
+
+						final int result = toDate.compareTo(fromDate);
+
+						if (fromDate.before(toDate) || fromDate.equals(toDate)) {
 							// the program runs normally
 							Toast.makeText(
 									getBaseContext(),
-									"FROM : "
-											+ fromYear
-											+ " TO : "
-											+ toYear
-											+ " CURRENT "
-											+ cYear
-											+ " GOOD YOU ARE READY DO ADVANCE TO THE NEXT LEVEL : "
+									"GOOD YOU ARE READY DO ADVANCE TO THE NEXT LEVEL : "
 											+ result, Toast.LENGTH_SHORT)
 									.show();
 						} else {
@@ -121,9 +107,8 @@ public class HistoryActivity extends Activity {
 							// .setNeutralButton("Ok",new
 							// DialogInterface.OnClickListener() {
 							//
-							// public void onClick(DialogInterface dialog,
-							//
-							// int which) {
+							// public void onClick(DialogInterface dialog, int
+							// which) {
 							//
 							// }
 							//
