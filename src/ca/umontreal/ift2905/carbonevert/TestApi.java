@@ -49,14 +49,6 @@ public class TestApi extends OrmLiteBaseActivity<DatabaseHelper> {
 				testData=new GetDataTask();
 				testData.execute();
 				
-				try {
-					daoC.create(category);
-					daoP.create(product);
-				} catch (final SQLException e) {
-					Toast.makeText(getBaseContext(), "Error while inserting", Toast.LENGTH_SHORT)
-						.show();
-					return;
-				}
 			}
 		});
 
@@ -103,12 +95,22 @@ public class TestApi extends OrmLiteBaseActivity<DatabaseHelper> {
 				Toast.makeText(TestApi.this, "Aucun terme de ce genre", Toast.LENGTH_LONG).show();
 				return;
 			}
-						
-			category.setName(web.getCat());
 			
-			//product.setId(web.getUid());
-			product.setCategory(category);
-			product.setName(web.getItem());
+			try {
+				category.setId(daoC.queryForAll().size());
+				category.setName(web.getCat());
+				
+				product.setCategory(category);
+				product.setName(web.getItem());
+				
+				daoC.create(category);
+				daoP.create(product);
+			} catch (Exception e) {
+			
+				Toast.makeText(TestApi.this, "Erreur d'insertion", Toast.LENGTH_SHORT).show();
+				throw new RuntimeException(e);
+			}
+
 		}
 	}
 }
