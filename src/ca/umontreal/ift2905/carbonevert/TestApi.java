@@ -46,7 +46,7 @@ public class TestApi extends OrmLiteBaseActivity<DatabaseHelper> {
 			public void onClick(final View v) {
 				
 				testData=new GetDataTask();
-				testData.execute();
+				testData.execute("http://ask.amee.com/detail.json?category=CLM_food_lifecycle_emissions&terms=chicken&quantities=1.0+kg");
 				
 			}
 		});
@@ -72,7 +72,7 @@ public class TestApi extends OrmLiteBaseActivity<DatabaseHelper> {
 				e.printStackTrace();
 			}
 			WebApi web = 
-					new WebApi("http://ask.amee.com/detail.json?category=CLM_food_lifecycle_emissions&terms=chicken&quantities=1.0+kg");
+					new WebApi(params[0]);
 			try {Thread.sleep(200);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -86,14 +86,20 @@ public class TestApi extends OrmLiteBaseActivity<DatabaseHelper> {
 		}
 		@Override
 		protected void onPostExecute(WebApi web) {
+			
 			if( web==null ) {
 				Toast.makeText(TestApi.this, "Probleme avec le Web", Toast.LENGTH_SHORT).show();
 				return;
 			}
 
-			try {				
-				daoC.create(web.getCategory());
-				daoP.create(web.getProduct());
+			try {		
+				category = web.getCategory();
+				daoC.create(category);
+				product = web.getProduct();
+				
+				product.setCategory(category);
+				daoP.create(product);
+				
 			} catch (Exception e) {
 			
 				Toast.makeText(TestApi.this, "Erreur d'insertion", Toast.LENGTH_SHORT).show();

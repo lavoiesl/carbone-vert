@@ -36,14 +36,19 @@ public class WebApi {
 		category = new CategoryData();
 		product = new ProductData();
 		Log.d("WebApi","loading "+keyword);
+		String[] items;
 		
 		try {
 			response=getHttp(keyword);
 
 			JSONObject js = new JSONObject(EntityUtils.toString(response,HTTP.UTF_8));
 			
-			category.setName(js.getString("category"));
-			product.setName(js.getString("item").split(", ")[1]);
+			items = js.getString("item").split(", ");
+			
+			if(items.length > 1) {
+				category.setName(items[0]);
+				product.setName(items[1]);
+			}
 
 //			answer = js.getString("answer");
 //			unit = js.getString("unit");
