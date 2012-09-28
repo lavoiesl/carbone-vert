@@ -1,5 +1,5 @@
-id,category,name
-1,1,Chicken
-2,1,Beef
-3,2,Pepper
-4,2,Curry
+category,name
+Meat And Poultry,Chicken
+Meat And Poultry,Beef
+Miscellaneous,Pepper
+Miscellaneous,Curry

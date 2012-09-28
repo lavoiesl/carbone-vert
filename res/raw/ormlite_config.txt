@@ -1,14 +1,21 @@
 #
-# generated on 2012/09/27 07:55:22
+# generated on 2012/09/27 08:19:49
 #
 # --table-start--
-dataClass=ca.umontreal.ift2905.carbonevert.model.ActivityData
-tableName=activities
+dataClass=ca.umontreal.ift2905.carbonevert.model.AbstractData
+tableName=abstractdata
 # --table-fields-start--
 # --field-start--
 fieldName=id
 generatedId=true
 # --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=ca.umontreal.ift2905.carbonevert.model.ActivityData
+tableName=activities
+# --table-fields-start--
 # --field-start--
 fieldName=date
 dataPersister=DATE_LONG
@@ -30,6 +37,10 @@ fieldName=quantity
 # --field-start--
 fieldName=carbon
 # --field-end--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
@@ -38,16 +49,17 @@ dataClass=ca.umontreal.ift2905.carbonevert.model.CategoryData
 tableName=categories
 # --table-fields-start--
 # --field-start--
-fieldName=id
-id=true
-# --field-end--
-# --field-start--
 fieldName=name
+unique=true
 # --field-end--
 # --field-start--
 fieldName=products
 foreignCollection=true
 foreignCollectionForeignFieldName=category
+# --field-end--
+# --field-start--
+fieldName=id
+generatedId=true
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -56,10 +68,6 @@ foreignCollectionForeignFieldName=category
 dataClass=ca.umontreal.ift2905.carbonevert.model.ProductData
 tableName=products
 # --table-fields-start--
-# --field-start--
-fieldName=id
-generatedId=true
-# --field-end--
 # --field-start--
 fieldName=name
 # --field-end--
@@ -72,6 +80,10 @@ foreignCollectionForeignFieldName=product
 # --field-start--
 fieldName=category
 foreign=true
+# --field-end--
+# --field-start--
+fieldName=id
+generatedId=true
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -103,10 +115,6 @@ dataClass=ca.umontreal.ift2905.carbonevert.model.UnitData
 tableName=units
 # --table-fields-start--
 # --field-start--
-fieldName=id
-generatedId=true
-# --field-end--
-# --field-start--
 fieldName=code
 unique=true
 # --field-end--
@@ -117,6 +125,10 @@ fieldName=name
 fieldName=products
 foreignCollection=true
 foreignCollectionForeignFieldName=unit
+# --field-end--
+# --field-start--
+fieldName=id
+generatedId=true
 # --field-end--
 # --table-fields-end--
 # --table-end--

@@ -30,7 +30,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	private static final String DATABASE_NAME = "carbone_vert.db";
 	// any time you make changes to your database objects, you may have to
 	// increase the database version
-	private static final int DATABASE_VERSION = 21;
+	private static final int DATABASE_VERSION = 22;
 	private final Context context;
 	@SuppressWarnings("rawtypes")
 	private final Class[] classes = new Class[] { CategoryData.class,
@@ -94,8 +94,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			public void onRow(final String[] header, final String[] row) {
 				final CategoryData category = new CategoryData();
 				try {
-					category.setId(Integer.decode(row[0]));
-					category.setName(row[1]);
+					category.setName(row[0]);
 					dao.create(category);
 				} catch (final Exception e) {
 				}
@@ -115,10 +114,11 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			public void onRow(final String[] header, final String[] row) {
 				final ProductData product = new ProductData();
 				try {
-					product.setName(row[2]);
+					product.setName(row[1]);
 					if (!row[1].isEmpty()) {
-						product.setCategory(categories.queryForId(Integer
-								.decode(row[1].trim())));
+						String categoryName = row[0].trim();
+						CategoryData category = categories.queryForEq("name", categoryName).get(0);
+						product.setCategory(category);
 					}
 					products.create(product);
 				} catch (final SQLException e) {

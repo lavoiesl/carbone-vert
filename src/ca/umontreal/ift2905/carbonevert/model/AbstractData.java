@@ -1,8 +1,14 @@
 package ca.umontreal.ift2905.carbonevert.model;
 
-public abstract class AbstractData {
+import com.j256.ormlite.field.DatabaseField;
 
-	public abstract int getId();
+public abstract class AbstractData {
+	@DatabaseField(generatedId = true)
+	private int id;
+
+	public int getId() {
+		return id;
+	}
 
 	@Override
 	public abstract String toString();

@@ -7,10 +7,7 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "categories")
 public class CategoryData extends AbstractData {
-	@DatabaseField(id = true)
-	private int id;
-
-	@DatabaseField
+	@DatabaseField(unique = true)
 	private String name;
 
 	@ForeignCollectionField(eager = false, foreignFieldName = "category")
@@ -19,15 +16,6 @@ public class CategoryData extends AbstractData {
 	@Override
 	public String toString() {
 		return name;
-	}
-
-	public void setId(final int id) {
-		this.id = id;
-	}
-
-	@Override
-	public int getId() {
-		return id;
 	}
 
 	public ForeignCollection<ProductData> getProducts() {

@@ -7,9 +7,6 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "units")
 public class UnitData extends AbstractData {
-	@DatabaseField(generatedId = true)
-	private int id;
-
 	@DatabaseField(unique = true)
 	private String code;
 
@@ -18,11 +15,6 @@ public class UnitData extends AbstractData {
 
 	@ForeignCollectionField(eager = false, foreignFieldName = "unit")
 	ForeignCollection<ProductUnitData> products;
-
-	@Override
-	public int getId() {
-		return id;
-	}
 
 	public ForeignCollection<ProductUnitData> getProducts() {
 		return products;
