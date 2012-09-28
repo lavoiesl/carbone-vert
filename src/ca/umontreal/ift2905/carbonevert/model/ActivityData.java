@@ -14,10 +14,10 @@ public class ActivityData extends AbstractData {
 	@DatabaseField(dataType = DataType.DATE_LONG)
 	private Date date;
 
-	@DatabaseField(foreign = true)
+	@DatabaseField(foreign = true, canBeNull = true, foreignAutoRefresh = true)
 	private UnitData unit;
 
-	@DatabaseField(foreign = true)
+	@DatabaseField(foreign = true, canBeNull = false, foreignAutoRefresh = true)
 	private ProductData product;
 
 	@DatabaseField
@@ -26,6 +26,7 @@ public class ActivityData extends AbstractData {
 	@DatabaseField
 	private float carbon;
 
+	@Override
 	public int getId() {
 		return id;
 	}

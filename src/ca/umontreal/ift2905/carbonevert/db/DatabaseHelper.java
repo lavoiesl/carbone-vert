@@ -30,16 +30,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	private static final String DATABASE_NAME = "carbone_vert.db";
 	// any time you make changes to your database objects, you may have to
 	// increase the database version
-	private static final int DATABASE_VERSION = 19;
+	private static final int DATABASE_VERSION = 21;
 	private final Context context;
 	@SuppressWarnings("rawtypes")
-	private final Class[] classes = new Class[] {
-		CategoryData.class,
-		UnitData.class,
-		ProductData.class,
-		ProductUnitData.class,
-		ActivityData.class
-	};
+	private final Class[] classes = new Class[] { CategoryData.class,
+			UnitData.class, ProductData.class, ProductUnitData.class,
+			ActivityData.class };
 
 	public DatabaseHelper(final Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION,
@@ -58,13 +54,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		createAllTables(db, connectionSource);
 		loadFixtures();
 	}
-	
+
 	private void loadFixtures() {
 		try {
 			importCategories();
 			importUnits();
 			importProducts();
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			Log.e(DatabaseHelper.class.getName(), "Can't load fixtures", e);
 			throw new RuntimeException(e);
 		}
@@ -81,12 +77,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 					unit.setCode(row[0]);
 					unit.setName(row[1]);
 					dao.create(unit);
-				} catch (Exception e) {
+				} catch (final Exception e) {
 				}
 			}
 		};
 		importer.importResource(R.raw.units);
-		Log.i(DatabaseHelper.class.getName(), dao.queryForAll().size() + " units");
+		Log.i(DatabaseHelper.class.getName(), dao.queryForAll().size()
+				+ " units");
 	}
 
 	private void importCategories() throws IOException, SQLException {
@@ -95,17 +92,18 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 			@Override
 			public void onRow(final String[] header, final String[] row) {
-				final CategoryData unit = new CategoryData();
+				final CategoryData category = new CategoryData();
 				try {
-					unit.setId(Integer.decode(row[0]));
-					unit.setName(row[1]);
-					dao.create(unit);
-				} catch (Exception e) {
+					category.setId(Integer.decode(row[0]));
+					category.setName(row[1]);
+					dao.create(category);
+				} catch (final Exception e) {
 				}
 			}
 		};
 		importer.importResource(R.raw.categories);
-		Log.i(DatabaseHelper.class.getName(), dao.queryForAll().size() + " categories");
+		Log.i(DatabaseHelper.class.getName(), dao.queryForAll().size()
+				+ " categories");
 	}
 
 	private void importProducts() throws IOException, SQLException {
@@ -119,16 +117,18 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 				try {
 					product.setName(row[2]);
 					if (!row[1].isEmpty()) {
-						product.setCategory(categories.queryForId(Integer.decode(row[1].trim())));
+						product.setCategory(categories.queryForId(Integer
+								.decode(row[1].trim())));
 					}
 					products.create(product);
-				} catch (SQLException e) {
+				} catch (final SQLException e) {
 					Log.i(DatabaseHelper.class.getName(), e.getMessage());
 				}
 			}
 		};
 		importer.importResource(R.raw.products);
-		Log.i(DatabaseHelper.class.getName(), products.queryForAll().size() + " products");
+		Log.i(DatabaseHelper.class.getName(), products.queryForAll().size()
+				+ " products");
 	}
 
 	/**
@@ -146,30 +146,34 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		// after we drop the old databases, we create the new ones
 		onCreate(db, connectionSource);
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	private void createAllTables(final SQLiteDatabase db, final ConnectionSource connectionSource) {
+	private void createAllTables(final SQLiteDatabase db,
+			final ConnectionSource connectionSource) {
 		try {
-			for (@SuppressWarnings("rawtypes") Class c : classes) {
+			for (@SuppressWarnings("rawtypes")
+			final Class c : classes) {
 				TableUtils.createTable(connectionSource, c);
 			}
 		} catch (final SQLException e) {
 			Log.e(DatabaseHelper.class.getName(), "Can't drop databases", e);
 			throw new RuntimeException(e);
-		}		
+		}
 	}
 
 	@SuppressWarnings("unchecked")
-	private void dropAllTables(final SQLiteDatabase db, final ConnectionSource connectionSource) {
+	private void dropAllTables(final SQLiteDatabase db,
+			final ConnectionSource connectionSource) {
 		try {
-			for (@SuppressWarnings("rawtypes") Class c : classes) {
+			for (@SuppressWarnings("rawtypes")
+			final Class c : classes) {
 				TableUtils.dropTable(connectionSource, c, true);
 			}
 			// after we drop the old databases, we create the new ones
 		} catch (final SQLException e) {
 			Log.e(DatabaseHelper.class.getName(), "Can't drop databases", e);
 			throw new RuntimeException(e);
-		}		
+		}
 	}
 
 }

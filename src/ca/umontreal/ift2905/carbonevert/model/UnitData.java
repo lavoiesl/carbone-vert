@@ -19,6 +19,7 @@ public class UnitData extends AbstractData {
 	@ForeignCollectionField(eager = false, foreignFieldName = "unit")
 	ForeignCollection<ProductUnitData> products;
 
+	@Override
 	public int getId() {
 		return id;
 	}

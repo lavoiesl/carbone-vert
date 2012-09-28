@@ -14,8 +14,7 @@ public class EntityArrayAdapter<T extends AbstractData> extends ArrayAdapter<T> 
 	private final List<T> list;
 	private final Activity context;
 
-	public EntityArrayAdapter(final Activity context,
-			final List<T> list) {
+	public EntityArrayAdapter(final Activity context, final List<T> list) {
 		super(context, R.layout.list_layout, list);
 		this.context = context;
 		this.list = list;
@@ -26,23 +25,17 @@ public class EntityArrayAdapter<T extends AbstractData> extends ArrayAdapter<T> 
 		protected T obj;
 	}
 
-	@Override
-	public void add(final T obj) {
-		super.add(obj);
-		list.add(obj);
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public View getView(final int position, View convertView,
 			final ViewGroup parent) {
 		final View row = convertView;
 		ViewHolder holder = null;
-		final T obj = list.get(position);
 
 		if (row == null) {
 			final LayoutInflater inflator = context.getLayoutInflater();
 			convertView = inflator.inflate(R.layout.list_layout, parent, false);
+			final T obj = list.get(position);
 			holder = new ViewHolder();
 			holder.text = (TextView) convertView
 					.findViewById(R.id.list_layout_view);
@@ -52,7 +45,7 @@ public class EntityArrayAdapter<T extends AbstractData> extends ArrayAdapter<T> 
 			holder = (ViewHolder) row.getTag();
 		}
 
-		holder.text.setText(obj.toString());
+		holder.text.setText(holder.obj.toString());
 		return convertView;
 	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -63,8 +64,8 @@ public class ActivitiesActivity extends OrmLiteBaseListActivity<DatabaseHelper> 
 			dao = getHelper().getDao(ActivityData.class);
 			adapter = getActivitiesAdapter();
 		} catch (final SQLException e) {
-			Toast.makeText(getBaseContext(), "Error while listing activities", Toast.LENGTH_SHORT)
-				.show();
+			Toast.makeText(getBaseContext(), "Error while listing activities",
+					Toast.LENGTH_SHORT).show();
 			return;
 		}
 
@@ -74,10 +75,10 @@ public class ActivitiesActivity extends OrmLiteBaseListActivity<DatabaseHelper> 
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(final AdapterView<?> parent,
 					final View view, final int position, final long id) {
-				
-				final String item = ((TextView) view).getText().toString();
-				Toast.makeText(getBaseContext(), item, Toast.LENGTH_SHORT)
-						.show();
+				@SuppressWarnings("unchecked")
+				final ActivityData item = ((EntityArrayAdapter<ActivityData>.ViewHolder) ((TextView) view)
+						.getTag()).obj;
+				selectActivity(item);
 			}
 		});
 
@@ -87,7 +88,11 @@ public class ActivitiesActivity extends OrmLiteBaseListActivity<DatabaseHelper> 
 			public void onClick(final View v) {
 				final ActivityData obj = new ActivityData();
 				try {
-					obj.setProduct(getHelper().getDao(ProductData.class).queryForAll().get(0));
+					final ProductData product = getHelper()
+							.getDao(ProductData.class).queryForAll().get(0);
+					obj.setProduct(product);
+					Log.d("ActivityProduct",
+							"" + product.getId() + product.getName());
 					addActivityData(obj);
 				} catch (final SQLException e) {
 					Toast.makeText(
@@ -97,6 +102,11 @@ public class ActivitiesActivity extends OrmLiteBaseListActivity<DatabaseHelper> 
 				}
 			}
 		});
+	}
+
+	private void selectActivity(final ActivityData activity) {
+		Toast.makeText(getBaseContext(), activity.toString(),
+				Toast.LENGTH_SHORT).show();
 	}
 
 	private void addActivityData(final ActivityData obj) throws SQLException {
@@ -112,7 +122,8 @@ public class ActivitiesActivity extends OrmLiteBaseListActivity<DatabaseHelper> 
 		}
 	}
 
-	private EntityArrayAdapter<ActivityData> getActivitiesAdapter() throws SQLException {
+	private EntityArrayAdapter<ActivityData> getActivitiesAdapter()
+			throws SQLException {
 		// query for all of the data objects in the database
 		final List<ActivityData> list = dao.queryForAll();
 		return new EntityArrayAdapter<ActivityData>(this, list);

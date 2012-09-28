@@ -3,14 +3,12 @@ package ca.umontreal.ift2905.carbonevert;
 import java.sql.SQLException;
 
 import ca.umontreal.ift2905.carbonevert.db.DatabaseHelper;
-import ca.umontreal.ift2905.carbonevert.model.ActivityData;
 import ca.umontreal.ift2905.carbonevert.model.CategoryData;
 import ca.umontreal.ift2905.carbonevert.model.ProductData;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.Dao;
 
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -71,9 +69,11 @@ public class TestApi extends OrmLiteBaseActivity<DatabaseHelper> {
 			Toast.makeText(TestApi.this, "Cancel!!!!!", Toast.LENGTH_SHORT).show();
 		}
 		
+		@Override
 		protected void onPreExecute() {
 		}
 		
+		@Override
 		protected WebApi doInBackground(String... params) {
 			
 			try {Thread.sleep(200);
@@ -89,9 +89,11 @@ public class TestApi extends OrmLiteBaseActivity<DatabaseHelper> {
 			
 			return web;
 		}
+		@Override
 		protected void onProgressUpdate(Integer... s) {
 
 		}
+		@Override
 		protected void onPostExecute(WebApi web) {
 			if( web==null ) {
 				Toast.makeText(TestApi.this, "Probleme avec le Web", Toast.LENGTH_SHORT).show();
