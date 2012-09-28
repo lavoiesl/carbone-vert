@@ -60,7 +60,7 @@ public class ProductData extends AbstractData {
 	}
 
 	public void setName(final String name) {
-		this.name = name;
+		this.name = toCamelCase(name);
 	}
 
 	@Override
