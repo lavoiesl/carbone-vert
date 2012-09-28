@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scrollView1"
+    android:id="@+id/vScrollView"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
@@ -10,7 +10,7 @@
         android:orientation="vertical" >
 
         <Button
-            android:id="@+id/cathegorieButton"
+            android:id="@+id/cathegorieVButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/ic_next_icon"
@@ -18,70 +18,83 @@
             android:textSize="20dp" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/productVButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableRight="@android:drawable/btn_star_big_on"
             android:text="Fried Chicken"
             android:textSize="20dp" />
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/propretiesVButton"
+            style="@android:style/TextAppearance.StatusBar.Title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:text="Propreties"
             android:textSize="20dp" />
 
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/quantityVButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
             android:text="4 kg CO2 / kg"
             android:textSize="20dp" />
 
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="match_parent"
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="10dp" />
+
+        <TextView
+            android:id="@+id/calculatorVButton"
+            style="@android:style/TextAppearance.StatusBar.Title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:text="Calculator"
             android:textSize="20dp" />
 
-        
-        
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <TableRow
-                android:id="@+id/tableRow1"
+                android:id="@+id/vTableRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center" >
 
                 <com.example.novak.picker.NumberPicker
-                    android:id="@+id/pref_num_picker"
+                    android:id="@+id/pref_num_pickerV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center" />
 
                 <Spinner
-                    android:id="@+id/spinner1"
+                    android:id="@+id/categorieVSpinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center" />
-
             </TableRow>
         </TableLayout>
 
-        <Button
-            android:id="@+id/button6"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/totalVButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
             android:text="Total 8kg CO2"
             android:textSize="20dp" />
 
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="10dp" />
+
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/addToAcVButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/ic_next_icon"

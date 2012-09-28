@@ -26,6 +26,7 @@
         <activity android:name=".ActivitiesActivity" />
         <activity android:name=".ActivitieEditActivity" />
         <activity android:name=".BrowseActivity" />
+        <activity android:name=".ProductViewActivity" />
         <activity android:name=".FavoritesActivity" />
         <activity android:name=".HistoryActivity" />
         <activity android:name=".TestApi" />

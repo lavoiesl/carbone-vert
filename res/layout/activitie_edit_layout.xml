@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scrollView1"
+    android:id="@+id/eScrollView"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
@@ -10,7 +10,7 @@
         android:orientation="vertical" >
 
         <Button
-            android:id="@+id/cathegorieButton"
+            android:id="@+id/cathegorieEButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/ic_next_icon"
@@ -18,7 +18,7 @@
             android:textSize="20dp" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/productEButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableRight="@android:drawable/btn_star_big_on"
@@ -26,67 +26,161 @@
             android:textSize="20dp" />
 
         <Button
-            android:id="@+id/button3"
-            android:layout_width="match_parent"
+            android:id="@+id/propretiesEButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:text="Propreties"
             android:textSize="20dp" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/quantityEButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:text="4 kg CO2 / kg"
             android:textSize="20dp" />
 
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="10dp" />
+
         <Button
-            android:id="@+id/button5"
-            android:layout_width="match_parent"
+            android:id="@+id/calculatorEButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:text="Calculator"
             android:textSize="20dp" />
 
-        
-        
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <TableRow
-                android:id="@+id/tableRow1"
+                android:id="@+id/eTableRow1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center" >
 
                 <com.example.novak.picker.NumberPicker
-                    android:id="@+id/pref_num_picker"
+                    android:id="@+id/pref_num_pickerE"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center" />
 
                 <Spinner
-                    android:id="@+id/spinner1"
+                    android:id="@+id/categorieESpinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center" />
-
             </TableRow>
         </TableLayout>
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/totalEButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:text="Total 8kg CO2"
             android:textSize="20dp" />
 
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="10dp" />
+
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/schedulingEButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="Scheduling"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/dateEButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="Date"
+            android:textSize="20dp" />
+
+        <DatePicker
+            android:id="@+id/dateEPicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="10dp" />
+
+        <Button
+            android:id="@+id/repeatEButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="Repeat"
+            android:textSize="20dp" />
+
+        <Spinner
+            android:id="@+id/repeatESpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="10dp" />
+
+        <Button
+            android:id="@+id/notesEButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="Notes"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/noteEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableRight="@drawable/ic_next_icon"
-            android:text="Add to My Activities"
-            android:textSize="20dp" />
+            android:ems="10"
+            android:inputType="textMultiLine" >
+
+            <requestFocus />
+        </EditText>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="10dp" />
+
+        <TableRow
+            android:id="@+id/eTableRow2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+            
+            <Button
+                android:id="@+id/saveEButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="Save"
+                android:textSize="20dp" />
+            
+            <View
+            android:layout_width="50dp"
+            android:layout_height="wrap_content" />
+            
+            <Button
+                android:id="@+id/cancelEButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="Cancel"
+                android:textSize="20dp" />
+            
+        </TableRow>
     </LinearLayout>
 
 </ScrollView>
