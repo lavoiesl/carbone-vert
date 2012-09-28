@@ -11,18 +11,19 @@ public abstract class AbstractData {
 		return id;
 	}
 
-	public static String toCamelCase(String s){
-	   String[] parts = s.split(" ");
-	   String camelCaseString = "";
-	   for (String part : parts){
-	      camelCaseString = camelCaseString + toProperCase(part);
-	   }
-	   return camelCaseString;
-	}
+	public static String toCamelCase(String s) {
+		s = s.trim();
+	    String[] parts = s.split(" ");
+	    StringBuilder camelCaseString = new StringBuilder(s.length());
 
-	private static String toProperCase(String s) {
-	    return s.substring(0, 1).toUpperCase() +
-	               s.substring(1).toLowerCase();
+	    for (String part : parts) {
+	    	if (camelCaseString.length() > 0) {
+			    camelCaseString.append(" ");
+	    	}
+		    camelCaseString.append(part.substring(0, 1).toUpperCase());
+		    camelCaseString.append(part.substring(1).toLowerCase());
+	    }
+	    return camelCaseString.toString();
 	}
 
 	@Override
