@@ -3,6 +3,7 @@ package ca.umontreal.ift2905.carbonevert;
 import java.sql.SQLException;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -105,6 +106,9 @@ public class ActivitiesActivity extends OrmLiteBaseListActivity<DatabaseHelper> 
 	}
 
 	private void selectActivity(final ActivityData activity) {
+		final Intent intent = new Intent(getBaseContext(), ActivitieEditActivity.class);
+		startActivity(intent);
+		
 		Toast.makeText(getBaseContext(), activity.toString(),
 				Toast.LENGTH_SHORT).show();
 	}

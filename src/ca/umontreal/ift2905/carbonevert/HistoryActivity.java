@@ -44,13 +44,8 @@ public class HistoryActivity extends Activity {
 		yearButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(final View v) {
 				// Perform action on click
-				// final Intent intent = new Intent(v.getContext(),
-				// TestApi.class);
-				// startActivity(intent);
-				final Intent intent = new Intent(v.getContext(),
-						ActivitieEditActivity.class);
-				startActivity(intent);
-
+				 final Intent intent = new Intent(v.getContext(), TestApi.class);
+				 startActivity(intent);
 			}
 		});
 

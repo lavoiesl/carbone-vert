@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -101,6 +102,9 @@ public class BrowseActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 
 	private void gotoProduct(final ProductData product) {
 		// TODO Goto product page
+//		Toast.makeText(getBaseContext(), "INSIDE PRODUCT",Toast.LENGTH_SHORT).show();
+//		final Intent intent = new Intent(getBaseContext(), ProductViewActivity.class);
+//		startActivity(intent);
 	}
 
 	@Override
