@@ -27,7 +27,7 @@ public class CategoryData extends AbstractData {
 	}
 
 	public void setName(final String name) {
-		this.name = name;
+		this.name = toCamelCase(name);
 	}
 
 	public void setProducts(final ForeignCollection<ProductData> products) {
