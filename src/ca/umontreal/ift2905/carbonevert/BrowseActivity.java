@@ -36,6 +36,8 @@ public class BrowseActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	private ListView listView;
 	private EditText filterText = null;
 	private CategoryData currentCategory = null;
+	private WebApi.GetProductTask searchTask = null; 
+
 
 	/**
 	 * Are we in add mode ? 
@@ -90,19 +92,9 @@ public class BrowseActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.browse_layout);
 
-		final Button searchButton = (Button) findViewById(R.id.searchButton);
-		searchButton.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Toast.makeText(v.getContext(), "button search clicker",
-						Toast.LENGTH_SHORT).show();
-
-			}
-		});
-	
 		filterText = (EditText) findViewById(R.id.browse_search_box);
 		filterText.addTextChangedListener(filterTextWatcher);
-
+		
 		listView = getListView();
 		selectPassedCategory();
 
@@ -114,6 +106,20 @@ public class BrowseActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 						.getTag()).obj;
 				
 				clickItem(item);
+			}
+		});
+		
+		searchTask = new WebApi.GetProductTask(getHelper()) {
+			@Override
+			protected void onPostExecute(ProductData product) {
+				selectCategory(currentCategory); // Reload
+			}
+		};
+
+		final Button searchButton = (Button) findViewById(R.id.searchButton);
+		searchButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				searchTask.loadDetails(filterText.getText().toString(), 1.0, "kg");
 			}
 		});
 	}
