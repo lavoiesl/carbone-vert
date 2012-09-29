@@ -25,18 +25,20 @@
             android:text="Fried Chicken"
             android:textSize="20dp" />
 
-        <Button
-            android:id="@+id/propretiesEButton"
+        <TextView
+            android:id="@+id/propretiesETextView"
+            style="@android:style/TextAppearance.StatusBar.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:text="Propreties"
+            android:text="@string/propreties"
             android:textSize="20dp" />
 
-        <Button
-            android:id="@+id/quantityEButton"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/quantityETextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:background="@android:color/transparent"
             android:text="4 kg CO2 / kg"
             android:textSize="20dp" />
@@ -45,22 +47,20 @@
             android:layout_width="fill_parent"
             android:layout_height="10dp" />
 
-        <Button
-            android:id="@+id/calculatorEButton"
+        <TextView
+            android:id="@+id/calculatorETextView"
+            style="@android:style/TextAppearance.StatusBar.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:text="Calculator"
+            android:text="@string/calculator"
             android:textSize="20dp" />
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
 
             <TableRow
                 android:id="@+id/eTableRow1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:gravity="center" >
 
                 <com.example.novak.picker.NumberPicker
@@ -75,11 +75,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center" />
             </TableRow>
-        </TableLayout>
+     
 
-        <Button
-            android:id="@+id/totalEButton"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/totalETextView"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:text="Total 8kg CO2"
@@ -89,20 +90,22 @@
             android:layout_width="fill_parent"
             android:layout_height="10dp" />
 
-        <Button
-            android:id="@+id/schedulingEButton"
+        <TextView
+            android:id="@+id/schedulingETextView"
+            style="@android:style/TextAppearance.StatusBar.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:text="Scheduling"
+            android:text="@string/scheduling"
             android:textSize="20dp" />
 
-        <Button
-            android:id="@+id/dateEButton"
+        <TextView
+            android:id="@+id/dateETextView"
+            style="@android:style/TextAppearance.StatusBar.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:text="Date"
+            android:text="@string/date"
             android:textSize="20dp" />
 
         <DatePicker
@@ -114,16 +117,18 @@
             android:layout_width="fill_parent"
             android:layout_height="10dp" />
 
-        <Button
-            android:id="@+id/repeatEButton"
+        <TextView
+            android:id="@+id/repeatETextView"
+            style="@android:style/TextAppearance.StatusBar.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:text="Repeat"
+            android:text="@string/repeat"
             android:textSize="20dp" />
 
         <Spinner
             android:id="@+id/repeatESpinner"
+            
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
@@ -132,12 +137,13 @@
             android:layout_width="fill_parent"
             android:layout_height="10dp" />
 
-        <Button
-            android:id="@+id/notesEButton"
+        <TextView
+            android:id="@+id/notesETextView"
+            style="@android:style/TextAppearance.StatusBar.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:text="Notes"
+            android:text="@string/notes"
             android:textSize="20dp" />
 
         <EditText
@@ -159,27 +165,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center" >
-            
+
             <Button
                 android:id="@+id/saveEButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:text="Save"
+                android:text="@string/save"
                 android:textSize="20dp" />
-            
+
             <View
-            android:layout_width="50dp"
-            android:layout_height="wrap_content" />
-            
+                android:layout_width="50dp"
+                android:layout_height="wrap_content" />
+
             <Button
                 android:id="@+id/cancelEButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:text="Cancel"
+                android:text="@string/cancel"
                 android:textSize="20dp" />
-            
         </TableRow>
     </LinearLayout>
 

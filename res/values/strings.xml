@@ -18,4 +18,13 @@
     <string name="to">To :</string>
     <string name="show">Show</string>
     <string name="source_transport">Source : Transportation</string>
+    <string name="propreties">Propreties</string>
+    <string name="calculator">Calculator</string>
+    <string name="scheduling">Scheduling</string>
+    <string name="date">Date</string>
+    <string name="repeat">Repeat</string>
+    <string name="notes">Notes</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="addToMyActivities">Add to My Activities</string>
 </resources>
