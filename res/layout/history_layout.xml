@@ -4,9 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <!-- Screen Design for Photos -->
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1" />
 
-	<Button
+<!--
+ 	<Button
 	    android:id="@+id/weekButton"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
@@ -33,5 +38,5 @@
         android:layout_height="wrap_content"
         android:drawableRight="@drawable/ic_next_icon"
         android:text="@string/custom" />
-
+ -->
 </LinearLayout>

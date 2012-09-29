@@ -43,4 +43,11 @@
         android:layout_gravity="center"
         android:text="@string/show" />
 
+    <!-- list view tres important ne pas enlever svp -->
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+
 </LinearLayout>
