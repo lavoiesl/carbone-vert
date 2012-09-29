@@ -7,5 +7,10 @@
         <item name="android:text">+</item>
         <item name="android:textSize">20dp</item>
     </style>
-
+    
+    <style name="NextText">
+        <item name="android:text">></item>
+        <item name="android:textSize">30dp</item>
+    </style>
+    
 </resources>
