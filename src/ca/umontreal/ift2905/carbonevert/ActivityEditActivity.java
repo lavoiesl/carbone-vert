@@ -3,8 +3,12 @@ package ca.umontreal.ift2905.carbonevert;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
 import android.util.Log;
@@ -145,7 +149,10 @@ public class ActivityEditActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 		categoryButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				onBackPressed();
+				final HashMap<String, Integer> options = new HashMap<String, Integer>();
+				options.put("category_id", activity.getProduct().getCategory().getId());
+
+				startActivity(BrowseActivity.class, options);
 			}
 		});
 		
@@ -182,23 +189,38 @@ public class ActivityEditActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 			if (activity.getId() == 0) {
 				// New activity
 				dao.create(activity);
+			} else {
+				dao.update(activity);
 			}
 			Toast.makeText(getBaseContext(), "Saved activity for " + activity.getProduct(), Toast.LENGTH_LONG).show();		
 		} catch (SQLException e) {
 			Toast.makeText(getBaseContext(), "Error while saving your activity.", Toast.LENGTH_LONG).show();
 		}
 	}
-	
+
+	public void startActivity(Class<? extends Activity> clazz, Map<String, Integer> options) {
+		final Intent intent = new Intent(getBaseContext(), clazz);
+		for (Map.Entry<String, Integer> entry : options.entrySet()) {
+			intent.putExtra(entry.getKey(), entry.getValue());
+		}
+		Log.i("Activity", "Starting " + clazz.getSimpleName() + " with options " + options);
+		startActivity(intent);
+	}
+
 	private void fillActivityFields() {
 		Log.d("ActivityEdit", "fillActivityFields");
 		quantityPicker.setCurrent(activity.getQuantity());
 		
-		@SuppressWarnings("unchecked")
-		final ArrayAdapter<UnitData> unitAdapter = (ArrayAdapter<UnitData>) unitSpinner.getAdapter();
-		unitSpinner.setSelection(unitAdapter.getPosition(activity.getUnit()));
+		if (activity.getUnit() != null) {
+			@SuppressWarnings("unchecked")
+			final ArrayAdapter<UnitData> unitAdapter = (ArrayAdapter<UnitData>) unitSpinner.getAdapter();
+			unitSpinner.setSelection(unitAdapter.getPosition(activity.getUnit()));
+		}
 		
 		Date date = activity.getDate();
-		datePicker.updateDate(date.getYear(), date.getMonth(), date.getDay());
+		if (date != null) {
+			datePicker.updateDate(date.getYear(), date.getMonth(), date.getDate());
+		}
 
 		categoryButton.setText(activity.getProduct().getCategory().toString());
 		productButton.setText(activity.getProduct().toString());

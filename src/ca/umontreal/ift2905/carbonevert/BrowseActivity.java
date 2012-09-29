@@ -84,7 +84,7 @@ public class BrowseActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 		
 		selectCategory(null);
 	}
-
+	
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
