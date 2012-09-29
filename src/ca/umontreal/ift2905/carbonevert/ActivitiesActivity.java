@@ -107,6 +107,7 @@ public class ActivitiesActivity extends OrmLiteBaseListActivity<DatabaseHelper> 
 
 	private void selectActivity(final ActivityData activity) {
 		final Intent intent = new Intent(getBaseContext(), ActivitieEditActivity.class);
+		intent.putExtra("activity_id", activity.getId());
 		startActivity(intent);
 		
 		Toast.makeText(getBaseContext(), activity.toString(),

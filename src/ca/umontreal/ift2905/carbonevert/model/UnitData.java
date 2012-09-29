@@ -38,6 +38,6 @@ public class UnitData extends AbstractData {
 
 	@Override
 	public String toString() {
-		return getName();
+		return getCode();
 	}
 }
