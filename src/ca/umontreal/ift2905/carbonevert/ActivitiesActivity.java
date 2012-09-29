@@ -1,8 +1,11 @@
 package ca.umontreal.ift2905.carbonevert;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,8 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import ca.umontreal.ift2905.carbonevert.db.DatabaseHelper;
 import ca.umontreal.ift2905.carbonevert.model.ActivityData;
-import ca.umontreal.ift2905.carbonevert.model.ProductData;
-
 import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
 import com.j256.ormlite.dao.Dao;
 
@@ -56,7 +57,7 @@ public class ActivitiesActivity extends OrmLiteBaseListActivity<DatabaseHelper> 
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activitie_layout);
+		setContentView(R.layout.activities_layout);
 
 		filterText = (EditText) findViewById(R.id.activity_search_box);
 		filterText.addTextChangedListener(filterTextWatcher);
@@ -87,44 +88,27 @@ public class ActivitiesActivity extends OrmLiteBaseListActivity<DatabaseHelper> 
 		plus.setOnClickListener(new OnClickListener() {
 
 			public void onClick(final View v) {
-				final ActivityData obj = new ActivityData();
-				try {
-					final ProductData product = getHelper()
-							.getDao(ProductData.class).queryForAll().get(0);
-					obj.setProduct(product);
-					Log.d("ActivityProduct",
-							"" + product.getId() + product.getName());
-					addActivityData(obj);
-				} catch (final SQLException e) {
-					Toast.makeText(
-							getBaseContext(),
-							"There has been an error while adding an activity.",
-							Toast.LENGTH_SHORT).show();
-				}
+				final HashMap<String, Integer> options = new HashMap<String, Integer>();
+				options.put("adding", 1); // Add mode
+				startActivity(BrowseActivity.class, options);
 			}
 		});
 	}
-
-	private void selectActivity(final ActivityData activity) {
-		final Intent intent = new Intent(getBaseContext(), ActivitieEditActivity.class);
-		intent.putExtra("activity_id", activity.getId());
+	
+	public void startActivity(Class<? extends Activity> clazz, Map<String, Integer> options) {
+		final Intent intent = new Intent(getBaseContext(), clazz);
+		for (Map.Entry<String, Integer> entry : options.entrySet()) {
+			intent.putExtra(entry.getKey(), entry.getValue());
+		}
+		Log.i("Activity", "Starting " + clazz.getSimpleName() + " with options " + options);
 		startActivity(intent);
-		
-		Toast.makeText(getBaseContext(), activity.toString(),
-				Toast.LENGTH_SHORT).show();
 	}
 
-	private void addActivityData(final ActivityData obj) throws SQLException {
-		dao.create(obj); // Add to database
-		Toast.makeText(getBaseContext(), "size:" + dao.queryForAll().size(),
-				Toast.LENGTH_SHORT).show();
+	private void selectActivity(final ActivityData activity) {
+		final HashMap<String, Integer> options = new HashMap<String, Integer>();
+		options.put("activity_id", activity.getId());
 
-		adapter.add(obj); // Add to current list
-		try {
-			Thread.sleep(5);
-		} catch (final InterruptedException e) {
-			// ignore
-		}
+		startActivity(ActivityEditActivity.class, options);
 	}
 
 	private EntityArrayAdapter<ActivityData> getActivitiesAdapter()

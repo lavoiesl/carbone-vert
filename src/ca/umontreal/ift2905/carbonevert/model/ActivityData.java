@@ -18,7 +18,7 @@ public class ActivityData extends AbstractData {
 	private ProductData product;
 
 	@DatabaseField
-	private float quantity;
+	private int quantity;
 
 	@DatabaseField
 	private float carbon;
@@ -55,11 +55,11 @@ public class ActivityData extends AbstractData {
 		this.product = product;
 	}
 
-	public float getQuantity() {
+	public int getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(final float quantity) {
+	public void setQuantity(final int quantity) {
 		this.quantity = quantity;
 	}
 

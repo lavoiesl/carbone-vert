@@ -2,6 +2,7 @@ package ca.umontreal.ift2905.carbonevert;
 
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import android.content.res.Resources.NotFoundException;
@@ -26,10 +27,11 @@ import com.example.novak.picker.NumberPicker.OnChangedListener;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.Dao;
 
-public class ActivitieEditActivity extends OrmLiteBaseActivity<DatabaseHelper> {
+public class ActivityEditActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	private Dao<ActivityData, Integer> dao;
 	private ActivityData activity = null;
 	
+	private NumberPicker quantityPicker = null;
 	private Button categoryButton = null;
 	private Button productButton = null;
 	private TextView quantityTextView = null;
@@ -94,7 +96,6 @@ public class ActivitieEditActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 				Log.d("ActivityEdit", "Creating activity for product "+ id);
 				activity = new ActivityData();
 				activity.setProduct(product);
-				dao.create(activity);
 				return;
 			}
 		}			
@@ -105,7 +106,7 @@ public class ActivitieEditActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activitie_edit_layout);
+		setContentView(R.layout.activity_edit_layout);
 		
 		
 		try {
@@ -126,16 +127,16 @@ public class ActivitieEditActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	}
 	
 	private void bindButtons() {
-		categoryButton = (Button) findViewById(R.id.cathegorieEButton);
+		categoryButton = (Button) findViewById(R.id.categoryEButton);
 		productButton = (Button) findViewById(R.id.productEButton);
 		quantityTextView = (TextView) findViewById(R.id.quantityETextView);
 		datePicker = (DatePicker) findViewById(R.id.dateEPicker);
 		notesText = (EditText) findViewById(R.id.noteEditText);
 		final Button save = (Button) findViewById(R.id.saveEButton);
 		final Button cancel = (Button) findViewById(R.id.cancelEButton);
-		final NumberPicker picker = (NumberPicker) findViewById(R.id.pref_num_pickerE);
+		quantityPicker = (NumberPicker) findViewById(R.id.pref_num_pickerE);
 		
-		picker.setOnChangeListener(new OnChangedListener() {
+		quantityPicker.setOnChangeListener(new OnChangedListener() {
 			public void onChanged(NumberPicker picker, int oldVal, int newVal) {
 				TextView totalTextView = (TextView) findViewById(R.id.totalETextView);
 				totalTextView.setText("Total : "+4*newVal+" kg CO2");
@@ -156,7 +157,8 @@ public class ActivitieEditActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		
 		save.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				Toast.makeText(v.getContext(), "SAVED", Toast.LENGTH_LONG).show();
+				save();
+				onBackPressed();
 			}
 		});
 		
@@ -168,8 +170,36 @@ public class ActivitieEditActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		});
 	}
 	
+	private void save() {
+		try {
+			UnitData unit = (UnitData) unitSpinner.getSelectedItem();
+			int quantity = quantityPicker.getCurrent();
+			activity.setUnit(unit);
+			activity.setQuantity(quantity);
+			activity.setDate(new Date(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth()));
+//			activity.setCarbon(quantity * activity.getProduct().getUnit(unit).getCarbonRatio());
+
+			if (activity.getId() == 0) {
+				// New activity
+				dao.create(activity);
+			}
+			Toast.makeText(getBaseContext(), "Saved activity for " + activity.getProduct(), Toast.LENGTH_LONG).show();		
+		} catch (SQLException e) {
+			Toast.makeText(getBaseContext(), "Error while saving your activity.", Toast.LENGTH_LONG).show();
+		}
+	}
+	
 	private void fillActivityFields() {
 		Log.d("ActivityEdit", "fillActivityFields");
+		quantityPicker.setCurrent(activity.getQuantity());
+		
+		@SuppressWarnings("unchecked")
+		final ArrayAdapter<UnitData> unitAdapter = (ArrayAdapter<UnitData>) unitSpinner.getAdapter();
+		unitSpinner.setSelection(unitAdapter.getPosition(activity.getUnit()));
+		
+		Date date = activity.getDate();
+		datePicker.updateDate(date.getYear(), date.getMonth(), date.getDay());
+
 		categoryButton.setText(activity.getProduct().getCategory().toString());
 		productButton.setText(activity.getProduct().toString());
 	}

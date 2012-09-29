@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ActivitiesActivity" />
-        <activity android:name=".ActivitieEditActivity" />
+        <activity android:name=".ActivityEditActivity" />
         <activity android:name=".BrowseActivity" />
         <activity android:name=".ProductViewActivity" />
         <activity android:name=".FavoritesActivity" />

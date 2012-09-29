@@ -5,7 +5,7 @@ import com.j256.ormlite.field.DatabaseField;
 public abstract class AbstractData {
 	
 	@DatabaseField(generatedId = true)
-	private int id;
+	private int id = 0;
 
 	public int getId() {
 		return id;

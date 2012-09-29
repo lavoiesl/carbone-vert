@@ -13,7 +13,7 @@ public class ProductData extends AbstractData {
 	@ForeignCollectionField(eager = true, foreignFieldName = "product")
 	private ForeignCollection<ProductUnitData> units;
 
-	@DatabaseField(foreign = true, canBeNull = true)
+	@DatabaseField(foreign = true, canBeNull = true, foreignAutoRefresh = true)
 	private CategoryData category = null;
 
 	public ForeignCollection<ProductUnitData> getUnits() {

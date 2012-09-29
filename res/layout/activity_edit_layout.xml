@@ -10,7 +10,7 @@
         android:orientation="vertical" >
 
         <Button
-            android:id="@+id/cathegorieEButton"
+            android:id="@+id/categoryEButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/ic_next_icon"
@@ -151,9 +151,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textMultiLine" >
-
-            <requestFocus />
+            android:inputType="textMultiLine"
+            android:maxLines="4"
+            android:minLines="2" >
         </EditText>
 
         <View
