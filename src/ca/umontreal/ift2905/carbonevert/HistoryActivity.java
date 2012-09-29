@@ -45,6 +45,8 @@ public class HistoryActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	private ArrayAdapter<? extends AbstractData> adapter = null;
 	private ListView listView;
 
+	//void
+	
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
