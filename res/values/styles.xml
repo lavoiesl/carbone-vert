@@ -2,10 +2,10 @@
 
     <style name="AppTheme" parent="android:Theme.Light" />
 
-	<style name="PlusButton">
-	    <item name="android:background">@android:drawable/btn_default</item>
-	    <item name="android:text">+</item>
-	    <item name="android:textSize">20dp</item>
-	</style>
+    <style name="PlusButton">
+        <item name="android:background">@android:drawable/btn_default</item>
+        <item name="android:text">+</item>
+        <item name="android:textSize">20dp</item>
+    </style>
 
 </resources>
