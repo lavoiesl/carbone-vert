@@ -14,8 +14,8 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,7 +60,7 @@ public class FavoritesActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.browse_layout);
 
-		final Button searchButton = (Button) findViewById(R.id.searchButton);
+		final ImageButton searchButton = (ImageButton) findViewById(R.id.searchButton);
 		searchButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub

@@ -18,11 +18,10 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import ca.umontreal.ift2905.carbonevert.db.DatabaseHelper;
 import ca.umontreal.ift2905.carbonevert.model.AbstractData;
 import ca.umontreal.ift2905.carbonevert.model.CategoryData;
@@ -116,7 +115,7 @@ public class BrowseActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 			}
 		};
 
-		final Button searchButton = (Button) findViewById(R.id.searchButton);
+		final ImageButton searchButton = (ImageButton) findViewById(R.id.searchButton);
 		searchButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				searchTask.loadDetails(filterText.getText().toString(), 1.0, "kg");
