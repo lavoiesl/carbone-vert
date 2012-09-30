@@ -3,28 +3,15 @@ package ca.umontreal.ift2905.carbonevert;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import ca.umontreal.ift2905.carbonevert.db.DatabaseHelper;
-import ca.umontreal.ift2905.carbonevert.model.AbstractData;
-import ca.umontreal.ift2905.carbonevert.model.ActivityData;
-
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.stmt.QueryBuilder;
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -38,6 +25,12 @@ import android.widget.TableLayout;
 import android.widget.TableLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
+import ca.umontreal.ift2905.carbonevert.db.DatabaseHelper;
+import ca.umontreal.ift2905.carbonevert.model.AbstractData;
+import ca.umontreal.ift2905.carbonevert.model.ActivityData;
+
+import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
+import com.j256.ormlite.dao.Dao;
 
 public class HistoryActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	
@@ -99,8 +92,10 @@ public class HistoryActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 						
 				case 3: 
 					setContentView(R.layout.custom_history_layout);
+					setListAdapter(null);
+					
 					final Spinner spinner = (Spinner) findViewById(R.id.spinner);
-
+					
 					final ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(
 							getBaseContext(), android.R.layout.simple_spinner_item);
 					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
