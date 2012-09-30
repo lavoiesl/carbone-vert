@@ -1,7 +1,6 @@
 package ca.umontreal.ift2905.carbonevert;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import ca.umontreal.ift2905.carbonevert.db.DatabaseHelper;
 import ca.umontreal.ift2905.carbonevert.model.AbstractData;
 import ca.umontreal.ift2905.carbonevert.model.CategoryData;
@@ -35,8 +35,6 @@ public class BrowseActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	private ListView listView;
 	private EditText filterText = null;
 	private CategoryData currentCategory = null;
-	private WebApi.GetProductTask searchTask = null; 
-
 
 	/**
 	 * Are we in add mode ? 
@@ -108,36 +106,50 @@ public class BrowseActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 			}
 		});
 		
-		searchTask = new WebApi.GetProductTask(getHelper()) {
-			@Override
-			protected void onPostExecute(ProductData product) {
-				selectCategory(currentCategory); // Reload
-			}
-		};
-
+		bindSearch();
+	}
+	
+	private void bindSearch() {
 		final ImageButton searchButton = (ImageButton) findViewById(R.id.searchButton);
 		searchButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				searchTask.loadDetails(filterText.getText().toString(), 1.0, "kg");
+				final String search = filterText.getText().toString();
+
+				final WebApi.GetProductTask searchTask = new WebApi.GetProductTask(getHelper()) {
+					@Override
+					protected void onPostExecute(ProductData product) {
+						if (product != null) {
+							showProduct(product);
+							selectCategory(null);
+						} else {
+							Toast.makeText(getBaseContext(), "No result for " + search, Toast.LENGTH_LONG).show();
+						}
+					}
+				};
+				searchTask.loadDetails(search, 1.0, "kg");
 			}
 		});
 	}
 	
 	private void clickItem(AbstractData item) {
 		if (item instanceof ProductData) {
-			final HashMap<String, Integer> options = new HashMap<String, Integer>();
-			options.put("product_id", item.getId());
-
-			if (adding) {
-				startActivity(ActivityEditActivity.class, options);
-				finish();
-			} else {
-				startActivity(ProductViewActivity.class, options);
-			}
+			showProduct((ProductData) item);
 		} else if (item instanceof CategoryData) {
 			selectCategory((CategoryData) item);
 		} else {
 			Log.e("Browse", "Unkown item: " + item);
+		}
+	}
+	
+	private void showProduct(ProductData product) {
+		final HashMap<String, Integer> options = new HashMap<String, Integer>();
+		options.put("product_id", product.getId());
+
+		if (adding) {
+			startActivity(ActivityEditActivity.class, options);
+			finish();
+		} else {
+			startActivity(ProductViewActivity.class, options);
 		}
 	}
 
@@ -145,21 +157,21 @@ public class BrowseActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 		currentCategory = category;
 		Log.i("Browse", "Showing category "+ currentCategory);
 
-		if (currentCategory == null) {
-			Dao<CategoryData, Integer> dao;
-			try {
-				dao = getHelper().getDao(CategoryData.class);
+		try {
+			if (currentCategory == null) {
+				final Dao<CategoryData, Integer> dao = getHelper().getDao(CategoryData.class);
 				final List<CategoryData> list = dao.queryForAll();
 				adapter = new EntityArrayAdapter<CategoryData>(this, list);
-			} catch (final SQLException e) {
-				throw new RuntimeException(e);
+			} else {
+				final Dao<ProductData, Integer> dao = getHelper().getDao(ProductData.class);
+				final List<ProductData> list = dao.queryForEq("category_id", category.getId());
+				adapter = new EntityArrayAdapter<ProductData>(this, list);
 			}
-		} else {
-			final List<ProductData> list = new ArrayList<ProductData>(
-					currentCategory.getProducts());
-			adapter = new EntityArrayAdapter<ProductData>(this, list);
+			listView.setAdapter(adapter);
+		} catch (final SQLException e) {
+			throw new RuntimeException(e);
 		}
-		listView.setAdapter(adapter);
+
 	}
 
 	public void startActivity(Class<? extends Activity> clazz, Map<String, Integer> options) {

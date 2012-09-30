@@ -22,10 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActivitiesActivity" />
-        <activity android:name=".ActivityEditActivity" />
-        <activity android:name=".BrowseActivity" />
-        <activity android:name=".ProductViewActivity" />
+        <activity android:name=".ActivitiesActivity" android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".ActivityEditActivity" android:noHistory="true" android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".BrowseActivity" android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".ProductViewActivity" android:noHistory="true" android:windowSoftInputMode="stateHidden" />
         <activity android:name=".FavoritesActivity" />
         <activity android:name=".HistoryActivity" />
         <activity android:name=".TestApi" />

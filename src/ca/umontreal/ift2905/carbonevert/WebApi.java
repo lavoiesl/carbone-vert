@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import ca.umontreal.ift2905.carbonevert.db.DatabaseHelper;
 import ca.umontreal.ift2905.carbonevert.model.AbstractData;
@@ -41,6 +42,8 @@ public class WebApi {
 	}
 	
 	public ProductData loadDetails(final String terms, final double quantity, final String unit) throws IOException, JSONException, SQLException {
+		Log.d("WebApi", "Searching for " + terms + " " + quantity + " " + unit);
+		
 		final String url = BASE_URL + "&terms=" + terms + "&quantities=" + quantity + "+" + unit;
 		final JSONObject json = fetchJson(url);
 		
@@ -108,6 +111,9 @@ public class WebApi {
 		}
 		
 		public void loadDetails(final String terms, final double d, final String unit) {
+			if (getStatus().equals(AsyncTask.Status.RUNNING)) {
+				cancel(true);
+			}
 			execute(terms, "" + d, unit);
 		}
 		
@@ -119,7 +125,6 @@ public class WebApi {
 				try {
 					Thread.sleep(200);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
 				}
 				
 				return product;
@@ -130,10 +135,12 @@ public class WebApi {
 			}
 		}
 
+		/*
 		@Override
 		protected void onProgressUpdate(Integer... s) {
 
 		}
+		*/
 
 		@Override
 		abstract protected void onPostExecute(ProductData product);

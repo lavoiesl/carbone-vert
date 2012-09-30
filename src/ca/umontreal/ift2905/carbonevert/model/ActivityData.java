@@ -23,6 +23,17 @@ public class ActivityData extends AbstractData {
 	@DatabaseField
 	private float carbon;
 
+	@DatabaseField
+	private String notes;
+
+	public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+
 	public float getCarbon() {
 		return carbon;
 	}

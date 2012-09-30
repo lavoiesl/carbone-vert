@@ -1,11 +1,19 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="AppTheme" parent="android:Theme.Light" />
-
     <style name="PlusButton">
         <item name="android:background">@android:drawable/btn_default</item>
         <item name="android:text">+</item>
         <item name="android:textSize">20dp</item>
     </style>
     
+    <style name="Title" parent="@android:style/TextAppearance.StatusBar.Title">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/header_bg</item>
+    </style>    
 </resources>

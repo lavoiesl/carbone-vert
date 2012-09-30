@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/productCategoryButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/ic_next_icon"
+        android:text="Category : Food Lifecycle"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/productFavoriteButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableRight="@android:drawable/btn_star_big_on"
+        android:text="Fried Chicken"
+        android:textSize="20dp" />
+
+    <TextView
+        style="@style/Title"
+        android:text="@string/propreties" />
+
+    <TextView
+        android:id="@+id/productPropertiesRatioTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@android:color/transparent"
+        android:text="4 kg CO2 / kg"
+        android:textSize="20dp" />
+
+    <TextView
+        style="@style/Title"
+        android:text="@string/calculator" />
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" >
+
+        <com.example.novak.picker.NumberPicker
+            android:id="@+id/productCalculatorNumberPicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <Spinner
+            android:id="@+id/productCalculatorUnitSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </TableRow>
+
+    <TextView
+        android:id="@+id/productCalculatorTotalTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@android:color/transparent"
+        android:text="Total 8kg CO2"
+        android:textSize="20dp" />
+
+</LinearLayout>
