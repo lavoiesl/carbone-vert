@@ -1,4 +1,4 @@
-package ca.umontreal.ift2905.carbonevert;
+package ca.umontreal.ift2905.carbonevert.activity;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -21,6 +21,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import ca.umontreal.ift2905.carbonevert.EntityArrayAdapter;
+import ca.umontreal.ift2905.carbonevert.R;
 import ca.umontreal.ift2905.carbonevert.db.DatabaseHelper;
 import ca.umontreal.ift2905.carbonevert.model.ActivityData;
 import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;

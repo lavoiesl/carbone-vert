@@ -1,7 +1,8 @@
-package ca.umontreal.ift2905.carbonevert;
+package ca.umontreal.ift2905.carbonevert.activity;
 
 import java.util.HashMap;
 
+import ca.umontreal.ift2905.carbonevert.R;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,7 +21,6 @@ public class ProductViewActivity extends AbstractProductActivity {
 				options.put("product_id", product.getId());
 
 				startActivity(ActivityEditActivity.class, options);
-				finish();
 			}
 		});
 	}

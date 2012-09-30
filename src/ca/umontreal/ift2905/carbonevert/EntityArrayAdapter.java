@@ -20,9 +20,14 @@ public class EntityArrayAdapter<T extends AbstractData> extends ArrayAdapter<T> 
 		this.list = list;
 	}
 
-	class ViewHolder {
-		protected TextView text;
-		protected T obj;
+	public class ViewHolder {
+		public final TextView text;
+		public final T obj;
+
+		public ViewHolder(TextView text, T obj) {
+			this.text = text;
+			this.obj = obj;
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -36,10 +41,7 @@ public class EntityArrayAdapter<T extends AbstractData> extends ArrayAdapter<T> 
 			final LayoutInflater inflator = context.getLayoutInflater();
 			convertView = inflator.inflate(R.layout.list_layout, parent, false);
 			final T obj = list.get(position);
-			holder = new ViewHolder();
-			holder.text = (TextView) convertView
-					.findViewById(R.id.list_layout_view);
-			holder.obj = obj;
+			holder = new ViewHolder((TextView) convertView.findViewById(R.id.list_layout_view), obj);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) row.getTag();

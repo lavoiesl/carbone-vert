@@ -1,4 +1,4 @@
-package ca.umontreal.ift2905.carbonevert;
+package ca.umontreal.ift2905.carbonevert.activity;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,6 +25,8 @@ import android.widget.TableLayout;
 import android.widget.TableLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
+import ca.umontreal.ift2905.carbonevert.R;
+import ca.umontreal.ift2905.carbonevert.TestApi;
 import ca.umontreal.ift2905.carbonevert.db.DatabaseHelper;
 import ca.umontreal.ift2905.carbonevert.model.AbstractData;
 import ca.umontreal.ift2905.carbonevert.model.ActivityData;
@@ -38,8 +40,6 @@ public class HistoryActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	private ArrayAdapter<? extends AbstractData> adapter = null;
 	private ListView listView;
 
-	//void
-	
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

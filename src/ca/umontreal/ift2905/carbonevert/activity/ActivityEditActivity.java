@@ -1,4 +1,4 @@
-package ca.umontreal.ift2905.carbonevert;
+package ca.umontreal.ift2905.carbonevert.activity;
 
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -16,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+import ca.umontreal.ift2905.carbonevert.R;
 import ca.umontreal.ift2905.carbonevert.model.ActivityData;
 import ca.umontreal.ift2905.carbonevert.model.UnitData;
 

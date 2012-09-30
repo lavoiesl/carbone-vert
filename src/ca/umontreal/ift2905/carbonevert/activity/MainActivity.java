@@ -1,5 +1,6 @@
-package ca.umontreal.ift2905.carbonevert;
+package ca.umontreal.ift2905.carbonevert.activity;
 
+import ca.umontreal.ift2905.carbonevert.R;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;

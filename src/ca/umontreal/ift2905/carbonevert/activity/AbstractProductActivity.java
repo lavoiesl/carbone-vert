@@ -1,4 +1,4 @@
-package ca.umontreal.ift2905.carbonevert;
+package ca.umontreal.ift2905.carbonevert.activity;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import ca.umontreal.ift2905.carbonevert.R;
 import ca.umontreal.ift2905.carbonevert.db.DatabaseHelper;
 import ca.umontreal.ift2905.carbonevert.model.ProductData;
 import ca.umontreal.ift2905.carbonevert.model.UnitData;
