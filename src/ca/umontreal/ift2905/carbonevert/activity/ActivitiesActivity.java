@@ -33,6 +33,7 @@ public class ActivitiesActivity extends OrmLiteBaseListActivity<DatabaseHelper> 
 	private ArrayAdapter<ActivityData> adapter = null;
 	private EditText filterText = null;
 	private Dao<ActivityData, Integer> dao = null;
+	private ListView listView = null;
 
 	private final TextWatcher filterTextWatcher = new TextWatcher() {
 
@@ -49,6 +50,24 @@ public class ActivitiesActivity extends OrmLiteBaseListActivity<DatabaseHelper> 
 		}
 
 	};
+	
+	
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		fillActivities();
+	}
+	
+	private void fillActivities() {
+		try {
+			dao = getHelper().getDao(ActivityData.class);
+			adapter = getActivitiesAdapter();
+			listView.setAdapter(adapter);
+		} catch (final SQLException e) {
+			throw new RuntimeException(e);
+		}		
+	}
 
 	@Override
 	protected void onDestroy() {
@@ -64,17 +83,8 @@ public class ActivitiesActivity extends OrmLiteBaseListActivity<DatabaseHelper> 
 		filterText = (EditText) findViewById(R.id.activity_search_box);
 		filterText.addTextChangedListener(filterTextWatcher);
 
-		try {
-			dao = getHelper().getDao(ActivityData.class);
-			adapter = getActivitiesAdapter();
-		} catch (final SQLException e) {
-			Toast.makeText(getBaseContext(), "Error while listing activities",
-					Toast.LENGTH_SHORT).show();
-			return;
-		}
-
-		final ListView listView = getListView();
-		listView.setAdapter(adapter);
+		listView = getListView();
+		fillActivities();
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(final AdapterView<?> parent,
