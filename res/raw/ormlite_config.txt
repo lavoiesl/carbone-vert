@@ -1,5 +1,5 @@
 #
-# generated on 2012/09/29 06:02:30
+# generated on 2012/09/30 11:17:40
 #
 # --table-start--
 dataClass=ca.umontreal.ift2905.carbonevert.model.AbstractData
@@ -38,6 +38,9 @@ fieldName=quantity
 fieldName=carbon
 # --field-end--
 # --field-start--
+fieldName=notes
+# --field-end--
+# --field-start--
 fieldName=id
 generatedId=true
 # --field-end--
@@ -70,6 +73,9 @@ tableName=products
 # --table-fields-start--
 # --field-start--
 fieldName=name
+# --field-end--
+# --field-start--
+fieldName=favorite
 # --field-end--
 # --field-start--
 fieldName=units
@@ -107,6 +113,10 @@ foreignAutoRefresh=true
 # --field-end--
 # --field-start--
 fieldName=carbonRatio
+# --field-end--
+# --field-start--
+fieldName=id
+generatedId=true
 # --field-end--
 # --table-fields-end--
 # --table-end--

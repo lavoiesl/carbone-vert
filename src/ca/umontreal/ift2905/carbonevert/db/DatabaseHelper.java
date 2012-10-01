@@ -30,7 +30,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	private static final String DATABASE_NAME = "carbone_vert.db";
 	// any time you make changes to your database objects, you may have to
 	// increase the database version
-	private static final int DATABASE_VERSION = 26;
+	private static final int DATABASE_VERSION = 32;
 	private final Context context;
 	@SuppressWarnings("rawtypes")
 	private final Class[] classes = new Class[] { CategoryData.class,
@@ -60,6 +60,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			importCategories();
 			importUnits();
 			importProducts();
+			importProductUnits();
 		} catch (final Exception e) {
 			Log.e(DatabaseHelper.class.getName(), "Can't load fixtures", e);
 			throw new RuntimeException(e);
@@ -85,6 +86,25 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		importer.importResource(R.raw.units);
 		Log.i(DatabaseHelper.class.getName(), dao.queryForAll().size()
 				+ " units");
+	}
+
+	private void importProductUnits() throws IOException, SQLException {
+		final Dao<UnitData, Integer> units = getDao(UnitData.class);
+		final Dao<ProductData, Integer> products = getDao(ProductData.class);
+		final CsvImporter importer = new CsvImporter(context) {
+
+			@Override
+			public void onRow(final String[] header, final String[] row) {
+				try {
+					final ProductData product = products.queryForEq("name", row[0]).get(0);
+					final UnitData unit = units.queryForEq("code", row[1]).get(0);
+					product.addUnit(unit, Double.parseDouble(row[2]));
+				} catch (final SQLException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		};
+		importer.importResource(R.raw.products_units);
 	}
 
 	private void importCategories() throws IOException, SQLException {

@@ -12,7 +12,7 @@ public class ActivityData extends AbstractData {
 	private Date date;
 
 	@DatabaseField(foreign = true, canBeNull = true, foreignAutoRefresh = true)
-	private UnitData unit;
+	private ProductUnitData unit;
 
 	@DatabaseField(foreign = true, canBeNull = false, foreignAutoRefresh = true)
 	private ProductData product;
@@ -42,11 +42,11 @@ public class ActivityData extends AbstractData {
 		this.carbon = carbon;
 	}
 
-	public UnitData getUnit() {
+	public ProductUnitData getUnit() {
 		return unit;
 	}
 
-	public void setUnit(final UnitData unit) {
+	public void setUnit(final ProductUnitData unit) {
 		this.unit = unit;
 	}
 

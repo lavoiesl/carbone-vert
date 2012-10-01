@@ -1,39 +1,35 @@
 package ca.umontreal.ift2905.carbonevert.activity;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import ca.umontreal.ift2905.carbonevert.EntityArrayAdapter;
 import ca.umontreal.ift2905.carbonevert.R;
 import ca.umontreal.ift2905.carbonevert.db.DatabaseHelper;
-import ca.umontreal.ift2905.carbonevert.model.AbstractData;
-import ca.umontreal.ift2905.carbonevert.model.CategoryData;
 import ca.umontreal.ift2905.carbonevert.model.ProductData;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
 import com.j256.ormlite.dao.Dao;
 
 public class FavoritesActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
-	private ArrayAdapter<? extends AbstractData> adapter = null;
+	private ArrayAdapter<ProductData> adapter = null;
 	private ListView listView;
 	private EditText filterText = null;
-	private CategoryData currentCategory = null;
 
 	private final TextWatcher filterTextWatcher = new TextWatcher() {
 
@@ -49,93 +45,67 @@ public class FavoritesActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 			adapter.getFilter().filter(s);
 		}
 	};
-	
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		filterText.removeTextChangedListener(filterTextWatcher);
 	}
-
 	
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.browse_layout);
+		setContentView(R.layout.favorites_layout);
 
-		final ImageButton searchButton = (ImageButton) findViewById(R.id.searchButton);
-		searchButton.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Toast.makeText(v.getContext(), "button search clicker",
-						Toast.LENGTH_SHORT).show();
-			}
-		});
-	
-		filterText = (EditText) findViewById(R.id.browse_search_box);
+		filterText = (EditText) findViewById(R.id.favoritesSearchBox);
 		filterText.addTextChangedListener(filterTextWatcher);
-
+		
 		listView = getListView();
-		selectCategory(null);
+		fillView();
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(final AdapterView<?> parent,
 					final View view, final int position, final long id) {
 
-				final AbstractData item = ((EntityArrayAdapter<?>.ViewHolder) ((TextView) view)
+				@SuppressWarnings("unchecked")
+				final ProductData item = ((EntityArrayAdapter<ProductData>.ViewHolder) ((TextView) view)
 						.getTag()).obj;
-				Toast.makeText(getBaseContext(), item.toString(),
-						Toast.LENGTH_SHORT).show();
-
-				if (item instanceof ProductData) {
-					gotoProduct((ProductData) item);
-				} else if (item instanceof CategoryData) {
-					selectCategory((CategoryData) item);
-				}
+				
+				showProduct(item);
 			}
-		});
+		});		
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		fillView();
 	}
 
-	private void selectCategory(final CategoryData category) {
-		currentCategory = category;
-		if (currentCategory == null) {
-			Dao<CategoryData, Integer> dao;
-			try {
-				dao = getHelper().getDao(CategoryData.class);
-				final List<CategoryData> list = dao.queryForAll();
-				adapter = new EntityArrayAdapter<CategoryData>(this, list);
-			} catch (final SQLException e) {
-				throw new RuntimeException(e);
-			}
-		} else {
-			final List<ProductData> list = new ArrayList<ProductData>(
-					currentCategory.getProducts());
+	private void fillView() {
+		try {
+			final Dao<ProductData, Integer> dao = getHelper().getDao(ProductData.class);
+			final List<ProductData> list = dao.queryForEq("favorite", true);
 			adapter = new EntityArrayAdapter<ProductData>(this, list);
+			listView.setAdapter(adapter);
+		} catch (final SQLException e) {
+			throw new RuntimeException(e);
 		}
-//		listView.setAdapter(adapter);
+	}
+	
+	private void showProduct(ProductData product) {
+		final HashMap<String, Integer> options = new HashMap<String, Integer>();
+		options.put("product_id", product.getId());
+
+		startActivity(ProductViewActivity.class, options);
 	}
 
-	private void gotoProduct(final ProductData product) {
-		final Intent intent = new Intent(getBaseContext(), ProductViewActivity.class);
+	public void startActivity(Class<? extends Activity> clazz, Map<String, Integer> options) {
+		final Intent intent = new Intent(getBaseContext(), clazz);
+		for (Map.Entry<String, Integer> entry : options.entrySet()) {
+			intent.putExtra(entry.getKey(), entry.getValue());
+		}
+		Log.i("Activity", "Starting " + clazz.getSimpleName() + " with options " + options);
 		startActivity(intent);
 	}
-
-	@Override
-	public boolean onKeyDown(final int keyCode, final KeyEvent event) {
-		if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.ECLAIR
-				&& keyCode == KeyEvent.KEYCODE_BACK
-				&& event.getRepeatCount() == 0) {
-			onBackPressed();
-		}
-		return super.onKeyDown(keyCode, event);
-	}
-
-	@Override
-	public void onBackPressed() {
-		if (currentCategory == null) {
-			super.onBackPressed();
-		} else {
-			selectCategory(null);
-		}
-	}
-
 }

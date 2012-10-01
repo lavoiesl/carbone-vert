@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -19,7 +21,7 @@ import android.widget.Toast;
 import ca.umontreal.ift2905.carbonevert.R;
 import ca.umontreal.ift2905.carbonevert.db.DatabaseHelper;
 import ca.umontreal.ift2905.carbonevert.model.ProductData;
-import ca.umontreal.ift2905.carbonevert.model.UnitData;
+import ca.umontreal.ift2905.carbonevert.model.ProductUnitData;
 
 import com.example.novak.picker.NumberPicker;
 import com.example.novak.picker.NumberPicker.OnChangedListener;
@@ -50,10 +52,9 @@ public abstract class AbstractProductActivity extends OrmLiteBaseActivity<Databa
 	}
 
 	private void fillUnitSpinner() throws SQLException {
-		final Dao<UnitData, Integer> units = getHelper().getDao(UnitData.class);
 		unitSpinner = (Spinner) findNestedView(R.id.productCalculatorUnitSpinner);
 
-		final ArrayAdapter<UnitData> adapter = createArrayAdapter(units);
+		final ArrayAdapter<ProductUnitData> adapter = createArrayAdapter(product.getUnits());
 		unitSpinner.setAdapter(adapter);
 	}
 	
@@ -98,14 +99,51 @@ public abstract class AbstractProductActivity extends OrmLiteBaseActivity<Databa
 	protected void fillFields() {
 		Log.d("ProductView", "fillActivityFields");
 
+		quantityPicker.setCurrent(1);
+		setQuantity(1);
 		categoryButton.setText(product.getCategory().toString());
-		favoriteButton.setText(product.toString());		
+		favoriteButton.setText(product.toString());
+		setFavorite(product.isFavorite());
 	}
 	
-	protected void setTotal(double co2) {
-		totalTextView.setText("Total : "+ co2 +" kg CO2");
+	protected void setQuantity(int quantity) {
+		final ProductUnitData unit = (ProductUnitData) unitSpinner.getSelectedItem();
+		if (unit != null) {
+			final double co2 = unit.getCarbonRatio() * quantity;
+			totalTextView.setText(String.format("Total : %.2f kg of CO2", co2));
+		} else {
+			totalTextView.setText("Total : 0 kg of CO2");
+		}
 	}
 	
+	protected void setFavorite(boolean favorite) {
+		if (product.isFavorite() != favorite) {
+			product.setFavorite(favorite);
+			try {
+				getHelper().getDao(ProductData.class).update(product);
+			} catch (SQLException e) {
+				// Ignore
+			}
+		}
+
+		final int id;
+		if (favorite) {
+			id = android.R.drawable.btn_star_big_on;
+		} else {
+			id = android.R.drawable.btn_star_big_off;
+		}
+		favoriteButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, id, 0);
+	}
+	
+	protected void setUnit(ProductUnitData unit) {
+		if (unit != null) {
+			setQuantity(quantityPicker.getCurrent());
+			ratioTextView.setText(String.format("%.2f kg CO2/%s", unit.getCarbonRatio(), unit.getUnit().getCode()));
+		} else {
+			ratioTextView.setText("0 kg CO2/kg");
+		}
+	}
+
 	private View findNestedView(final int id) {
 		return findViewById(R.id.productView).findViewById(id);
 	}
@@ -119,8 +157,7 @@ public abstract class AbstractProductActivity extends OrmLiteBaseActivity<Databa
 		
 		quantityPicker.setOnChangeListener(new OnChangedListener() {
 			public void onChanged(NumberPicker picker, int oldVal, int newVal) {
-				// TODO: real ratio
-				setTotal(4 * newVal);
+				setQuantity(newVal);
 			}
 		});
 
@@ -135,7 +172,17 @@ public abstract class AbstractProductActivity extends OrmLiteBaseActivity<Databa
 		
 		favoriteButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				Toast.makeText(v.getContext(), "ADDED to FAVORITES", Toast.LENGTH_LONG).show();
+				setFavorite(!product.isFavorite());
+			}
+		});
+		
+		unitSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+			public void onItemSelected(AdapterView<?> parent,
+			        View view, int pos, long id) {
+				setUnit((ProductUnitData) unitSpinner.getSelectedItem());
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
 			}
 		});
 	}

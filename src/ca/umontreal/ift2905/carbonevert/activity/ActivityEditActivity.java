@@ -18,7 +18,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import ca.umontreal.ift2905.carbonevert.R;
 import ca.umontreal.ift2905.carbonevert.model.ActivityData;
-import ca.umontreal.ift2905.carbonevert.model.UnitData;
+import ca.umontreal.ift2905.carbonevert.model.ProductUnitData;
 
 import com.j256.ormlite.dao.Dao;
 
@@ -93,7 +93,7 @@ public class ActivityEditActivity extends AbstractProductActivity {
 	
 	private void save() {
 		try {
-			final UnitData unit = (UnitData) unitSpinner.getSelectedItem();
+			final ProductUnitData unit = (ProductUnitData) unitSpinner.getSelectedItem();
 			final int quantity = quantityPicker.getCurrent();
 			final Dao<ActivityData, Integer> dao = getHelper().getDao(ActivityData.class);
 			activity.setUnit(unit);
@@ -126,11 +126,13 @@ public class ActivityEditActivity extends AbstractProductActivity {
 		super.fillFields();
 
 		quantityPicker.setCurrent(activity.getQuantity());
+		setQuantity(activity.getQuantity());
 		
 		if (activity.getUnit() != null) {
 			@SuppressWarnings("unchecked")
-			final ArrayAdapter<UnitData> unitAdapter = (ArrayAdapter<UnitData>) unitSpinner.getAdapter();
+			final ArrayAdapter<ProductUnitData> unitAdapter = (ArrayAdapter<ProductUnitData>) unitSpinner.getAdapter();
 			unitSpinner.setSelection(unitAdapter.getPosition(activity.getUnit()));
+			setUnit(activity.getUnit());
 		}
 		
 		notesText.setText(activity.getNotes());

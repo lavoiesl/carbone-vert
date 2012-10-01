@@ -23,6 +23,7 @@ import ca.umontreal.ift2905.carbonevert.db.DatabaseHelper;
 import ca.umontreal.ift2905.carbonevert.model.AbstractData;
 import ca.umontreal.ift2905.carbonevert.model.CategoryData;
 import ca.umontreal.ift2905.carbonevert.model.ProductData;
+import ca.umontreal.ift2905.carbonevert.model.UnitData;
 
 //Fortement Inspirer des exemple du cours
 public class WebApi {
@@ -41,10 +42,10 @@ public class WebApi {
 
 	}
 	
-	public ProductData loadDetails(final String terms, final double quantity, final String unit) throws IOException, JSONException, SQLException {
-		Log.d("WebApi", "Searching for " + terms + " " + quantity + " " + unit);
+	public ProductData loadDetails(final String terms, final double quantity, final String unitCode) throws IOException, JSONException, SQLException {
+		Log.d("WebApi", "Searching for " + terms + " " + quantity + " " + unitCode);
 		
-		final String url = BASE_URL + "&terms=" + terms + "&quantities=" + quantity + "+" + unit;
+		final String url = BASE_URL + "&terms=" + terms + "&quantities=" + quantity + "+" + unitCode;
 		final JSONObject json = fetchJson(url);
 		
 		String items[] = json.getString("item").split(", ");
@@ -52,18 +53,35 @@ public class WebApi {
 		if(items.length > 1) {
 			CategoryData category = findCategory(items[0]);
 			ProductData product = findProduct(items[1], category);
+			UnitData unit = findUnit(json.getString("unit"));
+			product.addUnit(unit, json.getDouble("answer"));
 			return product;
 		} else {
 			throw new JSONException("No results");
 		}
 	}
 	
+	private UnitData findUnit(String code) throws SQLException {
+		
+		try {
+			return database.getDao(UnitData.class).queryForEq("code", code).get(0);
+		} catch (IndexOutOfBoundsException e) {
+			final UnitData unit = new UnitData();
+			unit.setCode(code);
+			unit.setName(code);
+			database.getDao(UnitData.class).create(unit);
+			database.getDao(UnitData.class).refresh(unit);
+			return unit;
+		}
+	}
+
 	private CategoryData findCategory(String name) throws SQLException {
 		CategoryData category = findByName(CategoryData.class, name);
 		if (category == null) {
 			category = new CategoryData();
 			category.setName(name);
 			database.getDao(CategoryData.class).create(category);
+			database.getDao(CategoryData.class).refresh(category);
 		}
 		return category;
 	}
@@ -75,6 +93,7 @@ public class WebApi {
 			product.setName(name);
 			product.setCategory(category);
 			database.getDao(ProductData.class).create(product);
+			database.getDao(ProductData.class).refresh(product);
 		}
 		return product;
 	}

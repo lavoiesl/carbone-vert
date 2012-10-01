@@ -4,7 +4,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "products_units")
-public class ProductUnitData {
+public class ProductUnitData extends AbstractData {
 	@DatabaseField(foreign = true, canBeNull = false, foreignAutoRefresh = true)
 	private ProductData product;
 
@@ -12,7 +12,7 @@ public class ProductUnitData {
 	private UnitData unit;
 
 	@DatabaseField
-	float carbonRatio;
+	double carbonRatio;
 
 	public ProductData getProduct() {
 		return product;
@@ -30,11 +30,15 @@ public class ProductUnitData {
 		this.unit = unit;
 	}
 
-	public float getCarbonRatio() {
+	public double getCarbonRatio() {
 		return carbonRatio;
 	}
 
-	public void setCarbonRatio(final float carbonRatio) {
+	public void setCarbonRatio(final double carbonRatio) {
 		this.carbonRatio = carbonRatio;
+	}
+	
+	public String toString() {
+		return unit.toString();
 	}
 }

@@ -174,7 +174,6 @@ public class BrowseActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 		} catch (final SQLException e) {
 			throw new RuntimeException(e);
 		}
-
 	}
 
 	public void startActivity(Class<? extends Activity> clazz, Map<String, Integer> options) {

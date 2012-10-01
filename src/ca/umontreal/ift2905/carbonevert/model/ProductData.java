@@ -10,6 +10,17 @@ public class ProductData extends AbstractData {
 	@DatabaseField
 	private String name;
 
+	@DatabaseField
+	private boolean favorite = false;
+
+	public boolean isFavorite() {
+		return favorite;
+	}
+
+	public void setFavorite(boolean favorite) {
+		this.favorite = favorite;
+	}
+
 	@ForeignCollectionField(eager = true, foreignFieldName = "product")
 	private ForeignCollection<ProductUnitData> units;
 
@@ -20,12 +31,13 @@ public class ProductData extends AbstractData {
 		return units;
 	}
 
-	public void addUnit(final UnitData unit, final float carbonRatio) {
+	public void addUnit(final UnitData unit, final double carbonRatio) {
 		ProductUnitData productUnitData = getUnit(unit);
 		if (productUnitData == null) {
 			productUnitData = new ProductUnitData();
 			productUnitData.setUnit(unit);
 			productUnitData.setProduct(this);
+			productUnitData.setCarbonRatio(carbonRatio);
 			units.add(productUnitData);
 		}
 		productUnitData.setCarbonRatio(carbonRatio);
