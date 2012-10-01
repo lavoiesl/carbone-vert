@@ -117,6 +117,7 @@ public class BrowseActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 		searchButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				final String search = filterText.getText().toString();
+				Toast.makeText(getBaseContext(), "Searching for " + search + "...", Toast.LENGTH_SHORT).show();
 
 				final WebApi.GetProductTask searchTask = new WebApi.GetProductTask(getHelper()) {
 					@Override
