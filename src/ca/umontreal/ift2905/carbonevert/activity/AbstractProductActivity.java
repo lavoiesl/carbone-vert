@@ -1,7 +1,6 @@
 package ca.umontreal.ift2905.carbonevert.activity;
 
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Map;
 
 import android.app.Activity;
@@ -17,7 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import ca.umontreal.ift2905.carbonevert.R;
 import ca.umontreal.ift2905.carbonevert.db.DatabaseHelper;
 import ca.umontreal.ift2905.carbonevert.model.ProductData;
@@ -163,10 +161,10 @@ public abstract class AbstractProductActivity extends OrmLiteBaseActivity<Databa
 
 		categoryButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				final HashMap<String, Integer> options = new HashMap<String, Integer>();
-				options.put("category_id", product.getCategory().getId());
-
-				startActivity(BrowseActivity.class, options);
+//				final HashMap<String, Integer> options = new HashMap<String, Integer>();
+//				options.put("category_id", product.getCategory().getId());
+				onBackPressed();
+//				startActivity(BrowseActivity.class, options);
 			}
 		});
 		
